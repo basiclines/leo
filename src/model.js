@@ -31,9 +31,13 @@ class Model {
 		this.attributes = {}
 	}
 
+	isEmpty() {
+		return (Object.keys(this.attributes).length == 0)
+	}
+
 	constructor(options) {
 		this.defaults = (options && options.defaults) ? options.defaults : {}
-		this.attributes = (options && options.defaults) ? options.defaults : {}
+		this.attributes = (options && options.attributes) ? options.attributes : {}
 		this.listeners = []
 
 		return new Proxy(this, {
