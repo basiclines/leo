@@ -24,6 +24,13 @@ class Model {
 		})
 	}
 
+	clear() {
+		for (var i in this.attributes) {
+			delete this[i]
+		}
+		this.attributes = {}
+	}
+
 	constructor(options) {
 		this.defaults = (options && options.defaults) ? options.defaults : {}
 		this.attributes = (options && options.defaults) ? options.defaults : {}
