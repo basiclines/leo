@@ -2,8 +2,8 @@ import Getter from 'src/getter'
 import Setter from 'src/setter'
 import Trigger from 'src/trigger'
 
-const LISTENERS_DEFAULT = []
 const ATTRIBUTES_DEFAULT = {}
+const LISTENERS_DEFAULT = []
 
 class Model {
 
@@ -47,10 +47,10 @@ class Model {
 		return (Object.keys(this.attributes).length == 0)
 	}
 
-	constructor(options) {
-		this.defaults = (options && options.defaults) ? options.defaults : {}
-		this.attributes = (options && options.attributes) ? options.attributes : {}
-		this.listeners = []
+	constructor(attributes) {
+		this.listeners = LISTENERS_DEFAULT
+		this.attributes = attributes || ATTRIBUTES_DEFAULT
+		Object.keys(this.attributes).forEach(property => { this[property] = this.attributes[property] })
 
 		return new Proxy(this, {
 			get: Getter,

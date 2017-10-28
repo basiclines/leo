@@ -23,3 +23,5 @@ class modelC extends modelB {
 
 window.ModelB = new modelB()
 window.ModelC = new modelC()
+window.ModelD = new SimpleModel({ name: 'noa', surname: 'picos' })
+
