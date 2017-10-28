@@ -1,6 +1,9 @@
 import Getter from 'src/getter'
 import Setter from 'src/setter'
 
+const LISTENERS_DEFAULT = []
+const ATTRIBUTES_DEFAULT = {}
+
 class Model {
 
 	// event -> 'change:property'
@@ -15,20 +18,24 @@ class Model {
 		})
 	}
 
-	off(event, callback) {
-		// TO-DO remove only event + callback combo entries
-		var idx = 0
-		this.listeners.forEach(listener => {
-			if (listener.event === event) this.listeners.splice(idx, 1)
-			idx++
-		})
+	off(event, handler) {
+		// TO-DO remove only event + handler combo entries
+		if (event) {
+			var idx = 0
+			this.listeners.forEach(listener => {
+				if (listener.event === event) this.listeners.splice(idx, 1)
+				idx++
+			})
+		} else {
+			this.listeners = LISTENERS_DEFAULT
+		}
 	}
 
 	clear() {
 		for (var i in this.attributes) {
 			delete this[i]
 		}
-		this.attributes = {}
+		this.attributes = ATTRIBUTES_DEFAULT
 	}
 
 	isEmpty() {
