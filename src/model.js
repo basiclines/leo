@@ -1,5 +1,6 @@
 import Getter from 'src/getter'
 import Setter from 'src/setter'
+import Trigger from 'src/trigger'
 
 const LISTENERS_DEFAULT = []
 const ATTRIBUTES_DEFAULT = {}
@@ -29,6 +30,10 @@ class Model {
 		} else {
 			this.listeners = LISTENERS_DEFAULT
 		}
+	}
+
+	trigger(event) {
+		Trigger(this, event)
 	}
 
 	clear() {

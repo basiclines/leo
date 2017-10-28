@@ -1,3 +1,5 @@
+import Trigger from 'src/trigger'
+
 const RESERVED_PROPERTIES = {
 	'attributes': true,
 	'listeners': true
@@ -10,10 +12,7 @@ function Setter(target, property, value) {
 	if (!isReserved) {
 		target.attributes[property] = value
 		var event = `change:${property}`
-
-		target.listeners.forEach(listener => {
-			if (listener.event === event) listener.callback(value)
-		})
+		Trigger(target, event, value)
 	}
 
 	return true
