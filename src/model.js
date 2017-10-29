@@ -2,9 +2,6 @@ import Getter from 'src/getter'
 import Setter from 'src/setter'
 import Trigger from 'src/trigger'
 
-const ATTRIBUTES_DEFAULT = {}
-const LISTENERS_DEFAULT = []
-
 class Model {
 
 	// event -> 'change:property'
@@ -28,7 +25,7 @@ class Model {
 				idx++
 			})
 		} else {
-			this.listeners = LISTENERS_DEFAULT
+			this.listeners = []
 		}
 	}
 
@@ -37,19 +34,22 @@ class Model {
 	}
 
 	clear() {
-		for (var i in this.attributes) {
-			delete this[i]
-		}
-		this.attributes = ATTRIBUTES_DEFAULT
+		Object.keys(this.attributes).forEach(property => { delete this[property] })
+		this.attributes = {}
 	}
 
 	isEmpty() {
 		return (Object.keys(this.attributes).length == 0)
 	}
 
+	clone() {
+		var attributes = Object.assign({}, this.attributes)
+		return new Model(attributes)
+	}
+
 	constructor(attributes) {
-		this.listeners = LISTENERS_DEFAULT
-		this.attributes = attributes || ATTRIBUTES_DEFAULT
+		this.listeners = []
+		this.attributes = attributes || {}
 		Object.keys(this.attributes).forEach(property => { this[property] = this.attributes[property] })
 
 		return new Proxy(this, {
