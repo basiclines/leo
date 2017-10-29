@@ -5,14 +5,10 @@ import Trigger from 'src/trigger'
 class Model {
 
 	// event -> 'change:property'
-	on(event, callback) {
-		var eventParts = event.split(':')
-		var action = eventParts[0]
-		var property = eventParts[1]
-
+	on(event, handler) {
 		this.listeners.push({
 			event: event,
-			callback: callback
+			handler: handler
 		})
 	}
 
