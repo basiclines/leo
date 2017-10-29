@@ -29,12 +29,15 @@ class Model {
 		}
 	}
 
-	trigger(event) {
-		Trigger(this, event)
+	trigger(event, value) {
+		Trigger(this, event, value)
 	}
 
 	clear() {
-		Object.keys(this.attributes).forEach(property => { delete this[property] })
+		Object.keys(this.attributes).forEach(property => {
+			delete this[property]
+			this.trigger(`change:${property}`)
+		})
 		this.attributes = {}
 	}
 
