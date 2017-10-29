@@ -46,6 +46,10 @@ class Model {
 		return new Model(attributes)
 	}
 
+	has(property) {
+		return !(typeof this[property] == 'undefined' || this[property] == null)
+	}
+
 	constructor(attributes) {
 		this.listeners = []
 		this.attributes = attributes || {}
