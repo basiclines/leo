@@ -8,17 +8,16 @@ class Model {
 	on(event, handler) {
 		this.listeners.push({
 			event: event,
-			handler: handler
+			handler: handler,
+			owner: this
 		})
 	}
 
 	off(event, handler) {
 		// TO-DO remove only event + handler combo entries
 		if (event) {
-			var idx = 0
-			this.listeners.forEach(listener => {
+			this.listeners.forEach((listener, idx) => {
 				if (listener.event === event) this.listeners.splice(idx, 1)
-				idx++
 			})
 		} else {
 			this.listeners = []
@@ -50,9 +49,42 @@ class Model {
 		return !(typeof this[property] == 'undefined' || this[property] == null)
 	}
 
+	listenTo(model, event, handler) {
+		this.listenToReferences.push(model)
+		model.listeners.push({
+			event: event,
+			handler: handler,
+			owner: this
+		})
+	}
+
+	stopListening(model, event, handler) {
+		if (!model) {
+			this.listenToReferences.forEach(reference => {
+				reference.listeners.forEach((listener, idx) => {
+					if (listener.owner == this) reference.listeners.splice(idx, 1)
+				})
+			})
+			this.listenToReferences = []
+		} else {
+			model.listeners.forEach((listener, idx) => {
+				var hasEvent = (event)
+				var sameEvent = (listener.event === event)
+				var sameHandler = (listener.handler == handler)
+				var sameOwner = (listener.owner == this)
+
+				if (hasEvent && sameEvent && handler && sameHandler && sameOwner
+						|| hasEvent && sameEvent && sameOwner
+						|| !hasEvent && sameOwner) model.listeners.splice(idx, 1)
+			})
+		}
+	}
+
 	constructor(attributes) {
 		this.listeners = []
+		this.listenToReferences = []
 		this.attributes = attributes || {}
+
 		Object.keys(this.attributes).forEach(property => { this[property] = this.attributes[property] })
 
 		return new Proxy(this, {
