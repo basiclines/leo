@@ -14,10 +14,10 @@ class Model {
 	}
 
 	off(event, handler) {
-		// TO-DO remove only event + handler combo entries
 		if (event) {
 			this.listeners.forEach((listener, idx) => {
-				if (listener.event === event) this.listeners.splice(idx, 1)
+				if (listener.event === event && handler && listener.handler == handler
+					|| !handler && listener.event == event) this.listeners.splice(idx, 1)
 			})
 		} else {
 			this.listeners = []
@@ -69,13 +69,14 @@ class Model {
 		} else {
 			model.listeners.forEach((listener, idx) => {
 				var hasEvent = (event)
+				var hasHandler = (handler)
 				var sameEvent = (listener.event === event)
 				var sameHandler = (listener.handler == handler)
 				var sameOwner = (listener.owner == this)
 
-				if (hasEvent && sameEvent && handler && sameHandler && sameOwner
-						|| hasEvent && sameEvent && sameOwner
-						|| !hasEvent && sameOwner) model.listeners.splice(idx, 1)
+				if (hasEvent && sameEvent && hasHandler && sameHandler && sameOwner
+						|| hasEvent && sameEvent && sameOwner && !hasHandler
+						|| !hasEvent && sameOwner && !hasHandler) model.listeners.splice(idx, 1)
 			})
 		}
 	}
