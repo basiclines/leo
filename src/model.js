@@ -4,6 +4,10 @@ import Trigger from 'src/trigger'
 
 class Model {
 
+	get isEmpty() {
+		return (Object.keys(this.attributes).length == 0)
+	}
+
 	// event -> 'change:property'
 	on(event, handler) {
 		this.listeners.push({
@@ -34,10 +38,6 @@ class Model {
 			this.trigger(`change:${property}`)
 		})
 		this.attributes = {}
-	}
-
-	isEmpty() {
-		return (Object.keys(this.attributes).length == 0)
 	}
 
 	clone() {

@@ -62,4 +62,17 @@ describe('Model', function() {
 		})
 	})
 
+
+	describe('.isEmpty', function() {
+		it('should return false', function() {
+				TestModel.value = value
+				assert.equal(TestModel.isEmpty, false)
+		})
+
+		it('should return true', function() {
+				TestModel.clear()
+				assert.equal(TestModel.isEmpty, true)
+		})
+	})
+
 })
