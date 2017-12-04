@@ -5,10 +5,12 @@ describe('Model', function() {
 
 	const value = 'value'
 	let TestModel = new Model()
-			TestModel.value = value
+	let ObservableModel = new Model()
+
 
 	describe('set/get value', function() {
 		it('value should be assigned', function() {
+				TestModel.value = value
 				assert.equal(TestModel.value, value)
 		})
 	})
@@ -73,6 +75,54 @@ describe('Model', function() {
 				TestModel.clear()
 				assert.equal(TestModel.isEmpty, true)
 		})
+	})
+
+	describe('.listenTo', function() {
+		it('callback should be fired', function(done) {
+			TestModel.listenTo(ObservableModel, 'change:value', function(value) {
+				done()
+			})
+			ObservableModel.value = value;
+		})
+	})
+
+	describe('.stopListening', function() {
+		it('callback should be removed only for specific event', function(done) {
+			TestModel.listenTo(ObservableModel, 'change:value1', function() {
+				assert.fail('Callback is fired for value1')
+			})
+
+			TestModel.listenTo(ObservableModel, 'change:value2', function() {
+				done()
+			})
+
+			TestModel.stopListening(ObservableModel, 'change:value1')
+			ObservableModel.value1 = value
+			ObservableModel.value2 = value
+		})
+
+		it('callback should be removed only for specific event and handler', function(done) {
+				let LocalObservableModel = new Model()
+				var func = () => { assert.fail('callback is fired for value') }
+
+				TestModel.listenTo(LocalObservableModel, 'change:value', func)
+				TestModel.listenTo(LocalObservableModel, 'change:value', function() { done() })
+				TestModel.stopListening(LocalObservableModel, 'change:value', func)
+
+				LocalObservableModel.value = value
+		})
+
+		it('all callbacks should be removed', function(done) {
+				let LocalObservableModel = new Model()
+
+				TestModel.listenTo(LocalObservableModel, 'change:value1', () => { assert.fail('callback is fired for value1') })
+				TestModel.listenTo(LocalObservableModel, 'change:value2', () => { assert.fail('callback is fired for value2') })
+				TestModel.stopListening(LocalObservableModel)
+
+				LocalObservableModel.value1 = value
+				LocalObservableModel.value2 = value
+		})
+
 	})
 
 })
