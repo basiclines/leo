@@ -1,11 +1,11 @@
 import assert from 'assert' // Node assert built-in library
-import Model from 'src/model'
+import LEOObject from 'src/object'
 
-describe('Model', function() {
+describe('LEOObject', function() {
 
 	const value = 'value'
-	let TestModel = new Model()
-	let ObservableModel = new Model()
+	let TestModel = new LEOObject()
+	let ObservableModel = new LEOObject()
 
 
 	describe('set/get value', function() {
@@ -102,7 +102,7 @@ describe('Model', function() {
 		})
 
 		it('callback should be removed only for specific event and handler', function(done) {
-				let LocalObservableModel = new Model()
+				let LocalObservableModel = new LEOObject()
 				var func = () => { assert.fail('callback is fired for value') }
 
 				TestModel.listenTo(LocalObservableModel, 'change:value', func)
@@ -113,7 +113,7 @@ describe('Model', function() {
 		})
 
 		it('all callbacks should be removed for specific model', function(done) {
-				let LocalObservableModel = new Model()
+				let LocalObservableModel = new LEOObject()
 
 				TestModel.listenTo(LocalObservableModel, 'change:value1', () => { assert.fail('callback is fired for value1') })
 				TestModel.listenTo(LocalObservableModel, 'change:value2', () => { assert.fail('callback is fired for value2') })

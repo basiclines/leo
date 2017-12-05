@@ -8,7 +8,7 @@ module.exports = {
 
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'model.js'
+		filename: 'leo.js'
 	},
 
 	resolve: {

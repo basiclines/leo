@@ -1,14 +1,14 @@
-import SimpleModel from 'src/model'
+import LEOObject from 'src/object'
 
 
-window.Model = new SimpleModel()
+window.Model = new LEOObject()
 
 Model.on('change:foo', (value) => { console.log('event trigger', value) })
 
 Model.foo = 'bar'
 Model.foo = 'foo'
 
-class modelB extends SimpleModel {
+class modelB extends LEOObject {
 	log(message) {
 		console.log('log', message)
 	}
@@ -23,5 +23,5 @@ class modelC extends modelB {
 
 window.ModelB = new modelB()
 window.ModelC = new modelC()
-window.ModelD = new SimpleModel({ name: 'noa', surname: 'picos' })
+window.ModelD = new LEOObject({ name: 'noa', surname: 'picos' })
 

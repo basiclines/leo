@@ -2,7 +2,7 @@ import Getter from 'src/getter'
 import Setter from 'src/setter'
 import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } from 'src/events'
 
-class Model {
+class LEOObject {
 
 	on(event, handler) {
 		Subscribe(this, event, handler)
@@ -38,7 +38,7 @@ class Model {
 
 	clone() {
 		var attributes = Object.assign({}, this.attributes)
-		return new Model(attributes)
+		return new this(attributes)
 	}
 
 	has(property) {
@@ -60,6 +60,6 @@ class Model {
 
 }
 
-export default Model
+export default LEOObject
 
 
