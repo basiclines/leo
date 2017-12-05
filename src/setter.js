@@ -3,6 +3,7 @@ import Trigger from 'src/trigger'
 const RESERVED_PROPERTIES = {
 	'attributes': true,
 	'listeners': true,
+	'listenToReferences': true,
 	'defaults': true
 }
 

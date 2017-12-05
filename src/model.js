@@ -68,15 +68,18 @@ class Model {
 			this.listenToReferences = []
 		} else {
 			model.listeners.forEach((listener, idx) => {
-				var hasEvent = (event)
-				var hasHandler = (handler)
 				var sameEvent = (listener.event === event)
 				var sameHandler = (listener.handler == handler)
 				var sameOwner = (listener.owner == this)
 
-				if (hasEvent && sameEvent && hasHandler && sameHandler && sameOwner
-						|| hasEvent && sameEvent && sameOwner && !hasHandler
-						|| !hasEvent && sameOwner && !hasHandler) model.listeners.splice(idx, 1)
+				if (event && handler) {
+					if (sameOwner && sameEvent && sameHandler) model.listeners.splice(idx, 1)
+				} else
+				if (event) {
+					if (sameOwner && sameEvent) model.listeners.splice(idx, 1)
+				} else {
+					if (sameOwner) model.listeners.splice(idx, 1)
+				}
 			})
 		}
 	}

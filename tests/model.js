@@ -112,7 +112,7 @@ describe('Model', function() {
 				LocalObservableModel.value = value
 		})
 
-		it('all callbacks should be removed', function(done) {
+		it('all callbacks should be removed for specific model', function(done) {
 				let LocalObservableModel = new Model()
 
 				TestModel.listenTo(LocalObservableModel, 'change:value1', () => { assert.fail('callback is fired for value1') })
