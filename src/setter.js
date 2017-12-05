@@ -1,4 +1,4 @@
-import Trigger from 'src/trigger'
+import { Trigger } from 'src/events'
 
 const RESERVED_PROPERTIES = {
 	'attributes': true,

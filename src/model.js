@@ -1,6 +1,6 @@
 import Getter from 'src/getter'
 import Setter from 'src/setter'
-import Trigger from 'src/trigger'
+import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } from 'src/events'
 
 class Model {
 
@@ -8,24 +8,12 @@ class Model {
 		return (Object.keys(this.attributes).length == 0)
 	}
 
-	// event -> 'change:property'
 	on(event, handler) {
-		this.listeners.push({
-			event: event,
-			handler: handler,
-			owner: this
-		})
+		Subscribe(this, event, handler)
 	}
 
 	off(event, handler) {
-		if (event) {
-			this.listeners.forEach((listener, idx) => {
-				if (listener.event === event && handler && listener.handler == handler
-					|| !handler && listener.event == event) this.listeners.splice(idx, 1)
-			})
-		} else {
-			this.listeners = []
-		}
+		Unsubscribe(this, event, handler)
 	}
 
 	trigger(event, value) {
@@ -50,38 +38,11 @@ class Model {
 	}
 
 	listenTo(model, event, handler) {
-		this.listenToReferences.push(model)
-		model.listeners.push({
-			event: event,
-			handler: handler,
-			owner: this
-		})
+		BindObservable(this, model, event, handler)
 	}
 
 	stopListening(model, event, handler) {
-		if (!model) {
-			this.listenToReferences.forEach(reference => {
-				reference.listeners.forEach((listener, idx) => {
-					if (listener.owner == this) reference.listeners.splice(idx, 1)
-				})
-			})
-			this.listenToReferences = []
-		} else {
-			model.listeners.forEach((listener, idx) => {
-				var sameEvent = (listener.event === event)
-				var sameHandler = (listener.handler == handler)
-				var sameOwner = (listener.owner == this)
-
-				if (event && handler) {
-					if (sameOwner && sameEvent && sameHandler) model.listeners.splice(idx, 1)
-				} else
-				if (event) {
-					if (sameOwner && sameEvent) model.listeners.splice(idx, 1)
-				} else {
-					if (sameOwner) model.listeners.splice(idx, 1)
-				}
-			})
-		}
+		UnbindObservable(this, model, event, handler)
 	}
 
 	constructor(attributes) {
