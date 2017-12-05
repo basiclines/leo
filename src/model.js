@@ -4,10 +4,6 @@ import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } fro
 
 class Model {
 
-	get isEmpty() {
-		return (Object.keys(this.attributes).length == 0)
-	}
-
 	on(event, handler) {
 		Subscribe(this, event, handler)
 	}
@@ -18,6 +14,18 @@ class Model {
 
 	trigger(event, value) {
 		Trigger(this, event, value)
+	}
+
+	listenTo(model, event, handler) {
+		BindObservable(this, model, event, handler)
+	}
+
+	stopListening(model, event, handler) {
+		UnbindObservable(this, model, event, handler)
+	}
+
+	get isEmpty() {
+		return (Object.keys(this.attributes).length == 0)
 	}
 
 	clear() {
@@ -35,14 +43,6 @@ class Model {
 
 	has(property) {
 		return !(typeof this[property] == 'undefined' || this[property] == null)
-	}
-
-	listenTo(model, event, handler) {
-		BindObservable(this, model, event, handler)
-	}
-
-	stopListening(model, event, handler) {
-		UnbindObservable(this, model, event, handler)
 	}
 
 	constructor(attributes) {
