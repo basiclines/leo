@@ -8,11 +8,18 @@
   },
   "keywords": [
     "model",
+    "list",
+    "element",
+    "object",
     "js",
     "es6",
     "es5",
     "javascript",
-    "backbone"
+    "backbone",
+    "mvc",
+    "clean",
+    "ddd",
+    "architecture"
   ],
   "author": "basiclines",
   "license": "ISC",

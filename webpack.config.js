@@ -4,7 +4,7 @@ module.exports = {
 
 	watch: true,
 
-	entry: './src/example.js',
+	entry: './src/leo.js',
 
 	output: {
 		path: path.resolve(__dirname, 'dist'),
