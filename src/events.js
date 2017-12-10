@@ -76,7 +76,7 @@ function UnbindObservable(target, observable, event, handler) {
 	if (!observable) {
 		target.listenToReferences.forEach(reference => {
 			reference.listeners.forEach((listener, idx) => {
-				if (listener.owner == target) reference.listeners.splice(idx, 1)
+				if (listener.owner == target) delete reference.listeners[idx]
 			})
 		})
 		target.listenToReferences = []
@@ -87,12 +87,12 @@ function UnbindObservable(target, observable, event, handler) {
 			var sameOwner = (listener.owner == target)
 
 			if (event && handler) {
-				if (sameOwner && sameEvent && sameHandler) observable.listeners.splice(idx, 1)
+				if (sameOwner && sameEvent && sameHandler) delete observable.listeners[idx]
 			} else
 			if (event) {
-				if (sameOwner && sameEvent) observable.listeners.splice(idx, 1)
+				if (sameOwner && sameEvent) delete observable.listeners[idx]
 			} else {
-				if (sameOwner) observable.listeners.splice(idx, 1)
+				if (sameOwner) delete observable.listeners[idx]
 			}
 		})
 	}

@@ -121,6 +121,20 @@ describe('LEOObject', function() {
 
 				LocalObservableModel.value1 = value
 				LocalObservableModel.value2 = value
+				done()
+		})
+
+		it('all callbacks should be removed for all models', function(done) {
+				let LocalObservableModel = new LEOObject()
+				let LocalObservableModel2 = new LEOObject()
+
+				TestModel.listenTo(LocalObservableModel, 'change:value1', () => { assert.fail('callback is fired for LocalObservableModel') })
+				TestModel.listenTo(LocalObservableModel2, 'change:value1', () => { assert.fail('callback is fired for LocalObservableModel2') })
+				TestModel.stopListening()
+
+				LocalObservableModel.value1 = value
+				LocalObservableModel2.value1 = value
+				done()
 		})
 
 	})
