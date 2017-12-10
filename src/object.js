@@ -38,7 +38,7 @@ class LEOObject {
 
 	clone() {
 		var attributes = Object.assign({}, this.attributes)
-		return new this(attributes)
+		return new LEOObject(attributes)
 	}
 
 	has(property) {

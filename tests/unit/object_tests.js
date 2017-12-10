@@ -35,6 +35,21 @@ describe('LEOObject', function() {
 		})
 	})
 
+	describe('.clone()', function() {
+		let TestModel = new LEOObject()
+				TestModel.value = STRING_VALUE
+		let ClonedModel = TestModel.clone()
+
+		it('Cloned model should have value', function() {
+			assert.equal(typeof ClonedModel.value, 'string')
+		})
+
+		it('Model should have different value than Cloned model', function() {
+			ClonedModel.value = ''
+			assert.notEqual(ClonedModel.value, TestModel.value)
+		})
+	})
+
 	describe('.on()', function() {
 		it('callback should be fired', function(done) {
 			let TestModel = new LEOObject()
