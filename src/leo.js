@@ -1,2 +1,4 @@
 import LEOObject from 'src/object'
-export { LEOObject }
+import LEOElement from 'src/element'
+
+export { LEOObject, LEOElement }
