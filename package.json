@@ -4,7 +4,9 @@
   "description": "A JS class inspired by Backbone.Model. Built entirely with the new ES6 features.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require babel-core/register tests/unit"
+    "test": "mocha --require babel-core/register tests/unit",
+    "build": "webpack",
+    "develop": "webpack --watch"
   },
   "keywords": [
     "model",

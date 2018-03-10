@@ -2,8 +2,6 @@ const path = require('path');
 
 module.exports = {
 
-	watch: true,
-
 	entry: './src/leo.js',
 
 	output: {
