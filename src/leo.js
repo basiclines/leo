@@ -1,2 +1,2 @@
-import LEOObject from 'src/object.js'
+import LEOObject from 'src/object'
 export { LEOObject }

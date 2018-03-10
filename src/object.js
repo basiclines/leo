@@ -1,6 +1,6 @@
-import Getter from 'src/getter'
-import Setter from 'src/setter'
-import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } from 'src/events'
+import Getter from 'src/utils/getter'
+import Setter from 'src/utils/setter'
+import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } from 'src/utils/events'
 
 class LEOObject {
 
