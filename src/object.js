@@ -42,7 +42,7 @@ class LEOObject {
 	}
 
 	has(property) {
-		return !(typeof this[property] == 'undefined' || this[property] == null)
+		return !(typeof this[property] === 'undefined' || this[property] == null)
 	}
 
 	constructor(attributes) {

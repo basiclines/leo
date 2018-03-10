@@ -19,7 +19,7 @@ function Trigger(target, event, value) {
 }
 
 /**
-	Registers a handler for specific event in target.
+	Adds a handler for specific event in target.
 	* @required target <Object>
 	* @required event <String>
 	* @required handler <Function>
@@ -33,7 +33,7 @@ function Subscribe(target, event, handler) {
 }
 
 /**
-	Unregisters a handler for specific event in target.
+	Removes a handler for specific event in target.
 	* @required target <Object>
 	* @optional event <String>
 	* @optional handler <Function>
@@ -50,7 +50,7 @@ function Unsubscribe(target, event, handler) {
 }
 
 /**
-	Registers a handler for an external object.
+	Adds a handler for an external object.
 	* @required target <Object>
 	* @required observable <Object>
 	* @required event <String>
@@ -66,7 +66,7 @@ function BindObservable(target, observable, event, handler) {
 }
 
 /**
-	Unregisters a handler from an external object.
+	Removes a handler from an external object.
 	* @required target <Object>
 	* @optional observable <Object>
 	* @optional event <String>
