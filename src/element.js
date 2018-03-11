@@ -3,31 +3,38 @@ import LEOObject from 'src/object'
 class LEOElement extends HTMLElement {
 
 	connectedCallback() {
-		console.log('connected')
 		this.attrs = new LEOObject(this.explodeAttributes())
+		this.data = new LEOObject({})
 		this.render()
-		this.bindProperties()
+		this.observeAttrsAndData()
 		this.bind()
+		this.mount()
 	}
 
 	disconnectedCallback() {
-		console.log('disconnected')
 		this.attrs.off()
+		this.data.off()
+		this.dismount()
+	}
+
+	mount() {
+	}
+
+	dismount() {
 	}
 
 	render() {
-		console.log('render')
 	}
 
-	bindProperties() {
+	observeAttrsAndData() {
 		this.attrs.on('change', (value, property) => {
 			this.setAttribute(property, value)
 			this.render()
 		})
-	}
 
-	bind() {
-		if (this.onClick) this.addEventListener('click', this.onClick)
+		this.data.on('change', (value, property) => {
+			this.render()
+		})
 	}
 
 	explodeAttributes() {
@@ -36,6 +43,10 @@ class LEOElement extends HTMLElement {
 			explodedAttributes[this.attributes[i].name] = this.attributes[i].value
 		}
 		return explodedAttributes
+	}
+
+	bind() {
+		if (this.onClick) this.addEventListener('click', this.onClick)
 	}
 
 }
