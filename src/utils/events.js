@@ -12,9 +12,9 @@
 	* @required event <String>
 	* @optional value <Any>
 */
-function Trigger(target, event, value) {
+function Trigger(target, event, value, property) {
 	target.listeners.forEach(listener => {
-		if (listener.event === event) listener.handler(value)
+		if (listener.event === event) listener.handler(value, property)
 	})
 }
 

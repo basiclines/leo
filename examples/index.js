@@ -3,7 +3,22 @@ import LEOElement from 'src/element'
 
 
 window.Model = new LEOObject()
-window.Component = new LEOElement({ title: 'ismael' }, { hidden: false })
-window.Component.state.hidden = true
+
+class myComponent extends LEOElement {
+
+	onClick() {
+		this.props.title = (this.props.title == 'ismael') ? 'noa' : 'ismael';
+	}
+
+	render() {
+		this.innerHTML = this.props.title
+	}
+
+}
+customElements.define('my-component', myComponent)
+
+
+
+
 
 

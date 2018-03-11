@@ -1,4 +1,8 @@
 {
   "presets": ["env"],
-	"plugins": ["webpack-alias"]
+  "plugins": [
+    "transform-custom-element-classes",
+    "transform-es2015-classes",
+    "webpack-alias"
+  ]
 }

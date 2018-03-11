@@ -1,23 +1,44 @@
 import LEOObject from 'src/object'
 
-class LEOElement {
+class LEOElement extends HTMLElement {
+
+	connectedCallback() {
+		console.log('connected')
+		this.props = new LEOObject(this.explodeAttributes())
+		this.render()
+		this.bindProperties()
+		this.bind()
+	}
+
+	disconnectedCallback() {
+		console.log('disconnected')
+		this.props.off()
+	}
 
 	render() {
-		console.log(this, 'render');
-		return ``
+		console.log('render')
+	}
+
+	bindProperties() {
+		this.props.on('change', (value, property) => {
+			this.setAttribute(property, value)
+			this.render()
+		})
 	}
 
 	bind() {
-		this.props.on('change', () => { this.render() })
-		this.state.on('change', () => { this.render() })
+		if (this.onClick) this.addEventListener('click', this.onClick)
 	}
 
-	constructor(properties = {}, state = {}) {
-		this.props = new LEOObject(properties)
-		this.state = new LEOObject(state)
-		this.bind()
+	explodeAttributes() {
+		let explodedAttributes = {}
+		for (var i = 0; i < this.attributes.length; i++) {
+			explodedAttributes[this.attributes[i].name] = this.attributes[i].value
+		}
+		return explodedAttributes
 	}
 
 }
 
+customElements.define('leo-element', LEOElement)
 export default LEOElement

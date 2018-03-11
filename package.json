@@ -1,8 +1,8 @@
 {
-  "name": "model",
+  "name": "LEO",
   "version": "0.0.1",
   "description": "A JS class inspired by Backbone.Model. Built entirely with the new ES6 features.",
-  "main": "index.js",
+  "main": "src/leo.js",
   "scripts": {
     "test": "mocha --require babel-core/register tests/unit",
     "build": "webpack",
@@ -26,8 +26,11 @@
   "author": "basiclines",
   "license": "ISC",
   "devDependencies": {
+    "@webcomponents/custom-elements": "^1.0.8",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
     "mocha": "^4.0.1",

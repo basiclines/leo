@@ -14,8 +14,8 @@ function Setter(target, property, value) {
 	if (isProperty) {
 		target.attributes[property] = value
 		let event = `change:${property}`
-		Trigger(target, 'change', value)
-		Trigger(target, event, value)
+		Trigger(target, 'change', value, property)
+		Trigger(target, event, value, property)
 	}
 
 	return true
