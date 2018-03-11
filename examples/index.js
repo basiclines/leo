@@ -7,11 +7,11 @@ window.Model = new LEOObject()
 class myComponent extends LEOElement {
 
 	onClick() {
-		this.props.title = (this.props.title == 'ismael') ? 'noa' : 'ismael';
+		this.attrs.title = (this.attrs.title == 'ismael') ? 'noa' : 'ismael';
 	}
 
 	render() {
-		this.innerHTML = this.props.title
+		this.innerHTML = this.attrs.title
 	}
 
 }

@@ -4,7 +4,7 @@ class LEOElement extends HTMLElement {
 
 	connectedCallback() {
 		console.log('connected')
-		this.props = new LEOObject(this.explodeAttributes())
+		this.attrs = new LEOObject(this.explodeAttributes())
 		this.render()
 		this.bindProperties()
 		this.bind()
@@ -12,7 +12,7 @@ class LEOElement extends HTMLElement {
 
 	disconnectedCallback() {
 		console.log('disconnected')
-		this.props.off()
+		this.attrs.off()
 	}
 
 	render() {
@@ -20,7 +20,7 @@ class LEOElement extends HTMLElement {
 	}
 
 	bindProperties() {
-		this.props.on('change', (value, property) => {
+		this.attrs.on('change', (value, property) => {
 			this.setAttribute(property, value)
 			this.render()
 		})
