@@ -43,6 +43,20 @@ class myComponent extends LEOElement {
 }
 customElements.define('my-component', myComponent)
 
+class myForm extends LEOElement {
+
+	onKeyup(e) {
+		this.data.query = e.target.value
+	}
+
+	render() {
+		this.find('p').innerHTML = this.data.query || 'Query';
+	}
+}
+
+customElements.define('my-form', myForm)
+
+
 
 
 

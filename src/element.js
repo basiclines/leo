@@ -26,6 +26,10 @@ class LEOElement extends HTMLElement {
 	render() {
 	}
 
+	find(selector) {
+		return this.querySelector(selector)
+	}
+
 	observeAttrsAndData() {
 		this.attrs.on('change', (value, property) => {
 			this.setAttribute(property, value)
@@ -46,7 +50,13 @@ class LEOElement extends HTMLElement {
 	}
 
 	bind() {
+		if (this.onScroll) this.addEventListener('scroll', this.onScroll)
 		if (this.onClick) this.addEventListener('click', this.onClick)
+		if (this.onKeyup) this.addEventListener('keyup', this.onKeyup)
+		if (this.onKeydown) this.addEventListener('keydown', this.onKeydown)
+		if (this.onChange) this.addEventListener('change', this.onChange)
+		if (this.onFocus) this.addEventListener('focus', this.onFocus)
+		if (this.onBlur) this.addEventListener('change', this.onBlur)
 	}
 
 }
