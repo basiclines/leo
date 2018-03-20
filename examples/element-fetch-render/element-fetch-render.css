@@ -1,0 +1,10 @@
+element-fetch-render {
+    padding: 24px;
+}
+
+element-fetch-render p {
+    display: block;
+    margin: 0;
+    padding: 12px;
+    border-bottom: solid 1px #ddd;
+}

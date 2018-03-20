@@ -2,13 +2,13 @@ const path = require('path');
 
 module.exports = {
 
-	entry: [
-		'./index.js'
-	],
+	entry: {
+		'element-fetch-render': './element-fetch-render/element-fetch-render.js'
+	},
 
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		filename: 'index.js'
+		filename: '[name].js'
 	},
 
 	resolve: {
