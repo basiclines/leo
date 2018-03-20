@@ -1,0 +1,10 @@
+element-renders-element {
+    padding: 24px;
+}
+
+child-element {
+    display: block;
+    margin: 0;
+    padding: 12px;
+    border-bottom: solid 1px #ddd;
+}
