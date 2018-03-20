@@ -1,0 +1,10 @@
+element-handling-click {
+    display: inline-block;
+    margin: 24px;
+    padding: 8px 12px;
+    font: 16px/1em Sans-serif;
+    color: #fff;
+    background: #3A36FF;
+    border-radius: 3px;
+    cursor: pointer;
+}

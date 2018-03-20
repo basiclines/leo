@@ -4,7 +4,8 @@ module.exports = {
 
 	entry: {
 		'element-fetch-render': './element-fetch-render/element-fetch-render.js',
-		'element-reactive-input': './element-reactive-input/element-reactive-input.js'
+		'element-reactive-input': './element-reactive-input/element-reactive-input.js',
+		'element-handling-click': './element-handling-click/element-handling-click.js'
 	},
 
 	output: {
