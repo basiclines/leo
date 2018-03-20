@@ -1,0 +1,27 @@
+element-searchable-table {
+    display: block;
+    padding: 24px;
+    width: 300px;
+}
+
+element-searchable-table input {
+    width: 100%;
+    border: solid 1px #ddd;
+    padding: 8px 0;
+    text-indent: 8px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+}
+
+element-searchable-table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    font: 14px/1em Sans-serif;
+    color: #333
+}
+
+element-searchable-table td {
+    border: solid 1px #ddd;
+    padding: 8px;
+}

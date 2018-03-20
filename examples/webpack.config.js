@@ -7,7 +7,8 @@ module.exports = {
 		'element-reactive-input': './element-reactive-input/element-reactive-input.js',
 		'element-handling-click': './element-handling-click/element-handling-click.js',
 		'element-renders-element': './element-renders-element/element-renders-element.js',
-		'element-sorting-table': './element-sorting-table/element-sorting-table.js'
+		'element-sorting-table': './element-sorting-table/element-sorting-table.js',
+		'element-searchable-table': './element-searchable-table/element-searchable-table.js'
 	},
 
 	output: {
