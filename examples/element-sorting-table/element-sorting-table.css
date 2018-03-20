@@ -1,0 +1,17 @@
+element-sorting-table {
+    display: block;
+    padding: 24px;
+}
+
+element-sorting-table table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 300px;
+    font: 14px/1em Sans-serif;
+    color: #333
+}
+
+element-sorting-table td {
+    border: solid 1px #ddd;
+    padding: 8px;
+}

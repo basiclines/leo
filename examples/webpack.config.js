@@ -6,7 +6,8 @@ module.exports = {
 		'element-fetch-render': './element-fetch-render/element-fetch-render.js',
 		'element-reactive-input': './element-reactive-input/element-reactive-input.js',
 		'element-handling-click': './element-handling-click/element-handling-click.js',
-		'element-renders-element': './element-renders-element/element-renders-element.js'
+		'element-renders-element': './element-renders-element/element-renders-element.js',
+		'element-sorting-table': './element-sorting-table/element-sorting-table.js'
 	},
 
 	output: {
