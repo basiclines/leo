@@ -1,0 +1,16 @@
+element-reactive-input {
+    display: block;
+    padding: 24px
+}
+
+element-reactive-input input {
+    border: solid 1px #ddd;
+    padding: 8px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+}
+
+element-reactive-input p {
+    font: 14px/1em Sans-serif;
+    color: #333;
+}
