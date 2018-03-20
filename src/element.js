@@ -1,3 +1,5 @@
+import 'native_shim'
+import 'custom_elements'
 import LEOObject from 'src/object'
 
 class LEOElement extends HTMLElement {
