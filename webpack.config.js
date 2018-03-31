@@ -10,7 +10,9 @@ module.exports = {
 
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'leo.js'
+		filename: 'leo.js',
+		library: 'LEO',
+		libraryTarget: 'umd'
 	},
 
 	resolve: {
