@@ -1,7 +1,7 @@
 {
-  "name": "LEO",
+  "name": "@basiclines/leo",
   "version": "0.0.1",
-  "description": "A JS class inspired by Backbone.Model. Built entirely with the new ES6 features.",
+  "description": "LEO is a lightweight JS library that helps you build modern front-end applications.",
   "main": "src/leo.js",
   "scripts": {
     "test": "mocha --require babel-core/register tests/unit",
@@ -21,10 +21,12 @@
     "mvc",
     "clean",
     "ddd",
-    "architecture"
+    "architecture",
+    "react",
+    "web components"
   ],
   "author": "basiclines",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@webcomponents/custom-elements": "^1.0.8",
     "babel-core": "^6.26.0",
