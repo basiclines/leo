@@ -4,6 +4,13 @@ import LEOObject from 'src/object'
 
 class LEOElement extends HTMLElement {
 
+	/*
+	* Workaroun until constructor() declaration is avaliable in major browsers
+	* https://github.com/whatwg/html/pull/1404
+	* */
+	get isMounted() { return this._isMounted || false }
+	set isMounted(value) { this._isMounted = value }
+
 	connectedCallback() {
 		this.attrs = new LEOObject(this.explodeAttributes())
 		this.data = new LEOObject({})
@@ -11,12 +18,14 @@ class LEOElement extends HTMLElement {
 		this.observeAttrsAndData()
 		this.bind()
 		this.mount()
+		this.isMounted = true
 	}
 
 	disconnectedCallback() {
 		this.attrs.off()
 		this.data.off()
 		this.dismount()
+		this.isMounted = false
 	}
 
 	mount() {
@@ -34,7 +43,7 @@ class LEOElement extends HTMLElement {
 
 	observeAttrsAndData() {
 		this.attrs.on('change', (value, property) => {
-			this.setAttribute(property, value)
+			(value === null) ? this.removeAttribute(property) : this.setAttribute(property, value);
 			this.render()
 		})
 

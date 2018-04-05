@@ -5,8 +5,12 @@
   "main": "dist/leo.js",
   "scripts": {
     "test": "mocha --require babel-core/register tests/unit",
+
     "build": "webpack",
-    "develop": "webpack --watch"
+    "develop": "webpack --watch",
+
+    "build_examples": "webpack --config webpack.config.examples.js",
+    "develop_examples": "webpack --watch --config webpack.config.examples.js"
   },
   "keywords": [
     "model",
@@ -37,5 +41,8 @@
     "babel-preset-env": "^1.6.1",
     "mocha": "^4.0.1",
     "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "npm": "^5.8.0"
   }
 }
