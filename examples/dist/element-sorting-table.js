@@ -1,11 +1,1320 @@
-!function(e){var n={};function t(a){if(n[a])return n[a].exports;var r=n[a]={i:a,l:!1,exports:{}};return e[a].call(r.exports,r,r.exports,t),r.l=!0,r.exports}t.m=e,t.c=n,t.d=function(e,n,a){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:a})},t.r=function(e){Object.defineProperty(e,"__esModule",{value:!0})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,n){return Object.prototype.hasOwnProperty.call(e,n)},t.p="",t(t.s=10)}([function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.Trigger=function(e,n,t,a){e.listeners.forEach(function(e){e.event===n&&e.handler(t,a)})},n.Subscribe=function(e,n,t){e.listeners.push({event:n,handler:t,owner:e})},n.Unsubscribe=function(e,n,t){n?e.listeners.forEach(function(a,r){(a.event===n&&t&&a.handler==t||!t&&a.event==n)&&e.listeners.splice(r,1)}):e.listeners=[]},n.BindObservable=function(e,n,t,a){e.listenToReferences.push(n),n.listeners.push({event:t,handler:a,owner:e})},n.UnbindObservable=function(e,n,t,a){n?n.listeners.forEach(function(r,o){var i=r.event===t,l=r.handler==a,s=r.owner==e;t&&a?s&&i&&l&&delete n.listeners[o]:t?s&&i&&delete n.listeners[o]:s&&delete n.listeners[o]}):(e.listenToReferences.forEach(function(n){n.listeners.forEach(function(t,a){t.owner==e&&delete n.listeners[a]})}),e.listenToReferences=[])}},function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a=function(){function e(e,n){for(var t=0;t<n.length;t++){var a=n[t];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(n,t,a){return t&&e(n.prototype,t),a&&e(n,a),n}}();t(6),t(5);var r,o=t(4),i=(r=o)&&r.__esModule?r:{default:r};function l(){return Reflect.construct(HTMLElement,[],this.__proto__.constructor)}Object.setPrototypeOf(l.prototype,HTMLElement.prototype),Object.setPrototypeOf(l,HTMLElement);var s=function(e){function n(){return function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,n),function(e,n){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!n||"object"!=typeof n&&"function"!=typeof n?e:n}(this,(n.__proto__||Object.getPrototypeOf(n)).apply(this,arguments))}return function(e,n){if("function"!=typeof n&&null!==n)throw new TypeError("Super expression must either be null or a function, not "+typeof n);e.prototype=Object.create(n&&n.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),n&&(Object.setPrototypeOf?Object.setPrototypeOf(e,n):e.__proto__=n)}(n,l),a(n,[{key:"connectedCallback",value:function(){this.attrs=new i.default(this.explodeAttributes()),this.data=new i.default({}),this.render(),this.observeAttrsAndData(),this.bind(),this.mount()}},{key:"disconnectedCallback",value:function(){this.attrs.off(),this.data.off(),this.dismount()}},{key:"mount",value:function(){}},{key:"dismount",value:function(){}},{key:"render",value:function(){}},{key:"find",value:function(e){return this.querySelector(e)}},{key:"observeAttrsAndData",value:function(){var e=this;this.attrs.on("change",function(n,t){e.setAttribute(t,n),e.render()}),this.data.on("change",function(n,t){e.render()})}},{key:"explodeAttributes",value:function(){for(var e={},n=0;n<this.attributes.length;n++)e[this.attributes[n].name]=this.attributes[n].value;return e}},{key:"bind",value:function(){this.onScroll&&this.addEventListener("scroll",this.onScroll),this.onClick&&this.addEventListener("click",this.onClick),this.onKeyup&&this.addEventListener("keyup",this.onKeyup),this.onKeydown&&this.addEventListener("keydown",this.onKeydown),this.onChange&&this.addEventListener("change",this.onChange),this.onFocus&&this.addEventListener("focus",this.onFocus),this.onBlur&&this.addEventListener("change",this.onBlur)}}]),n}();customElements.define("leo-element",s),n.default=s},function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a=t(0),r={attributes:!0,listeners:!0,listenToReferences:!0,defaults:!0};n.default=function(e,n,t){if(e[n]=t,!(n in r)){e.attributes[n]=t;var o="change:"+n;(0,a.Trigger)(e,"change",t,n),(0,a.Trigger)(e,o,t,n)}return!0}},function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.default=function(e,n){return e[n]}},function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a=function(){function e(e,n){for(var t=0;t<n.length;t++){var a=n[t];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(n,t,a){return t&&e(n.prototype,t),a&&e(n,a),n}}(),r=l(t(3)),o=l(t(2)),i=t(0);function l(e){return e&&e.__esModule?e:{default:e}}var s=function(){function e(n){var t=this;return function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,e),this.listeners=[],this.listenToReferences=[],this.attributes=n||{},Object.keys(this.attributes).forEach(function(e){t[e]=t.attributes[e]}),new Proxy(this,{get:r.default,set:o.default})}return a(e,[{key:"on",value:function(e,n){(0,i.Subscribe)(this,e,n)}},{key:"off",value:function(e,n){(0,i.Unsubscribe)(this,e,n)}},{key:"trigger",value:function(e,n){(0,i.Trigger)(this,e,n)}},{key:"listenTo",value:function(e,n,t){(0,i.BindObservable)(this,e,n,t)}},{key:"stopListening",value:function(e,n,t){(0,i.UnbindObservable)(this,e,n,t)}},{key:"clear",value:function(){var e=this;Object.keys(this.attributes).forEach(function(n){delete e[n],e.trigger("change:"+n)}),this.attributes={}}},{key:"clone",value:function(){return new e(Object.assign({},this.attributes))}},{key:"has",value:function(e){return!(void 0===this[e]||null==this[e])}},{key:"isEmpty",get:function(){return 0==Object.keys(this.attributes).length}}]),e}();n.default=s},function(e,n){(function(){"use strict";var e=new function(){},n=new Set("annotation-xml color-profile font-face font-face-src font-face-uri font-face-format font-face-name missing-glyph".split(" "));function t(e){var t=n.has(e);return e=/^[a-z][.0-9_a-z]*-[\-.0-9_a-z]*$/.test(e),!t&&e}function a(e){var n=e.isConnected;if(void 0!==n)return n;for(;e&&!(e.__CE_isImportDocument||e instanceof Document);)e=e.parentNode||(window.ShadowRoot&&e instanceof ShadowRoot?e.host:void 0);return!(!e||!(e.__CE_isImportDocument||e instanceof Document))}function r(e,n){for(;n&&n!==e&&!n.nextSibling;)n=n.parentNode;return n&&n!==e?n.nextSibling:null}function o(e,n,t){t=t||new Set;for(var a=e;a;){if(a.nodeType===Node.ELEMENT_NODE){var i=a;n(i);var l=i.localName;if("link"===l&&"import"===i.getAttribute("rel")){if((a=i.import)instanceof Node&&!t.has(a))for(t.add(a),a=a.firstChild;a;a=a.nextSibling)o(a,n,t);a=r(e,i);continue}if("template"===l){a=r(e,i);continue}if(i=i.__CE_shadowRoot)for(i=i.firstChild;i;i=i.nextSibling)o(i,n,t)}a=a.firstChild?a.firstChild:r(e,a)}}function i(e,n,t){e[n]=t}function l(){this.a=new Map,this.o=new Map,this.f=[],this.b=!1}function s(e,n){e.b=!0,e.f.push(n)}function m(e,n){e.b&&o(n,function(n){return c(e,n)})}function c(e,n){if(e.b&&!n.__CE_patched){n.__CE_patched=!0;for(var t=0;t<e.f.length;t++)e.f[t](n)}}function u(e,n){var t=[];for(o(n,function(e){return t.push(e)}),n=0;n<t.length;n++){var a=t[n];1===a.__CE_state?e.connectedCallback(a):f(e,a)}}function h(e,n){var t=[];for(o(n,function(e){return t.push(e)}),n=0;n<t.length;n++){var a=t[n];1===a.__CE_state&&e.disconnectedCallback(a)}}function d(e,n,t){var a=(t=t||{}).w||new Set,r=t.s||function(n){return f(e,n)},i=[];if(o(n,function(n){if("link"===n.localName&&"import"===n.getAttribute("rel")){var t=n.import;t instanceof Node&&(t.__CE_isImportDocument=!0,t.__CE_hasRegistry=!0),t&&"complete"===t.readyState?t.__CE_documentLoadHandled=!0:n.addEventListener("load",function(){var t=n.import;if(!t.__CE_documentLoadHandled){t.__CE_documentLoadHandled=!0;var o=new Set(a);o.delete(t),d(e,t,{w:o,s:r})}})}else i.push(n)},a),e.b)for(n=0;n<i.length;n++)c(e,i[n]);for(n=0;n<i.length;n++)r(i[n])}function f(e,n){if(void 0===n.__CE_state){var t=n.ownerDocument;if((t.defaultView||t.__CE_isImportDocument&&t.__CE_hasRegistry)&&(t=e.a.get(n.localName))){t.constructionStack.push(n);var r=t.constructor;try{try{if(new r!==n)throw Error("The custom element constructor did not produce the element being upgraded.")}finally{t.constructionStack.pop()}}catch(e){throw n.__CE_state=2,e}if(n.__CE_state=1,n.__CE_definition=t,t.attributeChangedCallback)for(t=t.observedAttributes,r=0;r<t.length;r++){var o=t[r],i=n.getAttribute(o);null!==i&&e.attributeChangedCallback(n,o,null,i,null)}a(n)&&e.connectedCallback(n)}}}function p(e,n){this.c=e,this.a=n,this.b=void 0,d(this.c,this.a),"loading"===this.a.readyState&&(this.b=new MutationObserver(this.f.bind(this)),this.b.observe(this.a,{childList:!0,subtree:!0}))}function y(e){e.b&&e.b.disconnect()}function b(e){if(e.a)throw Error("Already resolved.");e.a=void 0,e.b&&e.b(void 0)}function g(e){this.i=!1,this.c=e,this.m=new Map,this.j=function(e){return e()},this.g=!1,this.l=[],this.u=new p(e,document)}l.prototype.connectedCallback=function(e){var n=e.__CE_definition;n.connectedCallback&&n.connectedCallback.call(e)},l.prototype.disconnectedCallback=function(e){var n=e.__CE_definition;n.disconnectedCallback&&n.disconnectedCallback.call(e)},l.prototype.attributeChangedCallback=function(e,n,t,a,r){var o=e.__CE_definition;o.attributeChangedCallback&&-1<o.observedAttributes.indexOf(n)&&o.attributeChangedCallback.call(e,n,t,a,r)},p.prototype.f=function(e){var n=this.a.readyState;for("interactive"!==n&&"complete"!==n||y(this),n=0;n<e.length;n++)for(var t=e[n].addedNodes,a=0;a<t.length;a++)d(this.c,t[a])},g.prototype.define=function(e,n){var a,r,o,i,l,s=this;if(!(n instanceof Function))throw new TypeError("Custom element constructors must be functions.");if(!t(e))throw new SyntaxError("The element name '"+e+"' is not valid.");if(this.c.a.get(e))throw Error("A custom element with name '"+e+"' has already been defined.");if(this.i)throw Error("A custom element is already being defined.");this.i=!0;try{var m=function(e){var n=c[e];if(void 0!==n&&!(n instanceof Function))throw Error("The '"+e+"' callback must be a function.");return n},c=n.prototype;if(!(c instanceof Object))throw new TypeError("The custom element constructor's prototype is not an object.");a=m("connectedCallback"),r=m("disconnectedCallback"),o=m("adoptedCallback"),i=m("attributeChangedCallback"),l=n.observedAttributes||[]}catch(e){return}finally{this.i=!1}n={localName:e,constructor:n,connectedCallback:a,disconnectedCallback:r,adoptedCallback:o,attributeChangedCallback:i,observedAttributes:l,constructionStack:[]},function(e,n,t){e.a.set(n,t),e.o.set(t.constructor,t)}(this.c,e,n),this.l.push(n),this.g||(this.g=!0,this.j(function(){return function(e){if(!1!==e.g){e.g=!1;for(var n=e.l,t=[],a=new Map,r=0;r<n.length;r++)a.set(n[r].localName,[]);for(d(e.c,document,{s:function(n){if(void 0===n.__CE_state){var r=n.localName,o=a.get(r);o?o.push(n):e.c.a.get(r)&&t.push(n)}}}),r=0;r<t.length;r++)f(e.c,t[r]);for(;0<n.length;){for(var o=n.shift(),r=o.localName,o=a.get(o.localName),i=0;i<o.length;i++)f(e.c,o[i]);(r=e.m.get(r))&&b(r)}}}(s)}))},g.prototype.get=function(e){if(e=this.c.a.get(e))return e.constructor},g.prototype.whenDefined=function(e){if(!t(e))return Promise.reject(new SyntaxError("'"+e+"' is not a valid custom element name."));var n=this.m.get(e);return n?n.f:(n=new function(){var e=this;this.b=this.a=void 0,this.f=new Promise(function(n){e.b=n,e.a&&n(e.a)})},this.m.set(e,n),this.c.a.get(e)&&!this.l.some(function(n){return n.localName===e})&&b(n),n.f)},g.prototype.v=function(e){y(this.u);var n=this.j;this.j=function(t){return e(function(){return n(t)})}},window.CustomElementRegistry=g,g.prototype.define=g.prototype.define,g.prototype.get=g.prototype.get,g.prototype.whenDefined=g.prototype.whenDefined,g.prototype.polyfillWrapFlushCallback=g.prototype.v;var w=window.Document.prototype.createElement,v=window.Document.prototype.createElementNS,E=window.Document.prototype.importNode,C=window.Document.prototype.prepend,k=window.Document.prototype.append,_=window.DocumentFragment.prototype.prepend,M=window.DocumentFragment.prototype.append,A=window.Node.prototype.cloneNode,S=window.Node.prototype.appendChild,L=window.Node.prototype.insertBefore,R=window.Node.prototype.removeChild,O=window.Node.prototype.replaceChild,D=Object.getOwnPropertyDescriptor(window.Node.prototype,"textContent"),H=window.Element.prototype.attachShadow,T=Object.getOwnPropertyDescriptor(window.Element.prototype,"innerHTML"),B=window.Element.prototype.getAttribute,K=window.Element.prototype.setAttribute,N=window.Element.prototype.removeAttribute,J=window.Element.prototype.getAttributeNS,j=window.Element.prototype.setAttributeNS,P=window.Element.prototype.removeAttributeNS,F=window.Element.prototype.insertAdjacentElement,W=window.Element.prototype.prepend,G=window.Element.prototype.append,z=window.Element.prototype.before,x=window.Element.prototype.after,Z=window.Element.prototype.replaceWith,U=window.Element.prototype.remove,V=window.HTMLElement,I=Object.getOwnPropertyDescriptor(window.HTMLElement.prototype,"innerHTML"),q=window.HTMLElement.prototype.insertAdjacentElement;function Y(e,n,t){function r(n){return function(t){for(var r=[],o=0;o<arguments.length;++o)r[o-0]=arguments[o];o=[];for(var i=[],l=0;l<r.length;l++){var s=r[l];if(s instanceof Element&&a(s)&&i.push(s),s instanceof DocumentFragment)for(s=s.firstChild;s;s=s.nextSibling)o.push(s);else o.push(s)}for(n.apply(this,r),r=0;r<i.length;r++)h(e,i[r]);if(a(this))for(r=0;r<o.length;r++)(i=o[r])instanceof Element&&u(e,i)}}t.h&&(n.prepend=r(t.h)),t.append&&(n.append=r(t.append))}var Q,X=window.customElements;if(!X||X.forcePolyfill||"function"!=typeof X.define||"function"!=typeof X.get){var $=new l;Q=$,window.HTMLElement=function(){function n(){var n=this.constructor;if(!(a=Q.o.get(n)))throw Error("The custom element being constructed was not registered with `customElements`.");var t=a.constructionStack;if(!t.length)return t=w.call(document,a.localName),Object.setPrototypeOf(t,n.prototype),t.__CE_state=1,t.__CE_definition=a,c(Q,t),t;var a,r=t[a=t.length-1];if(r===e)throw Error("The HTMLElement constructor was either called reentrantly for this constructor or called multiple times.");return t[a]=e,Object.setPrototypeOf(r,n.prototype),c(Q,r),r}return n.prototype=V.prototype,n}(),function(){var e=$;i(Document.prototype,"createElement",function(n){if(this.__CE_hasRegistry){var t=e.a.get(n);if(t)return new t.constructor}return n=w.call(this,n),c(e,n),n}),i(Document.prototype,"importNode",function(n,t){return n=E.call(this,n,t),this.__CE_hasRegistry?d(e,n):m(e,n),n}),i(Document.prototype,"createElementNS",function(n,t){if(this.__CE_hasRegistry&&(null===n||"http://www.w3.org/1999/xhtml"===n)){var a=e.a.get(t);if(a)return new a.constructor}return n=v.call(this,n,t),c(e,n),n}),Y(e,Document.prototype,{h:C,append:k})}(),Y($,DocumentFragment.prototype,{h:_,append:M}),function(){var e=$;function n(n,t){Object.defineProperty(n,"textContent",{enumerable:t.enumerable,configurable:!0,get:t.get,set:function(n){if(this.nodeType===Node.TEXT_NODE)t.set.call(this,n);else{var r=void 0;if(this.firstChild){var o=this.childNodes,i=o.length;if(0<i&&a(this)){r=Array(i);for(var l=0;l<i;l++)r[l]=o[l]}}if(t.set.call(this,n),r)for(n=0;n<r.length;n++)h(e,r[n])}}})}i(Node.prototype,"insertBefore",function(n,t){if(n instanceof DocumentFragment){var r=Array.prototype.slice.apply(n.childNodes);if(n=L.call(this,n,t),a(this))for(t=0;t<r.length;t++)u(e,r[t]);return n}return r=a(n),t=L.call(this,n,t),r&&h(e,n),a(this)&&u(e,n),t}),i(Node.prototype,"appendChild",function(n){if(n instanceof DocumentFragment){var t=Array.prototype.slice.apply(n.childNodes);if(n=S.call(this,n),a(this))for(var r=0;r<t.length;r++)u(e,t[r]);return n}return t=a(n),r=S.call(this,n),t&&h(e,n),a(this)&&u(e,n),r}),i(Node.prototype,"cloneNode",function(n){return n=A.call(this,n),this.ownerDocument.__CE_hasRegistry?d(e,n):m(e,n),n}),i(Node.prototype,"removeChild",function(n){var t=a(n),r=R.call(this,n);return t&&h(e,n),r}),i(Node.prototype,"replaceChild",function(n,t){if(n instanceof DocumentFragment){var r=Array.prototype.slice.apply(n.childNodes);if(n=O.call(this,n,t),a(this))for(h(e,t),t=0;t<r.length;t++)u(e,r[t]);return n}r=a(n);var o=O.call(this,n,t),i=a(this);return i&&h(e,t),r&&h(e,n),i&&u(e,n),o}),D&&D.get?n(Node.prototype,D):s(e,function(e){n(e,{enumerable:!0,configurable:!0,get:function(){for(var e=[],n=0;n<this.childNodes.length;n++)e.push(this.childNodes[n].textContent);return e.join("")},set:function(e){for(;this.firstChild;)R.call(this,this.firstChild);S.call(this,document.createTextNode(e))}})})}(),function(){var e=$;function n(n,t){Object.defineProperty(n,"innerHTML",{enumerable:t.enumerable,configurable:!0,get:t.get,set:function(n){var r=this,i=void 0;if(a(this)&&(i=[],o(this,function(e){e!==r&&i.push(e)})),t.set.call(this,n),i)for(var l=0;l<i.length;l++){var s=i[l];1===s.__CE_state&&e.disconnectedCallback(s)}return this.ownerDocument.__CE_hasRegistry?d(e,this):m(e,this),n}})}function t(n,t){i(n,"insertAdjacentElement",function(n,r){var o=a(r);return n=t.call(this,n,r),o&&h(e,r),a(n)&&u(e,r),n})}H&&i(Element.prototype,"attachShadow",function(e){return this.__CE_shadowRoot=H.call(this,e)}),T&&T.get?n(Element.prototype,T):I&&I.get?n(HTMLElement.prototype,I):s(e,function(e){n(e,{enumerable:!0,configurable:!0,get:function(){return A.call(this,!0).innerHTML},set:function(e){var n="template"===this.localName,t=n?this.content:this,a=w.call(document,this.localName);for(a.innerHTML=e;0<t.childNodes.length;)R.call(t,t.childNodes[0]);for(e=n?a.content:a;0<e.childNodes.length;)S.call(t,e.childNodes[0])}})}),i(Element.prototype,"setAttribute",function(n,t){if(1!==this.__CE_state)return K.call(this,n,t);var a=B.call(this,n);K.call(this,n,t),t=B.call(this,n),e.attributeChangedCallback(this,n,a,t,null)}),i(Element.prototype,"setAttributeNS",function(n,t,a){if(1!==this.__CE_state)return j.call(this,n,t,a);var r=J.call(this,n,t);j.call(this,n,t,a),a=J.call(this,n,t),e.attributeChangedCallback(this,t,r,a,n)}),i(Element.prototype,"removeAttribute",function(n){if(1!==this.__CE_state)return N.call(this,n);var t=B.call(this,n);N.call(this,n),null!==t&&e.attributeChangedCallback(this,n,t,null,null)}),i(Element.prototype,"removeAttributeNS",function(n,t){if(1!==this.__CE_state)return P.call(this,n,t);var a=J.call(this,n,t);P.call(this,n,t);var r=J.call(this,n,t);a!==r&&e.attributeChangedCallback(this,t,a,r,n)}),q?t(HTMLElement.prototype,q):F?t(Element.prototype,F):console.warn("Custom Elements: `Element#insertAdjacentElement` was not patched."),Y(e,Element.prototype,{h:W,append:G}),function(e){var n=Element.prototype;function t(n){return function(t){for(var r=[],o=0;o<arguments.length;++o)r[o-0]=arguments[o];o=[];for(var i=[],l=0;l<r.length;l++){var s=r[l];if(s instanceof Element&&a(s)&&i.push(s),s instanceof DocumentFragment)for(s=s.firstChild;s;s=s.nextSibling)o.push(s);else o.push(s)}for(n.apply(this,r),r=0;r<i.length;r++)h(e,i[r]);if(a(this))for(r=0;r<o.length;r++)(i=o[r])instanceof Element&&u(e,i)}}z&&(n.before=t(z)),z&&(n.after=t(x)),Z&&i(n,"replaceWith",function(n){for(var t=[],r=0;r<arguments.length;++r)t[r-0]=arguments[r];r=[];for(var o=[],i=0;i<t.length;i++){var l=t[i];if(l instanceof Element&&a(l)&&o.push(l),l instanceof DocumentFragment)for(l=l.firstChild;l;l=l.nextSibling)r.push(l);else r.push(l)}for(i=a(this),Z.apply(this,t),t=0;t<o.length;t++)h(e,o[t]);if(i)for(h(e,this),t=0;t<r.length;t++)(o=r[t])instanceof Element&&u(e,o)}),U&&i(n,"remove",function(){var n=a(this);U.call(this),n&&h(e,this)})}(e)}(),document.__CE_hasRegistry=!0;var ee=new g($);Object.defineProperty(window,"customElements",{configurable:!0,enumerable:!0,value:ee})}}).call(self)},function(e,n){
-/**
- * @license
- * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
- */
-(()=>{"use strict";if(!window.customElements)return;const e=window.HTMLElement,n=window.customElements.define,t=window.customElements.get,a=new Map,r=new Map;let o=!1,i=!1;window.HTMLElement=function(){if(!o){const e=a.get(this.constructor),n=t.call(window.customElements,e);return i=!0,new n}o=!1},window.HTMLElement.prototype=e.prototype;Object.defineProperty(window,"customElements",{value:window.customElements,configurable:!0,writable:!0}),Object.defineProperty(window.customElements,"define",{value:(t,l)=>{const s=l.prototype,m=class extends e{constructor(){super(),Object.setPrototypeOf(this,s),i||(o=!0,l.call(this)),i=!1}},c=m.prototype;m.observedAttributes=l.observedAttributes,c.connectedCallback=s.connectedCallback,c.disconnectedCallback=s.disconnectedCallback,c.attributeChangedCallback=s.attributeChangedCallback,c.adoptedCallback=s.adoptedCallback,a.set(l,t),r.set(t,l),n.call(window.customElements,t,m)},configurable:!0,writable:!0}),Object.defineProperty(window.customElements,"get",{value:e=>r.get(e),configurable:!0,writable:!0})})()},,,function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});n.default=[{name:"Erica Romaguera"},{name:"Caleigh Jerde"},{name:"Lucas Schultz"},{name:"Carole Marvin"},{name:"Dorian Feeney"},{name:"Nia Gutkowski"},{name:"Woodrow Nikolaus"},{name:"Jaquan Rolfson"},{name:"Dimitri Abernathy"},{name:"Alexanne Stanton"},{name:"Cooper Moore"},{name:"Gianni Block"},{name:"Jade Mohr"},{name:"Chet Weimann"},{name:"Kole Bednar"},{name:"Althea Harber"},{name:"Ara Dare"},{name:"Betsy Feeney"},{name:"Vicenta Maggio"},{name:"Candelario Hegmann"},{name:"Yoshiko Mraz"},{name:"Camila Hintz"},{name:"Rosamond Mueller"},{name:"Destinee Erdman"},{name:"Salvatore Roberts"},{name:"Alva Dickinson"},{name:"Jailyn Pagac"},{name:"Giovani Romaguera"},{name:"Josh Ryan"},{name:"Meda Hyatt"},{name:"Jeffry Christiansen"},{name:"Alexane Collins"},{name:"Shemar Sanford"},{name:"Zackary Bauch"},{name:"Oren Padberg"},{name:"Anna Yost"},{name:"Sigmund Legros"},{name:"Jazmyne Shields"},{name:"Ivory Kutch"},{name:"Aditya Shanahan"},{name:"Georgianna Baumbach"},{name:"Ken Wehner"},{name:"Bruce Bernier"},{name:"Phyllis Corwin"},{name:"Caesar Mann"},{name:"Clemmie Feest"},{name:"Joseph Heaney"},{name:"Lacey Morissette"},{name:"Reuben Crooks"},{name:"Kurtis Berge"},{name:"Luis Breitenberg"},{name:"Joy Swift"},{name:"Myrtle Stiedemann"},{name:"Joyce Quitzon"},{name:"Justyn Keeling"},{name:"Jerrold Lesch"},{name:"Preston Goodwin"},{name:"Monserrat Walsh"},{name:"Christ Berge"},{name:"Laron Buckridge"},{name:"Marianna Rempel"},{name:"Ines Daniel"},{name:"Orland Hane"},{name:"Pink Gerlach"},{name:"Nella Gerhold"},{name:"Kane Carroll"},{name:"Katrine Lehner"},{name:"Myrtis Cormier"},{name:"Hilton Runte"},{name:"Estella Greenfelder"},{name:"Triston Bednar"},{name:"Tyreek Kertzmann"},{name:"Laurie Wilderman"},{name:"Aniyah Murray"},{name:"Otha Kemmer"},{name:"Milan Collier"},{name:"Adrianna Roberts"},{name:"Brandi Crooks"},{name:"Dallin Cruickshank"},{name:"Laisha Williamson"},{name:"Ethel Block"},{name:"Viviane Powlowski"},{name:"Ella Emmerich"},{name:"Tina Gulgowski"},{name:"Chesley Ortiz"},{name:"Tabitha Krajcik"},{name:"Vergie Langosh"},{name:"Jane Feeney"},{name:"Okey Anderson"},{name:"Cierra Harris"},{name:"Celia Haley"},{name:"Meaghan Becker"},{name:"Melyna Fadel"},{name:"Jamir Rutherford"},{name:"Camden Yost"},{name:"Elmo Langosh"},{name:"Darrel Shields"},{name:"Mariam Boyle"},{name:"Rodger McDermott"},{name:"Vivienne Osinski"},{name:"Dante Collins"},{name:"Quincy Tremblay"},{name:"Dewitt Crist"},{name:"Fabiola Hamill"},{name:"Dan Boyle"},{name:"Fae Hoppe"},{name:"Samantha Gutkowski"},{name:"Enrique Borer"},{name:"Arnaldo Kozey"},{name:"Randall Veum"},{name:"Ashley Pacocha"},{name:"Bryce Howell"},{name:"Charity Mayer"},{name:"Georgiana Watsica"},{name:"Ethel Haley"},{name:"Bernadette Schuster"},{name:"Keenan Oberbrunner"},{name:"Danny Russel"},{name:"Rodrick Heller"},{name:"Zack Goyette"},{name:"Tevin Abernathy"},{name:"Chaim Schulist"},{name:"Katrine Ullrich"},{name:"Eriberto Zulauf"},{name:"Blanche Raynor"},{name:"Dock Cummings"},{name:"Vilma O'Connell"},{name:"Wade Strosin"},{name:"Willis Osinski"},{name:"Werner Braun"},{name:"Jarrell Wintheiser"},{name:"Mervin Walter"},{name:"Sven Kunde"},{name:"Stuart Maggio"},{name:"Dejah Howell"},{name:"Cade Leannon"},{name:"Arturo Fahey"},{name:"Marcelo Reichel"},{name:"Haley Champlin"},{name:"Colton Prosacco"},{name:"Marcus Koepp"},{name:"Demetrius Lockman"},{name:"Tad Emard"},{name:"Keeley Thiel"},{name:"Dan Borer"},{name:"Misty Harris"},{name:"German Hodkiewicz"},{name:"Elliott Bednar"},{name:"Stuart Heller"},{name:"Garret Heidenreich"},{name:"Catharine Schinner"},{name:"Easter Roob"},{name:"Jaydon Abshire"},{name:"Aaliyah Jast"},{name:"Freddy Wilderman"},{name:"Aubree Wilderman"},{name:"Aubree Romaguera"},{name:"Jessyca Mayert"},{name:"Lexus Kihn"},{name:"Norene Grant"},{name:"Amelie Labadie"},{name:"Coy Hickle"},{name:"Bret Funk"},{name:"Jaqueline Stehr"},{name:"Christian Herzog"},{name:"Ford Bashirian"},{name:"Elisha Nikolaus"},{name:"Jaydon Dietrich"},{name:"Adrien Berge"},{name:"Gay Upton"},{name:"Savanah Wiegand"},{name:"Kristofer Kemmer"},{name:"Elvera Cormier"},{name:"Shane Hammes"},{name:"Adolphus Raynor"},{name:"Edd Okuneva"},{name:"Efrain Macejkovic"},{name:"Minerva Leffler"},{name:"Jody Raynor"},{name:"Elaina Nitzsche"},{name:"Alvera Schinner"},{name:"Peggie Goodwin"},{name:"Marcus Roberts"},{name:"Mittie Fay"},{name:"Birdie Grant"},{name:"Jackie Brekke"},{name:"Candelario Raynor"},{name:"Loyal Mueller"},{name:"Catharine Rolfson"},{name:"Melody Krajcik"},{name:"Aliya Ledner"},{name:"Joan Harvey"},{name:"Micheal Cormier"},{name:"Aleen Schowalter"},{name:"Alphonso Jenkins"},{name:"Elisa Schroeder"},{name:"Ryder Stamm"},{name:"Myra Harber"},{name:"Amanda Fritsch"},{name:"Hector McLaughlin"},{name:"Leland Konopelski"},{name:"Maida Miller"},{name:"Lilla Paucek"},{name:"Arvid Heller"},{name:"Jessica Walsh"},{name:"Tom Will"},{name:"Riley Bashirian"},{name:"Alf Keebler"},{name:"Icie Fritsch"},{name:"Jaleel Bartell"},{name:"Jana Fay"},{name:"Adaline Huels"},{name:"Lavina Morissette"},{name:"Taryn Strosin"},{name:"Elenora Hansen"},{name:"Erich Haley"},{name:"Josie Kunde"},{name:"Marguerite Paucek"},{name:"Pink Kuvalis"},{name:"Dena Hagenes"},{name:"Blaze Olson"},{name:"Giovanna Wiegand"},{name:"Emelia Denesik"},{name:"Sadye Leannon"},{name:"Meredith O'Reilly"},{name:"Hope Metz"},{name:"Dayna Marquardt"},{name:"Pearl Terry"},{name:"Daija Waelchi"},{name:"Catharine Jacobs"},{name:"Jorge Tillman"},{name:"Deonte Corwin"},{name:"Janice Kozey"},{name:"Brendon Kuhn"},{name:"Lavina Walter"},{name:"Nina Monahan"},{name:"Eula Medhurst"},{name:"Urban Hane"},{name:"Vanessa Feil"},{name:"Suzanne Wiegand"},{name:"Santiago Farrell"},{name:"Misty Wyman"},{name:"Vita Volkman"},{name:"Constance Daniel"},{name:"Seth Lind"},{name:"Kyler Russel"},{name:"Wade Terry"},{name:"Esmeralda Zieme"},{name:"Marcelino Zboncak"},{name:"Emma Baumbach"},{name:"Doris Schowalter"},{name:"Evie Rosenbaum"},{name:"Alta Koch"},{name:"Aryanna Ryan"},{name:"Raul Kling"},{name:"Kitty Prosacco"},{name:"Ubaldo Nolan"},{name:"Sigmund Kunze"},{name:"Jacynthe Koss"},{name:"Elda Rutherford"},{name:"Amanda Harvey"},{name:"Breana Bosco"},{name:"Sadie Kuhlman"},{name:"Gaetano Gaylord"},{name:"Jamel White"},{name:"Eliseo Crist"},{name:"Grover Klocko"},{name:"Melisa Daugherty"},{name:"Emma Hoppe"},{name:"Raymond Kiehn"},{name:"Alia Farrell"},{name:"Dusty Bruen"},{name:"Ruthe Satterfield"},{name:"Yoshiko Altenwerth"},{name:"Cristina Murphy"},{name:"Citlalli Kulas"},{name:"Annamarie Schroeder"},{name:"Lou Hettinger"},{name:"Jaunita Schumm"},{name:"Khalid Padberg"},{name:"Irwin Fisher"},{name:"Adaline Flatley"},{name:"Naomi Mante"},{name:"Doris Roberts"},{name:"Alana Kilback"},{name:"Geo Quigley"},{name:"May Konopelski"},{name:"Nicholas O'Conner"},{name:"Domenica Rowe"},{name:"Loy Wilkinson"},{name:"Crystal Kulas"},{name:"Gordon Bartell"},{name:"Salma Bayer"},{name:"Myrna Purdy"},{name:"Waldo Dickinson"},{name:"Randal Lockman"},{name:"Buford Terry"},{name:"Bud Erdman"},{name:"Madisen Brakus"},{name:"Chaim Beer"},{name:"Jamal Kirlin"},{name:"Danika Brekke"},{name:"Lisa Beatty"},{name:"Hudson Dietrich"},{name:"Aisha Blick"},{name:"Lupe Smitham"},{name:"Mazie Rippin"},{name:"Tracey Frami"},{name:"Nakia Kuphal"},{name:"Micah Zboncak"},{name:"Freddie Mante"},{name:"Maria Runolfsson"},{name:"Donna Kreiger"},{name:"Elissa Bechtelar"},{name:"Hertha Pfeffer"},{name:"Katelynn Heathcote"},{name:"Eldora Mills"},{name:"Carley Johnson"},{name:"Juanita Emard"},{name:"Ova Luettgen"},{name:"Jeffery Littel"},{name:"Harrison Leannon"},{name:"Luciano Johnson"},{name:"Jaden Roob"},{name:"Johnathan Thiel"},{name:"Lulu Botsford"},{name:"Abraham Weber"},{name:"Newell Rodriguez"},{name:"Oceane Klein"},{name:"Rhett Roob"},{name:"Joannie Simonis"},{name:"Greta Zboncak"},{name:"Hobart McGlynn"},{name:"Emmanuel Kihn"},{name:"Kaden McCullough"},{name:"Elinore Lowe"},{name:"Pascale O'Kon"},{name:"Gabriella Batz"},{name:"Katelyn Cartwright"},{name:"Turner Hilll"},{name:"Catharine Jakubowski"},{name:"Jed Johnson"},{name:"Audra Jenkins"},{name:"Willy Raynor"},{name:"Shakira Jacobs"},{name:"Dean Hodkiewicz"},{name:"Erin Effertz"},{name:"Octavia Medhurst"},{name:"Joelle Monahan"},{name:"Wilbert Roob"},{name:"Kayleigh Reichert"},{name:"Mohammad Schuster"},{name:"Erling Haag"},{name:"Sonny McLaughlin"},{name:"Taya Tillman"},{name:"Ewell Medhurst"},{name:"Lila Casper"},{name:"Alejandra Ledner"},{name:"Alysson Schiller"},{name:"Leif Bartoletti"},{name:"Orland Mitchell"},{name:"Isai Stark"},{name:"Austen Okuneva"},{name:"Zena Dickens"},{name:"Electa Green"},{name:"Eulah Sipes"},{name:"Rahul Homenick"},{name:"Ralph McGlynn"},{name:"Anahi Jacobson"},{name:"Alan Buckridge"},{name:"Gracie Mayert"},{name:"Alford Ernser"},{name:"Dina DuBuque"},{name:"Mason Bogan"},{name:"Jarret Mante"},{name:"Kendall Hahn"},{name:"Kacey Brakus"},{name:"Margaret Turcotte"},{name:"Danial Lemke"},{name:"Clark Marvin"},{name:"Jessyca Maggio"},{name:"Raphael Kemmer"},{name:"Leanna Boyer"},{name:"Raquel Haag"},{name:"Titus Tromp"},{name:"Favian Green"},{name:"Alphonso Bernhard"},{name:"Rico Kihn"},{name:"Nicholas Tremblay"},{name:"Merlin Heathcote"},{name:"Hoyt Parker"},{name:"Ethelyn Beatty"},{name:"Kathryn Orn"},{name:"Harmon Von"},{name:"Kaylah McGlynn"},{name:"Don Abbott"},{name:"Bette Dietrich"},{name:"Amaya Abshire"},{name:"Johann Cremin"},{name:"Rickie Glover"},{name:"Alfonzo Leuschke"},{name:"Barrett Moore"},{name:"Osbaldo Eichmann"},{name:"Mercedes Barrows"},{name:"Rocio Goodwin"},{name:"Betty Breitenberg"},{name:"Fae Wisoky"},{name:"Gerard Wintheiser"},{name:"Simeon Gislason"},{name:"Bill Will"},{name:"Coty Reynolds"},{name:"Amelia Mohr"},{name:"Earline Denesik"},{name:"Antone Mayert"},{name:"Alison Streich"},{name:"Elva Gorczany"},{name:"Schuyler Lubowitz"},{name:"Luella Sawayn"},{name:"Kacey Reichel"},{name:"Schuyler Jenkins"},{name:"Princess Koch"},{name:"Clotilde Cronin"},{name:"Madge Jacobs"},{name:"Domenick Zieme"},{name:"Elena Kuhlman"},{name:"Tierra Goldner"},{name:"Rashawn Breitenberg"},{name:"Nickolas Crona"},{name:"Katheryn Corkery"},{name:"Tito Windler"},{name:"Nadia Spinka"},{name:"Abe Balistreri"},{name:"Eliseo Olson"},{name:"Frances Sporer"},{name:"Jazlyn Ferry"},{name:"Rita Stokes"},{name:"Geovanni Lubowitz"},{name:"Constantin Flatley"},{name:"Randal Harvey"},{name:"Jaren Koepp"},{name:"Madaline Crona"},{name:"Lysanne Herman"},{name:"Ashley Zieme"},{name:"Chaim Labadie"},{name:"Kyleigh Corkery"},{name:"Carole Weber"},{name:"Noah Schmeler"},{name:"Johnathon Romaguera"},{name:"Seamus Powlowski"},{name:"Taya Krajcik"},{name:"Maude Botsford"},{name:"Rubie Bosco"},{name:"Makayla Eichmann"},{name:"Gregory Windler"},{name:"German Waters"},{name:"Caesar Hand"},{name:"Davion Bayer"},{name:"Rachael Reynolds"},{name:"Ada Deckow"},{name:"Rowena Swaniawski"},{name:"Lucius Kulas"},{name:"Ludie Aufderhar"},{name:"Brandon Jacobi"},{name:"Buddy Kuvalis"},{name:"Magdalen Douglas"},{name:"Lindsay Funk"},{name:"Hipolito Hahn"},{name:"Wava Pouros"},{name:"Jordy Connelly"},{name:"Moriah Adams"},{name:"Laurine Wiza"},{name:"Alexys Erdman"},{name:"Tyrese Walsh"},{name:"Gerry Lehner"},{name:"Esmeralda Kuhlman"},{name:"Neoma Frami"},{name:"Joseph Stamm"},{name:"Matilda Wiza"},{name:"Abdullah Terry"},{name:"Kaylie McLaughlin"},{name:"Makenzie Roob"},{name:"Florian Dach"},{name:"Zoe Hansen"},{name:"Jazmyne Cummings"},{name:"Mary Fahey"},{name:"Kaden Leffler"},{name:"Nikko Reynolds"},{name:"Charlotte Runolfsdottir"},{name:"Cathy Murray"},{name:"Charlie Torphy"},{name:"Fausto Ledner"},{name:"Jack Stanton"},{name:"Kayden Hermann"},{name:"Karianne Schmidt"},{name:"Jude Harvey"},{name:"Heber Zboncak"},{name:"Alverta Raynor"},{name:"Mozell Legros"},{name:"Jewel Turner"},{name:"Brooks Fisher"}]},function(e,n,t){"use strict";var a=function(){function e(e,n){for(var t=0;t<n.length;t++){var a=n[t];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(n,t,a){return t&&e(n.prototype,t),a&&e(n,a),n}}(),r=i(t(1)),o=i(t(9));function i(e){return e&&e.__esModule?e:{default:e}}var l=function(e){function n(){return function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")}(this,n),function(e,n){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!n||"object"!=typeof n&&"function"!=typeof n?e:n}(this,(n.__proto__||Object.getPrototypeOf(n)).apply(this,arguments))}return function(e,n){if("function"!=typeof n&&null!==n)throw new TypeError("Super expression must either be null or a function, not "+typeof n);e.prototype=Object.create(n&&n.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),n&&(Object.setPrototypeOf?Object.setPrototypeOf(e,n):e.__proto__=n)}(n,r.default),a(n,[{key:"sortUsers",value:function(){this.data.users=this.data.users.sort(function(e,n){return e.name>n.name})}},{key:"onClick",value:function(e){e.target.hasAttribute("data-trigger")&&this.sortUsers()}},{key:"mount",value:function(){this.data.users=o.default}},{key:"generateChilds",value:function(){return this.data.users.reduce(function(e,n){return e+"\n\t\t\t\t<tr>\n\t\t\t\t\t<td>"+n.name+"</td>\n\t\t\t\t</tr>\n\t\t\t"},"")}},{key:"render",value:function(){this.data.isEmpty||(this.innerHTML="\n\t\t\t\t<table>\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\tUsernames ("+this.data.users.length+")\n\t\t\t\t\t\t\t<button data-trigger>Sort by name</button>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t"+this.generateChilds()+"\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t")}}]),n}();customElements.define("element-sorting-table",l)}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function _classCallCheck2(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn2(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits2(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+(function webpackUniversalModuleDefinition(root, factory) {
+	if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory();else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["LEO"] = factory();else root["LEO"] = factory();
+})(typeof self !== 'undefined' ? self : undefined, function () {
+	return (/******/function (modules) {
+			// webpackBootstrap
+			/******/ // The module cache
+			/******/var installedModules = {};
+			/******/
+			/******/ // The require function
+			/******/function __webpack_require__(moduleId) {
+				/******/
+				/******/ // Check if module is in cache
+				/******/if (installedModules[moduleId]) {
+					/******/return installedModules[moduleId].exports;
+					/******/
+				}
+				/******/ // Create a new module (and put it into the cache)
+				/******/var module = installedModules[moduleId] = {
+					/******/i: moduleId,
+					/******/l: false,
+					/******/exports: {}
+					/******/ };
+				/******/
+				/******/ // Execute the module function
+				/******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+				/******/
+				/******/ // Flag the module as loaded
+				/******/module.l = true;
+				/******/
+				/******/ // Return the exports of the module
+				/******/return module.exports;
+				/******/
+			}
+			/******/
+			/******/
+			/******/ // expose the modules object (__webpack_modules__)
+			/******/__webpack_require__.m = modules;
+			/******/
+			/******/ // expose the module cache
+			/******/__webpack_require__.c = installedModules;
+			/******/
+			/******/ // define getter function for harmony exports
+			/******/__webpack_require__.d = function (exports, name, getter) {
+				/******/if (!__webpack_require__.o(exports, name)) {
+					/******/Object.defineProperty(exports, name, {
+						/******/configurable: false,
+						/******/enumerable: true,
+						/******/get: getter
+						/******/ });
+					/******/
+				}
+				/******/
+			};
+			/******/
+			/******/ // getDefaultExport function for compatibility with non-harmony modules
+			/******/__webpack_require__.n = function (module) {
+				/******/var getter = module && module.__esModule ?
+				/******/function getDefault() {
+					return module['default'];
+				} :
+				/******/function getModuleExports() {
+					return module;
+				};
+				/******/__webpack_require__.d(getter, 'a', getter);
+				/******/return getter;
+				/******/
+			};
+			/******/
+			/******/ // Object.prototype.hasOwnProperty.call
+			/******/__webpack_require__.o = function (object, property) {
+				return Object.prototype.hasOwnProperty.call(object, property);
+			};
+			/******/
+			/******/ // __webpack_public_path__
+			/******/__webpack_require__.p = "";
+			/******/
+			/******/ // Load entry module and return exports
+			/******/return __webpack_require__(__webpack_require__.s = 4);
+			/******/
+		}(
+		/************************************************************************/
+		/******/[
+		/* 0 */
+		/***/function (module, exports) {
+
+			/**
+    * @license
+    * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+    * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    * Code distributed by Google as part of the polymer project is also
+    * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+    */
+
+			/**
+    * This shim allows elements written in, or compiled to, ES5 to work on native
+    * implementations of Custom Elements.
+    *
+    * ES5-style classes don't work with native Custom Elements because the
+    * HTMLElement constructor uses the value of `new.target` to look up the custom
+    * element definition for the currently called constructor. `new.target` is only
+    * set when `new` is called and is only propagated via super() calls. super()
+    * is not emulatable in ES5. The pattern of `SuperClass.call(this)`` only works
+    * when extending other ES5-style classes, and does not propagate `new.target`.
+    *
+    * This shim allows the native HTMLElement constructor to work by generating and
+    * registering a stand-in class instead of the users custom element class. This
+    * stand-in class's constructor has an actual call to super().
+    * `customElements.define()` and `customElements.get()` are both overridden to
+    * hide this stand-in class from users.
+    *
+    * In order to create instance of the user-defined class, rather than the stand
+    * in, the stand-in's constructor swizzles its instances prototype and invokes
+    * the user-defined constructor. When the user-defined constructor is called
+    * directly it creates an instance of the stand-in class to get a real extension
+    * of HTMLElement and returns that.
+    *
+    * There are two important constructors: A patched HTMLElement constructor, and
+    * the StandInElement constructor. They both will be called to create an element
+    * but which is called first depends on whether the browser creates the element
+    * or the user-defined constructor is called directly. The variables
+    * `browserConstruction` and `userConstruction` control the flow between the
+    * two constructors.
+    *
+    * This shim should be better than forcing the polyfill because:
+    *   1. It's smaller
+    *   2. All reaction timings are the same as native (mostly synchronous)
+    *   3. All reaction triggering DOM operations are automatically supported
+    *
+    * There are some restrictions and requirements on ES5 constructors:
+    *   1. All constructors in a inheritance hierarchy must be ES5-style, so that
+    *      they can be called with Function.call(). This effectively means that the
+    *      whole application must be compiled to ES5.
+    *   2. Constructors must return the value of the emulated super() call. Like
+    *      `return SuperClass.call(this)`
+    *   3. The `this` reference should not be used before the emulated super() call
+    *      just like `this` is illegal to use before super() in ES6.
+    *   4. Constructors should not create other custom elements before the emulated
+    *      super() call. This is the same restriction as with native custom
+    *      elements.
+    *
+    *  Compiling valid class-based custom elements to ES5 will satisfy these
+    *  requirements with the latest version of popular transpilers.
+    */
+			(function () {
+				'use strict';
+
+				// Do nothing if `customElements` does not exist.
+
+				if (!window.customElements) return;
+
+				var NativeHTMLElement = window.HTMLElement;
+				var nativeDefine = window.customElements.define;
+				var nativeGet = window.customElements.get;
+
+				/**
+     * Map of user-provided constructors to tag names.
+     *
+     * @type {Map<Function, string>}
+     */
+				var tagnameByConstructor = new Map();
+
+				/**
+     * Map of tag names to user-provided constructors.
+     *
+     * @type {Map<string, Function>}
+     */
+				var constructorByTagname = new Map();
+
+				/**
+     * Whether the constructors are being called by a browser process, ie parsing
+     * or createElement.
+     */
+				var browserConstruction = false;
+
+				/**
+     * Whether the constructors are being called by a user-space process, ie
+     * calling an element constructor.
+     */
+				var userConstruction = false;
+
+				window.HTMLElement = function () {
+					if (!browserConstruction) {
+						var tagname = tagnameByConstructor.get(this.constructor);
+						var fakeClass = nativeGet.call(window.customElements, tagname);
+
+						// Make sure that the fake constructor doesn't call back to this constructor
+						userConstruction = true;
+						var instance = new fakeClass();
+						return instance;
+					}
+					// Else do nothing. This will be reached by ES5-style classes doing
+					// HTMLElement.call() during initialization
+					browserConstruction = false;
+				};
+				// By setting the patched HTMLElement's prototype property to the native
+				// HTMLElement's prototype we make sure that:
+				//     document.createElement('a') instanceof HTMLElement
+				// works because instanceof uses HTMLElement.prototype, which is on the
+				// ptototype chain of built-in elements.
+				window.HTMLElement.prototype = NativeHTMLElement.prototype;
+
+				var define = function define(tagname, elementClass) {
+					var elementProto = elementClass.prototype;
+					var StandInElement = function (_NativeHTMLElement) {
+						_inherits2(StandInElement, _NativeHTMLElement);
+
+						function StandInElement() {
+							_classCallCheck2(this, StandInElement);
+
+							// The prototype will be wrong up because the browser used our fake
+							// class, so fix it:
+							var _this3 = _possibleConstructorReturn2(this, (StandInElement.__proto__ || Object.getPrototypeOf(StandInElement)).call(this));
+							// Call the native HTMLElement constructor, this gives us the
+							// under-construction instance as `this`:
+
+
+							Object.setPrototypeOf(_this3, elementProto);
+
+							if (!userConstruction) {
+								// Make sure that user-defined constructor bottom's out to a do-nothing
+								// HTMLElement() call
+								browserConstruction = true;
+								// Call the user-defined constructor on our instance:
+								elementClass.call(_this3);
+							}
+							userConstruction = false;
+							return _this3;
+						}
+
+						return StandInElement;
+					}(NativeHTMLElement);
+					var standInProto = StandInElement.prototype;
+					StandInElement.observedAttributes = elementClass.observedAttributes;
+					standInProto.connectedCallback = elementProto.connectedCallback;
+					standInProto.disconnectedCallback = elementProto.disconnectedCallback;
+					standInProto.attributeChangedCallback = elementProto.attributeChangedCallback;
+					standInProto.adoptedCallback = elementProto.adoptedCallback;
+
+					tagnameByConstructor.set(elementClass, tagname);
+					constructorByTagname.set(tagname, elementClass);
+					nativeDefine.call(window.customElements, tagname, StandInElement);
+				};
+
+				var get = function get(tagname) {
+					return constructorByTagname.get(tagname);
+				};
+
+				// Workaround for Safari bug where patching customElements can be lost, likely
+				// due to native wrapper garbage collection issue
+				Object.defineProperty(window, 'customElements', { value: window.customElements, configurable: true, writable: true });
+				Object.defineProperty(window.customElements, 'define', { value: define, configurable: true, writable: true });
+				Object.defineProperty(window.customElements, 'get', { value: get, configurable: true, writable: true });
+			})();
+
+			/***/
+		},
+		/* 1 */
+		/***/function (module, exports) {
+
+			(function () {
+				'use strict';
+				var h = new function () {}();var aa = new Set("annotation-xml color-profile font-face font-face-src font-face-uri font-face-format font-face-name missing-glyph".split(" "));function n(b) {
+					var a = aa.has(b);b = /^[a-z][.0-9_a-z]*-[\-.0-9_a-z]*$/.test(b);return !a && b;
+				}function p(b) {
+					var a = b.isConnected;if (void 0 !== a) return a;for (; b && !(b.__CE_isImportDocument || b instanceof Document);) {
+						b = b.parentNode || (window.ShadowRoot && b instanceof ShadowRoot ? b.host : void 0);
+					}return !(!b || !(b.__CE_isImportDocument || b instanceof Document));
+				}
+				function q(b, a) {
+					for (; a && a !== b && !a.nextSibling;) {
+						a = a.parentNode;
+					}return a && a !== b ? a.nextSibling : null;
+				}
+				function t(b, a, c) {
+					c = c ? c : new Set();for (var d = b; d;) {
+						if (d.nodeType === Node.ELEMENT_NODE) {
+							var e = d;a(e);var f = e.localName;if ("link" === f && "import" === e.getAttribute("rel")) {
+								d = e.import;if (d instanceof Node && !c.has(d)) for (c.add(d), d = d.firstChild; d; d = d.nextSibling) {
+									t(d, a, c);
+								}d = q(b, e);continue;
+							} else if ("template" === f) {
+								d = q(b, e);continue;
+							}if (e = e.__CE_shadowRoot) for (e = e.firstChild; e; e = e.nextSibling) {
+								t(e, a, c);
+							}
+						}d = d.firstChild ? d.firstChild : q(b, d);
+					}
+				}function u(b, a, c) {
+					b[a] = c;
+				};function v() {
+					this.a = new Map();this.o = new Map();this.f = [];this.b = !1;
+				}function ba(b, a, c) {
+					b.a.set(a, c);b.o.set(c.constructor, c);
+				}function w(b, a) {
+					b.b = !0;b.f.push(a);
+				}function x(b, a) {
+					b.b && t(a, function (a) {
+						return y(b, a);
+					});
+				}function y(b, a) {
+					if (b.b && !a.__CE_patched) {
+						a.__CE_patched = !0;for (var c = 0; c < b.f.length; c++) {
+							b.f[c](a);
+						}
+					}
+				}function z(b, a) {
+					var c = [];t(a, function (b) {
+						return c.push(b);
+					});for (a = 0; a < c.length; a++) {
+						var d = c[a];1 === d.__CE_state ? b.connectedCallback(d) : A(b, d);
+					}
+				}
+				function B(b, a) {
+					var c = [];t(a, function (b) {
+						return c.push(b);
+					});for (a = 0; a < c.length; a++) {
+						var d = c[a];1 === d.__CE_state && b.disconnectedCallback(d);
+					}
+				}
+				function C(b, a, c) {
+					c = c ? c : {};var d = c.w || new Set(),
+					    e = c.s || function (a) {
+						return A(b, a);
+					},
+					    f = [];t(a, function (a) {
+						if ("link" === a.localName && "import" === a.getAttribute("rel")) {
+							var c = a.import;c instanceof Node && (c.__CE_isImportDocument = !0, c.__CE_hasRegistry = !0);c && "complete" === c.readyState ? c.__CE_documentLoadHandled = !0 : a.addEventListener("load", function () {
+								var c = a.import;if (!c.__CE_documentLoadHandled) {
+									c.__CE_documentLoadHandled = !0;var f = new Set(d);f.delete(c);C(b, c, { w: f, s: e });
+								}
+							});
+						} else f.push(a);
+					}, d);if (b.b) for (a = 0; a < f.length; a++) {
+						y(b, f[a]);
+					}for (a = 0; a < f.length; a++) {
+						e(f[a]);
+					}
+				}
+				function A(b, a) {
+					if (void 0 === a.__CE_state) {
+						var c = a.ownerDocument;if (c.defaultView || c.__CE_isImportDocument && c.__CE_hasRegistry) if (c = b.a.get(a.localName)) {
+							c.constructionStack.push(a);var d = c.constructor;try {
+								try {
+									if (new d() !== a) throw Error("The custom element constructor did not produce the element being upgraded.");
+								} finally {
+									c.constructionStack.pop();
+								}
+							} catch (m) {
+								throw a.__CE_state = 2, m;
+							}a.__CE_state = 1;a.__CE_definition = c;if (c.attributeChangedCallback) for (c = c.observedAttributes, d = 0; d < c.length; d++) {
+								var e = c[d],
+								    f = a.getAttribute(e);null !== f && b.attributeChangedCallback(a, e, null, f, null);
+							}p(a) && b.connectedCallback(a);
+						}
+					}
+				}v.prototype.connectedCallback = function (b) {
+					var a = b.__CE_definition;a.connectedCallback && a.connectedCallback.call(b);
+				};v.prototype.disconnectedCallback = function (b) {
+					var a = b.__CE_definition;a.disconnectedCallback && a.disconnectedCallback.call(b);
+				};
+				v.prototype.attributeChangedCallback = function (b, a, c, d, e) {
+					var f = b.__CE_definition;f.attributeChangedCallback && -1 < f.observedAttributes.indexOf(a) && f.attributeChangedCallback.call(b, a, c, d, e);
+				};function D(b, a) {
+					this.c = b;this.a = a;this.b = void 0;C(this.c, this.a);"loading" === this.a.readyState && (this.b = new MutationObserver(this.f.bind(this)), this.b.observe(this.a, { childList: !0, subtree: !0 }));
+				}function E(b) {
+					b.b && b.b.disconnect();
+				}D.prototype.f = function (b) {
+					var a = this.a.readyState;"interactive" !== a && "complete" !== a || E(this);for (a = 0; a < b.length; a++) {
+						for (var c = b[a].addedNodes, d = 0; d < c.length; d++) {
+							C(this.c, c[d]);
+						}
+					}
+				};function ca() {
+					var b = this;this.b = this.a = void 0;this.f = new Promise(function (a) {
+						b.b = a;b.a && a(b.a);
+					});
+				}function F(b) {
+					if (b.a) throw Error("Already resolved.");b.a = void 0;b.b && b.b(void 0);
+				};function G(b) {
+					this.i = !1;this.c = b;this.m = new Map();this.j = function (b) {
+						return b();
+					};this.g = !1;this.l = [];this.u = new D(b, document);
+				}
+				G.prototype.define = function (b, a) {
+					var c = this;if (!(a instanceof Function)) throw new TypeError("Custom element constructors must be functions.");if (!n(b)) throw new SyntaxError("The element name '" + b + "' is not valid.");if (this.c.a.get(b)) throw Error("A custom element with name '" + b + "' has already been defined.");if (this.i) throw Error("A custom element is already being defined.");this.i = !0;var d, e, f, m, l;try {
+						var g = function g(b) {
+							var a = k[b];if (void 0 !== a && !(a instanceof Function)) throw Error("The '" + b + "' callback must be a function.");
+							return a;
+						},
+						    k = a.prototype;if (!(k instanceof Object)) throw new TypeError("The custom element constructor's prototype is not an object.");d = g("connectedCallback");e = g("disconnectedCallback");f = g("adoptedCallback");m = g("attributeChangedCallback");l = a.observedAttributes || [];
+					} catch (r) {
+						return;
+					} finally {
+						this.i = !1;
+					}a = { localName: b, constructor: a, connectedCallback: d, disconnectedCallback: e, adoptedCallback: f, attributeChangedCallback: m, observedAttributes: l, constructionStack: [] };ba(this.c, b, a);this.l.push(a);this.g || (this.g = !0, this.j(function () {
+						return da(c);
+					}));
+				};function da(b) {
+					if (!1 !== b.g) {
+						b.g = !1;for (var a = b.l, c = [], d = new Map(), e = 0; e < a.length; e++) {
+							d.set(a[e].localName, []);
+						}C(b.c, document, { s: function s(a) {
+								if (void 0 === a.__CE_state) {
+									var e = a.localName,
+									    f = d.get(e);f ? f.push(a) : b.c.a.get(e) && c.push(a);
+								}
+							} });for (e = 0; e < c.length; e++) {
+							A(b.c, c[e]);
+						}for (; 0 < a.length;) {
+							for (var f = a.shift(), e = f.localName, f = d.get(f.localName), m = 0; m < f.length; m++) {
+								A(b.c, f[m]);
+							}(e = b.m.get(e)) && F(e);
+						}
+					}
+				}G.prototype.get = function (b) {
+					if (b = this.c.a.get(b)) return b.constructor;
+				};
+				G.prototype.whenDefined = function (b) {
+					if (!n(b)) return Promise.reject(new SyntaxError("'" + b + "' is not a valid custom element name."));var a = this.m.get(b);if (a) return a.f;a = new ca();this.m.set(b, a);this.c.a.get(b) && !this.l.some(function (a) {
+						return a.localName === b;
+					}) && F(a);return a.f;
+				};G.prototype.v = function (b) {
+					E(this.u);var a = this.j;this.j = function (c) {
+						return b(function () {
+							return a(c);
+						});
+					};
+				};window.CustomElementRegistry = G;G.prototype.define = G.prototype.define;G.prototype.get = G.prototype.get;
+				G.prototype.whenDefined = G.prototype.whenDefined;G.prototype.polyfillWrapFlushCallback = G.prototype.v;var H = window.Document.prototype.createElement,
+				    ea = window.Document.prototype.createElementNS,
+				    fa = window.Document.prototype.importNode,
+				    ga = window.Document.prototype.prepend,
+				    ha = window.Document.prototype.append,
+				    ia = window.DocumentFragment.prototype.prepend,
+				    ja = window.DocumentFragment.prototype.append,
+				    I = window.Node.prototype.cloneNode,
+				    J = window.Node.prototype.appendChild,
+				    K = window.Node.prototype.insertBefore,
+				    L = window.Node.prototype.removeChild,
+				    M = window.Node.prototype.replaceChild,
+				    N = Object.getOwnPropertyDescriptor(window.Node.prototype, "textContent"),
+				    O = window.Element.prototype.attachShadow,
+				    P = Object.getOwnPropertyDescriptor(window.Element.prototype, "innerHTML"),
+				    Q = window.Element.prototype.getAttribute,
+				    R = window.Element.prototype.setAttribute,
+				    S = window.Element.prototype.removeAttribute,
+				    T = window.Element.prototype.getAttributeNS,
+				    U = window.Element.prototype.setAttributeNS,
+				    ka = window.Element.prototype.removeAttributeNS,
+				    la = window.Element.prototype.insertAdjacentElement,
+				    ma = window.Element.prototype.prepend,
+				    na = window.Element.prototype.append,
+				    V = window.Element.prototype.before,
+				    oa = window.Element.prototype.after,
+				    pa = window.Element.prototype.replaceWith,
+				    qa = window.Element.prototype.remove,
+				    ra = window.HTMLElement,
+				    W = Object.getOwnPropertyDescriptor(window.HTMLElement.prototype, "innerHTML"),
+				    sa = window.HTMLElement.prototype.insertAdjacentElement;function ta() {
+					var b = X;window.HTMLElement = function () {
+						function a() {
+							var a = this.constructor,
+							    d = b.o.get(a);if (!d) throw Error("The custom element being constructed was not registered with `customElements`.");var e = d.constructionStack;if (!e.length) return e = H.call(document, d.localName), Object.setPrototypeOf(e, a.prototype), e.__CE_state = 1, e.__CE_definition = d, y(b, e), e;var d = e.length - 1,
+							    f = e[d];if (f === h) throw Error("The HTMLElement constructor was either called reentrantly for this constructor or called multiple times.");
+							e[d] = h;Object.setPrototypeOf(f, a.prototype);y(b, f);return f;
+						}a.prototype = ra.prototype;return a;
+					}();
+				};function Y(b, a, c) {
+					function d(a) {
+						return function (d) {
+							for (var c = [], e = 0; e < arguments.length; ++e) {
+								c[e - 0] = arguments[e];
+							}for (var e = [], f = [], k = 0; k < c.length; k++) {
+								var r = c[k];r instanceof Element && p(r) && f.push(r);if (r instanceof DocumentFragment) for (r = r.firstChild; r; r = r.nextSibling) {
+									e.push(r);
+								} else e.push(r);
+							}a.apply(this, c);for (c = 0; c < f.length; c++) {
+								B(b, f[c]);
+							}if (p(this)) for (c = 0; c < e.length; c++) {
+								f = e[c], f instanceof Element && z(b, f);
+							}
+						};
+					}c.h && (a.prepend = d(c.h));c.append && (a.append = d(c.append));
+				};function ua() {
+					var b = X;u(Document.prototype, "createElement", function (a) {
+						if (this.__CE_hasRegistry) {
+							var c = b.a.get(a);if (c) return new c.constructor();
+						}a = H.call(this, a);y(b, a);return a;
+					});u(Document.prototype, "importNode", function (a, c) {
+						a = fa.call(this, a, c);this.__CE_hasRegistry ? C(b, a) : x(b, a);return a;
+					});u(Document.prototype, "createElementNS", function (a, c) {
+						if (this.__CE_hasRegistry && (null === a || "http://www.w3.org/1999/xhtml" === a)) {
+							var d = b.a.get(c);if (d) return new d.constructor();
+						}a = ea.call(this, a, c);y(b, a);return a;
+					});
+					Y(b, Document.prototype, { h: ga, append: ha });
+				};function va() {
+					var b = X;function a(a, d) {
+						Object.defineProperty(a, "textContent", { enumerable: d.enumerable, configurable: !0, get: d.get, set: function set(a) {
+								if (this.nodeType === Node.TEXT_NODE) d.set.call(this, a);else {
+									var c = void 0;if (this.firstChild) {
+										var e = this.childNodes,
+										    l = e.length;if (0 < l && p(this)) for (var c = Array(l), g = 0; g < l; g++) {
+											c[g] = e[g];
+										}
+									}d.set.call(this, a);if (c) for (a = 0; a < c.length; a++) {
+										B(b, c[a]);
+									}
+								}
+							} });
+					}u(Node.prototype, "insertBefore", function (a, d) {
+						if (a instanceof DocumentFragment) {
+							var c = Array.prototype.slice.apply(a.childNodes);
+							a = K.call(this, a, d);if (p(this)) for (d = 0; d < c.length; d++) {
+								z(b, c[d]);
+							}return a;
+						}c = p(a);d = K.call(this, a, d);c && B(b, a);p(this) && z(b, a);return d;
+					});u(Node.prototype, "appendChild", function (a) {
+						if (a instanceof DocumentFragment) {
+							var c = Array.prototype.slice.apply(a.childNodes);a = J.call(this, a);if (p(this)) for (var e = 0; e < c.length; e++) {
+								z(b, c[e]);
+							}return a;
+						}c = p(a);e = J.call(this, a);c && B(b, a);p(this) && z(b, a);return e;
+					});u(Node.prototype, "cloneNode", function (a) {
+						a = I.call(this, a);this.ownerDocument.__CE_hasRegistry ? C(b, a) : x(b, a);
+						return a;
+					});u(Node.prototype, "removeChild", function (a) {
+						var c = p(a),
+						    e = L.call(this, a);c && B(b, a);return e;
+					});u(Node.prototype, "replaceChild", function (a, d) {
+						if (a instanceof DocumentFragment) {
+							var e = Array.prototype.slice.apply(a.childNodes);a = M.call(this, a, d);if (p(this)) for (B(b, d), d = 0; d < e.length; d++) {
+								z(b, e[d]);
+							}return a;
+						}var e = p(a),
+						    c = M.call(this, a, d),
+						    m = p(this);m && B(b, d);e && B(b, a);m && z(b, a);return c;
+					});N && N.get ? a(Node.prototype, N) : w(b, function (b) {
+						a(b, { enumerable: !0, configurable: !0, get: function get() {
+								for (var a = [], b = 0; b < this.childNodes.length; b++) {
+									a.push(this.childNodes[b].textContent);
+								}return a.join("");
+							}, set: function set(a) {
+								for (; this.firstChild;) {
+									L.call(this, this.firstChild);
+								}J.call(this, document.createTextNode(a));
+							} });
+					});
+				};function wa(b) {
+					var a = Element.prototype;function c(a) {
+						return function (c) {
+							for (var d = [], e = 0; e < arguments.length; ++e) {
+								d[e - 0] = arguments[e];
+							}for (var e = [], l = [], g = 0; g < d.length; g++) {
+								var k = d[g];k instanceof Element && p(k) && l.push(k);if (k instanceof DocumentFragment) for (k = k.firstChild; k; k = k.nextSibling) {
+									e.push(k);
+								} else e.push(k);
+							}a.apply(this, d);for (d = 0; d < l.length; d++) {
+								B(b, l[d]);
+							}if (p(this)) for (d = 0; d < e.length; d++) {
+								l = e[d], l instanceof Element && z(b, l);
+							}
+						};
+					}V && (a.before = c(V));V && (a.after = c(oa));pa && u(a, "replaceWith", function (a) {
+						for (var d = [], c = 0; c < arguments.length; ++c) {
+							d[c - 0] = arguments[c];
+						}for (var c = [], m = [], l = 0; l < d.length; l++) {
+							var g = d[l];g instanceof Element && p(g) && m.push(g);if (g instanceof DocumentFragment) for (g = g.firstChild; g; g = g.nextSibling) {
+								c.push(g);
+							} else c.push(g);
+						}l = p(this);pa.apply(this, d);for (d = 0; d < m.length; d++) {
+							B(b, m[d]);
+						}if (l) for (B(b, this), d = 0; d < c.length; d++) {
+							m = c[d], m instanceof Element && z(b, m);
+						}
+					});qa && u(a, "remove", function () {
+						var a = p(this);qa.call(this);a && B(b, this);
+					});
+				};function xa() {
+					var b = X;function a(a, c) {
+						Object.defineProperty(a, "innerHTML", { enumerable: c.enumerable, configurable: !0, get: c.get, set: function set(a) {
+								var d = this,
+								    e = void 0;p(this) && (e = [], t(this, function (a) {
+									a !== d && e.push(a);
+								}));c.set.call(this, a);if (e) for (var f = 0; f < e.length; f++) {
+									var k = e[f];1 === k.__CE_state && b.disconnectedCallback(k);
+								}this.ownerDocument.__CE_hasRegistry ? C(b, this) : x(b, this);return a;
+							} });
+					}function c(a, c) {
+						u(a, "insertAdjacentElement", function (a, d) {
+							var e = p(d);a = c.call(this, a, d);e && B(b, d);p(a) && z(b, d);
+							return a;
+						});
+					}O && u(Element.prototype, "attachShadow", function (a) {
+						return this.__CE_shadowRoot = a = O.call(this, a);
+					});P && P.get ? a(Element.prototype, P) : W && W.get ? a(HTMLElement.prototype, W) : w(b, function (b) {
+						a(b, { enumerable: !0, configurable: !0, get: function get() {
+								return I.call(this, !0).innerHTML;
+							}, set: function set(a) {
+								var b = "template" === this.localName,
+								    d = b ? this.content : this,
+								    c = H.call(document, this.localName);for (c.innerHTML = a; 0 < d.childNodes.length;) {
+									L.call(d, d.childNodes[0]);
+								}for (a = b ? c.content : c; 0 < a.childNodes.length;) {
+									J.call(d, a.childNodes[0]);
+								}
+							} });
+					});u(Element.prototype, "setAttribute", function (a, c) {
+						if (1 !== this.__CE_state) return R.call(this, a, c);var d = Q.call(this, a);R.call(this, a, c);c = Q.call(this, a);b.attributeChangedCallback(this, a, d, c, null);
+					});u(Element.prototype, "setAttributeNS", function (a, c, f) {
+						if (1 !== this.__CE_state) return U.call(this, a, c, f);var d = T.call(this, a, c);U.call(this, a, c, f);f = T.call(this, a, c);b.attributeChangedCallback(this, c, d, f, a);
+					});u(Element.prototype, "removeAttribute", function (a) {
+						if (1 !== this.__CE_state) return S.call(this, a);var c = Q.call(this, a);S.call(this, a);null !== c && b.attributeChangedCallback(this, a, c, null, null);
+					});u(Element.prototype, "removeAttributeNS", function (a, c) {
+						if (1 !== this.__CE_state) return ka.call(this, a, c);var d = T.call(this, a, c);ka.call(this, a, c);var e = T.call(this, a, c);d !== e && b.attributeChangedCallback(this, c, d, e, a);
+					});sa ? c(HTMLElement.prototype, sa) : la ? c(Element.prototype, la) : console.warn("Custom Elements: `Element#insertAdjacentElement` was not patched.");Y(b, Element.prototype, { h: ma, append: na });wa(b);
+				}; /*
+       Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+       This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+       The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+       The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+       Code distributed by Google as part of the polymer project is also
+       subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+       */
+				var Z = window.customElements;if (!Z || Z.forcePolyfill || "function" != typeof Z.define || "function" != typeof Z.get) {
+					var X = new v();ta();ua();Y(X, DocumentFragment.prototype, { h: ia, append: ja });va();xa();document.__CE_hasRegistry = !0;var customElements = new G(X);Object.defineProperty(window, "customElements", { configurable: !0, enumerable: !0, value: customElements });
+				};
+			}).call(self);
+
+			//# sourceMappingURL=custom-elements.min.js.map
+
+
+			/***/
+		},
+		/* 2 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+
+			var _createClass = function () {
+				function defineProperties(target, props) {
+					for (var i = 0; i < props.length; i++) {
+						var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+					}
+				}return function (Constructor, protoProps, staticProps) {
+					if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+				};
+			}();
+
+			var _getter = __webpack_require__(6);
+
+			var _getter2 = _interopRequireDefault(_getter);
+
+			var _setter = __webpack_require__(7);
+
+			var _setter2 = _interopRequireDefault(_setter);
+
+			var _events = __webpack_require__(3);
+
+			function _interopRequireDefault(obj) {
+				return obj && obj.__esModule ? obj : { default: obj };
+			}
+
+			function _classCallCheck(instance, Constructor) {
+				if (!(instance instanceof Constructor)) {
+					throw new TypeError("Cannot call a class as a function");
+				}
+			}
+
+			var LEOObject = function () {
+				_createClass(LEOObject, [{
+					key: 'on',
+					value: function on(event, handler) {
+						(0, _events.Subscribe)(this, event, handler);
+					}
+				}, {
+					key: 'off',
+					value: function off(event, handler) {
+						(0, _events.Unsubscribe)(this, event, handler);
+					}
+				}, {
+					key: 'trigger',
+					value: function trigger(event, value) {
+						(0, _events.Trigger)(this, event, value);
+					}
+				}, {
+					key: 'listenTo',
+					value: function listenTo(model, event, handler) {
+						(0, _events.BindObservable)(this, model, event, handler);
+					}
+				}, {
+					key: 'stopListening',
+					value: function stopListening(model, event, handler) {
+						(0, _events.UnbindObservable)(this, model, event, handler);
+					}
+				}, {
+					key: 'clear',
+					value: function clear() {
+						var _this = this;
+
+						Object.keys(this.attributes).forEach(function (property) {
+							delete _this[property];
+							_this.trigger('change:' + property);
+						});
+						this.attributes = {};
+					}
+				}, {
+					key: 'clone',
+					value: function clone() {
+						var attributes = Object.assign({}, this.attributes);
+						return new LEOObject(attributes);
+					}
+				}, {
+					key: 'has',
+					value: function has(property) {
+						return !(typeof this[property] === 'undefined' || this[property] == null);
+					}
+				}, {
+					key: 'isEmpty',
+					get: function get() {
+						return Object.keys(this.attributes).length == 0;
+					}
+				}]);
+
+				function LEOObject(attributes) {
+					var _this2 = this;
+
+					_classCallCheck(this, LEOObject);
+
+					this.listeners = [];
+					this.listenToReferences = [];
+					this.attributes = attributes || {};
+
+					Object.keys(this.attributes).forEach(function (property) {
+						_this2[property] = _this2.attributes[property];
+					});
+
+					return new Proxy(this, {
+						get: _getter2.default,
+						set: _setter2.default
+					});
+				}
+
+				return LEOObject;
+			}();
+
+			exports.default = LEOObject;
+
+			/***/
+		},
+		/* 3 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+			/**
+   	Events.js is a set of utilities that encapsulates all event related logic from LEO.
+   	All this functions are imported in LEO main classes via composition.
+   	That means that all methods and properties from LEO are safe to use.
+   	All the implementation details are hidden behind this functions.
+   */
+
+			/**
+   	Triggers an event from the desired target with an optional value.
+   	* @required target <Object>
+   	* @required event <String>
+   	* @optional value <Any>
+   */
+			function Trigger(target, event, value, property) {
+				target.listeners.forEach(function (listener) {
+					if (listener.event === event) listener.handler(value, property);
+				});
+			}
+
+			/**
+   	Adds a handler for specific event in target.
+   	* @required target <Object>
+   	* @required event <String>
+   	* @required handler <Function>
+   */
+			function Subscribe(target, event, handler) {
+				target.listeners.push({
+					event: event,
+					handler: handler,
+					owner: target
+				});
+			}
+
+			/**
+   	Removes a handler for specific event in target.
+   	* @required target <Object>
+   	* @optional event <String>
+   	* @optional handler <Function>
+   */
+			function Unsubscribe(target, event, handler) {
+				if (event) {
+					target.listeners.forEach(function (listener, idx) {
+						if (listener.event === event && handler && listener.handler == handler || !handler && listener.event == event) target.listeners.splice(idx, 1);
+					});
+				} else {
+					target.listeners = [];
+				}
+			}
+
+			/**
+   	Adds a handler for an external object.
+   	* @required target <Object>
+   	* @required observable <Object>
+   	* @required event <String>
+   	* @required handler <Function>
+   */
+			function BindObservable(target, observable, event, handler) {
+				target.listenToReferences.push(observable);
+				observable.listeners.push({
+					event: event,
+					handler: handler,
+					owner: target
+				});
+			}
+
+			/**
+   	Removes a handler from an external object.
+   	* @required target <Object>
+   	* @optional observable <Object>
+   	* @optional event <String>
+   	* @optional handler <Function>
+   */
+			function UnbindObservable(target, observable, event, handler) {
+				if (!observable) {
+					target.listenToReferences.forEach(function (reference) {
+						reference.listeners.forEach(function (listener, idx) {
+							if (listener.owner == target) delete reference.listeners[idx];
+						});
+					});
+					target.listenToReferences = [];
+				} else {
+					observable.listeners.forEach(function (listener, idx) {
+						var sameEvent = listener.event === event;
+						var sameHandler = listener.handler == handler;
+						var sameOwner = listener.owner == target;
+
+						if (event && handler) {
+							if (sameOwner && sameEvent && sameHandler) delete observable.listeners[idx];
+						} else if (event) {
+							if (sameOwner && sameEvent) delete observable.listeners[idx];
+						} else {
+							if (sameOwner) delete observable.listeners[idx];
+						}
+					});
+				}
+			}
+
+			exports.Trigger = Trigger;
+			exports.Subscribe = Subscribe;
+			exports.Unsubscribe = Unsubscribe;
+			exports.BindObservable = BindObservable;
+			exports.UnbindObservable = UnbindObservable;
+
+			/***/
+		},
+		/* 4 */
+		/***/function (module, exports, __webpack_require__) {
+
+			__webpack_require__(0);
+			__webpack_require__(1);
+			module.exports = __webpack_require__(5);
+
+			/***/
+		},
+		/* 5 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+			exports.LEOElement = exports.LEOObject = undefined;
+
+			var _object = __webpack_require__(2);
+
+			var _object2 = _interopRequireDefault(_object);
+
+			var _element = __webpack_require__(8);
+
+			var _element2 = _interopRequireDefault(_element);
+
+			function _interopRequireDefault(obj) {
+				return obj && obj.__esModule ? obj : { default: obj };
+			}
+
+			exports.LEOObject = _object2.default;
+			exports.LEOElement = _element2.default;
+
+			/***/
+		},
+		/* 6 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+			function Getter(target, property) {
+				return target[property];
+			}
+
+			exports.default = Getter;
+
+			/***/
+		},
+		/* 7 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+
+			var _events = __webpack_require__(3);
+
+			var RESERVED_PROPERTIES = {
+				'attributes': true,
+				'listeners': true,
+				'listenToReferences': true,
+				'defaults': true
+			};
+
+			function Setter(target, property, value) {
+				target[property] = value;
+
+				var isProperty = !(property in RESERVED_PROPERTIES);
+				if (isProperty) {
+					target.attributes[property] = value;
+					var event = 'change:' + property;
+					(0, _events.Trigger)(target, 'change', value, property);
+					(0, _events.Trigger)(target, event, value, property);
+				}
+
+				return true;
+			}
+
+			exports.default = Setter;
+
+			/***/
+		},
+		/* 8 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			Object.defineProperty(exports, "__esModule", {
+				value: true
+			});
+
+			var _createClass = function () {
+				function defineProperties(target, props) {
+					for (var i = 0; i < props.length; i++) {
+						var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+					}
+				}return function (Constructor, protoProps, staticProps) {
+					if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+				};
+			}();
+
+			__webpack_require__(0);
+
+			__webpack_require__(1);
+
+			var _object = __webpack_require__(2);
+
+			var _object2 = _interopRequireDefault(_object);
+
+			function _interopRequireDefault(obj) {
+				return obj && obj.__esModule ? obj : { default: obj };
+			}
+
+			function _classCallCheck(instance, Constructor) {
+				if (!(instance instanceof Constructor)) {
+					throw new TypeError("Cannot call a class as a function");
+				}
+			}
+
+			function _possibleConstructorReturn(self, call) {
+				if (!self) {
+					throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+				}return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+			}
+
+			function _inherits(subClass, superClass) {
+				if (typeof superClass !== "function" && superClass !== null) {
+					throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+				}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+			}
+
+			function _CustomElement() {
+				return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+			}
+
+			;
+			Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+			Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+			var LEOElement = function (_CustomElement2) {
+				_inherits(LEOElement, _CustomElement2);
+
+				function LEOElement() {
+					_classCallCheck(this, LEOElement);
+
+					return _possibleConstructorReturn(this, (LEOElement.__proto__ || Object.getPrototypeOf(LEOElement)).apply(this, arguments));
+				}
+
+				_createClass(LEOElement, [{
+					key: 'connectedCallback',
+					value: function connectedCallback() {
+						this.attrs = new _object2.default(this.explodeAttributes());
+						this.data = new _object2.default({});
+						this.render();
+						this.observeAttrsAndData();
+						this.bind();
+						this.mount();
+						this.isMounted = true;
+					}
+				}, {
+					key: 'disconnectedCallback',
+					value: function disconnectedCallback() {
+						this.attrs.off();
+						this.data.off();
+						this.dismount();
+						this.isMounted = false;
+					}
+				}, {
+					key: 'mount',
+					value: function mount() {}
+				}, {
+					key: 'dismount',
+					value: function dismount() {}
+				}, {
+					key: 'render',
+					value: function render() {}
+				}, {
+					key: 'find',
+					value: function find(selector) {
+						return this.querySelector(selector);
+					}
+				}, {
+					key: 'observeAttrsAndData',
+					value: function observeAttrsAndData() {
+						var _this2 = this;
+
+						this.attrs.on('change', function (value, property) {
+							value === null ? _this2.removeAttribute(property) : _this2.setAttribute(property, value);
+							_this2.render();
+						});
+
+						this.data.on('change', function (value, property) {
+							_this2.render();
+						});
+					}
+				}, {
+					key: 'explodeAttributes',
+					value: function explodeAttributes() {
+						var explodedAttributes = {};
+						for (var i = 0; i < this.attributes.length; i++) {
+							explodedAttributes[this.attributes[i].name] = this.attributes[i].value;
+						}
+						return explodedAttributes;
+					}
+				}, {
+					key: 'bind',
+					value: function bind() {
+						if (this.onScroll) this.addEventListener('scroll', this.onScroll);
+						if (this.onClick) this.addEventListener('click', this.onClick);
+						if (this.onKeyup) this.addEventListener('keyup', this.onKeyup);
+						if (this.onKeydown) this.addEventListener('keydown', this.onKeydown);
+						if (this.onChange) this.addEventListener('change', this.onChange);
+						if (this.onFocus) this.addEventListener('focus', this.onFocus);
+						if (this.onBlur) this.addEventListener('change', this.onBlur);
+					}
+				}, {
+					key: 'isMounted',
+
+					/*
+     * Workaroun until constructor() declaration is avaliable in major browsers
+     * https://github.com/whatwg/html/pull/1404
+     * */
+					get: function get() {
+						return this._isMounted || false;
+					},
+					set: function set(value) {
+						this._isMounted = value;
+					}
+				}]);
+
+				return LEOElement;
+			}(_CustomElement);
+
+			customElements.define('leo-element', LEOElement);
+			exports.default = LEOElement;
+
+			/***/
+		}]
+		/******/)
+	);
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _leo = __webpack_require__(0);
+
+var _users = __webpack_require__(8);
+
+var _users2 = _interopRequireDefault(_users);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var elementSortingTable = function (_LEOElement) {
+	_inherits(elementSortingTable, _LEOElement);
+
+	function elementSortingTable() {
+		_classCallCheck(this, elementSortingTable);
+
+		return _possibleConstructorReturn(this, (elementSortingTable.__proto__ || Object.getPrototypeOf(elementSortingTable)).apply(this, arguments));
+	}
+
+	_createClass(elementSortingTable, [{
+		key: 'sortUsers',
+		value: function sortUsers() {
+			this.data.users = this.data.users.sort(function (prev, next) {
+				return prev.name > next.name;
+			});
+		}
+	}, {
+		key: 'onClick',
+		value: function onClick(e) {
+			if (e.target.hasAttribute('data-trigger')) this.sortUsers();
+		}
+	}, {
+		key: 'mount',
+		value: function mount() {
+			this.data.users = _users2.default;
+		}
+	}, {
+		key: 'generateChilds',
+		value: function generateChilds() {
+			return this.data.users.reduce(function (buffer, item) {
+				return buffer += '\n\t\t\t\t<tr>\n\t\t\t\t\t<td>' + item.name + '</td>\n\t\t\t\t</tr>\n\t\t\t';
+			}, '');
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			if (!this.data.isEmpty) {
+				this.innerHTML = '\n\t\t\t\t<table>\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\tUsernames (' + this.data.users.length + ')\n\t\t\t\t\t\t\t<button data-trigger>Sort by name</button>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t' + this.generateChilds() + '\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t';
+			}
+		}
+	}]);
+
+	return elementSortingTable;
+}(_leo.LEOElement);
+
+customElements.define('element-sorting-table', elementSortingTable);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var users = [{ "name": "Erica Romaguera" }, { "name": "Caleigh Jerde" }, { "name": "Lucas Schultz" }, { "name": "Carole Marvin" }, { "name": "Dorian Feeney" }, { "name": "Nia Gutkowski" }, { "name": "Woodrow Nikolaus" }, { "name": "Jaquan Rolfson" }, { "name": "Dimitri Abernathy" }, { "name": "Alexanne Stanton" }, { "name": "Cooper Moore" }, { "name": "Gianni Block" }, { "name": "Jade Mohr" }, { "name": "Chet Weimann" }, { "name": "Kole Bednar" }, { "name": "Althea Harber" }, { "name": "Ara Dare" }, { "name": "Betsy Feeney" }, { "name": "Vicenta Maggio" }, { "name": "Candelario Hegmann" }, { "name": "Yoshiko Mraz" }, { "name": "Camila Hintz" }, { "name": "Rosamond Mueller" }, { "name": "Destinee Erdman" }, { "name": "Salvatore Roberts" }, { "name": "Alva Dickinson" }, { "name": "Jailyn Pagac" }, { "name": "Giovani Romaguera" }, { "name": "Josh Ryan" }, { "name": "Meda Hyatt" }, { "name": "Jeffry Christiansen" }, { "name": "Alexane Collins" }, { "name": "Shemar Sanford" }, { "name": "Zackary Bauch" }, { "name": "Oren Padberg" }, { "name": "Anna Yost" }, { "name": "Sigmund Legros" }, { "name": "Jazmyne Shields" }, { "name": "Ivory Kutch" }, { "name": "Aditya Shanahan" }, { "name": "Georgianna Baumbach" }, { "name": "Ken Wehner" }, { "name": "Bruce Bernier" }, { "name": "Phyllis Corwin" }, { "name": "Caesar Mann" }, { "name": "Clemmie Feest" }, { "name": "Joseph Heaney" }, { "name": "Lacey Morissette" }, { "name": "Reuben Crooks" }, { "name": "Kurtis Berge" }, { "name": "Luis Breitenberg" }, { "name": "Joy Swift" }, { "name": "Myrtle Stiedemann" }, { "name": "Joyce Quitzon" }, { "name": "Justyn Keeling" }, { "name": "Jerrold Lesch" }, { "name": "Preston Goodwin" }, { "name": "Monserrat Walsh" }, { "name": "Christ Berge" }, { "name": "Laron Buckridge" }, { "name": "Marianna Rempel" }, { "name": "Ines Daniel" }, { "name": "Orland Hane" }, { "name": "Pink Gerlach" }, { "name": "Nella Gerhold" }, { "name": "Kane Carroll" }, { "name": "Katrine Lehner" }, { "name": "Myrtis Cormier" }, { "name": "Hilton Runte" }, { "name": "Estella Greenfelder" }, { "name": "Triston Bednar" }, { "name": "Tyreek Kertzmann" }, { "name": "Laurie Wilderman" }, { "name": "Aniyah Murray" }, { "name": "Otha Kemmer" }, { "name": "Milan Collier" }, { "name": "Adrianna Roberts" }, { "name": "Brandi Crooks" }, { "name": "Dallin Cruickshank" }, { "name": "Laisha Williamson" }, { "name": "Ethel Block" }, { "name": "Viviane Powlowski" }, { "name": "Ella Emmerich" }, { "name": "Tina Gulgowski" }, { "name": "Chesley Ortiz" }, { "name": "Tabitha Krajcik" }, { "name": "Vergie Langosh" }, { "name": "Jane Feeney" }, { "name": "Okey Anderson" }, { "name": "Cierra Harris" }, { "name": "Celia Haley" }, { "name": "Meaghan Becker" }, { "name": "Melyna Fadel" }, { "name": "Jamir Rutherford" }, { "name": "Camden Yost" }, { "name": "Elmo Langosh" }, { "name": "Darrel Shields" }, { "name": "Mariam Boyle" }, { "name": "Rodger McDermott" }, { "name": "Vivienne Osinski" }, { "name": "Dante Collins" }, { "name": "Quincy Tremblay" }, { "name": "Dewitt Crist" }, { "name": "Fabiola Hamill" }, { "name": "Dan Boyle" }, { "name": "Fae Hoppe" }, { "name": "Samantha Gutkowski" }, { "name": "Enrique Borer" }, { "name": "Arnaldo Kozey" }, { "name": "Randall Veum" }, { "name": "Ashley Pacocha" }, { "name": "Bryce Howell" }, { "name": "Charity Mayer" }, { "name": "Georgiana Watsica" }, { "name": "Ethel Haley" }, { "name": "Bernadette Schuster" }, { "name": "Keenan Oberbrunner" }, { "name": "Danny Russel" }, { "name": "Rodrick Heller" }, { "name": "Zack Goyette" }, { "name": "Tevin Abernathy" }, { "name": "Chaim Schulist" }, { "name": "Katrine Ullrich" }, { "name": "Eriberto Zulauf" }, { "name": "Blanche Raynor" }, { "name": "Dock Cummings" }, { "name": "Vilma O'Connell" }, { "name": "Wade Strosin" }, { "name": "Willis Osinski" }, { "name": "Werner Braun" }, { "name": "Jarrell Wintheiser" }, { "name": "Mervin Walter" }, { "name": "Sven Kunde" }, { "name": "Stuart Maggio" }, { "name": "Dejah Howell" }, { "name": "Cade Leannon" }, { "name": "Arturo Fahey" }, { "name": "Marcelo Reichel" }, { "name": "Haley Champlin" }, { "name": "Colton Prosacco" }, { "name": "Marcus Koepp" }, { "name": "Demetrius Lockman" }, { "name": "Tad Emard" }, { "name": "Keeley Thiel" }, { "name": "Dan Borer" }, { "name": "Misty Harris" }, { "name": "German Hodkiewicz" }, { "name": "Elliott Bednar" }, { "name": "Stuart Heller" }, { "name": "Garret Heidenreich" }, { "name": "Catharine Schinner" }, { "name": "Easter Roob" }, { "name": "Jaydon Abshire" }, { "name": "Aaliyah Jast" }, { "name": "Freddy Wilderman" }, { "name": "Aubree Wilderman" }, { "name": "Aubree Romaguera" }, { "name": "Jessyca Mayert" }, { "name": "Lexus Kihn" }, { "name": "Norene Grant" }, { "name": "Amelie Labadie" }, { "name": "Coy Hickle" }, { "name": "Bret Funk" }, { "name": "Jaqueline Stehr" }, { "name": "Christian Herzog" }, { "name": "Ford Bashirian" }, { "name": "Elisha Nikolaus" }, { "name": "Jaydon Dietrich" }, { "name": "Adrien Berge" }, { "name": "Gay Upton" }, { "name": "Savanah Wiegand" }, { "name": "Kristofer Kemmer" }, { "name": "Elvera Cormier" }, { "name": "Shane Hammes" }, { "name": "Adolphus Raynor" }, { "name": "Edd Okuneva" }, { "name": "Efrain Macejkovic" }, { "name": "Minerva Leffler" }, { "name": "Jody Raynor" }, { "name": "Elaina Nitzsche" }, { "name": "Alvera Schinner" }, { "name": "Peggie Goodwin" }, { "name": "Marcus Roberts" }, { "name": "Mittie Fay" }, { "name": "Birdie Grant" }, { "name": "Jackie Brekke" }, { "name": "Candelario Raynor" }, { "name": "Loyal Mueller" }, { "name": "Catharine Rolfson" }, { "name": "Melody Krajcik" }, { "name": "Aliya Ledner" }, { "name": "Joan Harvey" }, { "name": "Micheal Cormier" }, { "name": "Aleen Schowalter" }, { "name": "Alphonso Jenkins" }, { "name": "Elisa Schroeder" }, { "name": "Ryder Stamm" }, { "name": "Myra Harber" }, { "name": "Amanda Fritsch" }, { "name": "Hector McLaughlin" }, { "name": "Leland Konopelski" }, { "name": "Maida Miller" }, { "name": "Lilla Paucek" }, { "name": "Arvid Heller" }, { "name": "Jessica Walsh" }, { "name": "Tom Will" }, { "name": "Riley Bashirian" }, { "name": "Alf Keebler" }, { "name": "Icie Fritsch" }, { "name": "Jaleel Bartell" }, { "name": "Jana Fay" }, { "name": "Adaline Huels" }, { "name": "Lavina Morissette" }, { "name": "Taryn Strosin" }, { "name": "Elenora Hansen" }, { "name": "Erich Haley" }, { "name": "Josie Kunde" }, { "name": "Marguerite Paucek" }, { "name": "Pink Kuvalis" }, { "name": "Dena Hagenes" }, { "name": "Blaze Olson" }, { "name": "Giovanna Wiegand" }, { "name": "Emelia Denesik" }, { "name": "Sadye Leannon" }, { "name": "Meredith O'Reilly" }, { "name": "Hope Metz" }, { "name": "Dayna Marquardt" }, { "name": "Pearl Terry" }, { "name": "Daija Waelchi" }, { "name": "Catharine Jacobs" }, { "name": "Jorge Tillman" }, { "name": "Deonte Corwin" }, { "name": "Janice Kozey" }, { "name": "Brendon Kuhn" }, { "name": "Lavina Walter" }, { "name": "Nina Monahan" }, { "name": "Eula Medhurst" }, { "name": "Urban Hane" }, { "name": "Vanessa Feil" }, { "name": "Suzanne Wiegand" }, { "name": "Santiago Farrell" }, { "name": "Misty Wyman" }, { "name": "Vita Volkman" }, { "name": "Constance Daniel" }, { "name": "Seth Lind" }, { "name": "Kyler Russel" }, { "name": "Wade Terry" }, { "name": "Esmeralda Zieme" }, { "name": "Marcelino Zboncak" }, { "name": "Emma Baumbach" }, { "name": "Doris Schowalter" }, { "name": "Evie Rosenbaum" }, { "name": "Alta Koch" }, { "name": "Aryanna Ryan" }, { "name": "Raul Kling" }, { "name": "Kitty Prosacco" }, { "name": "Ubaldo Nolan" }, { "name": "Sigmund Kunze" }, { "name": "Jacynthe Koss" }, { "name": "Elda Rutherford" }, { "name": "Amanda Harvey" }, { "name": "Breana Bosco" }, { "name": "Sadie Kuhlman" }, { "name": "Gaetano Gaylord" }, { "name": "Jamel White" }, { "name": "Eliseo Crist" }, { "name": "Grover Klocko" }, { "name": "Melisa Daugherty" }, { "name": "Emma Hoppe" }, { "name": "Raymond Kiehn" }, { "name": "Alia Farrell" }, { "name": "Dusty Bruen" }, { "name": "Ruthe Satterfield" }, { "name": "Yoshiko Altenwerth" }, { "name": "Cristina Murphy" }, { "name": "Citlalli Kulas" }, { "name": "Annamarie Schroeder" }, { "name": "Lou Hettinger" }, { "name": "Jaunita Schumm" }, { "name": "Khalid Padberg" }, { "name": "Irwin Fisher" }, { "name": "Adaline Flatley" }, { "name": "Naomi Mante" }, { "name": "Doris Roberts" }, { "name": "Alana Kilback" }, { "name": "Geo Quigley" }, { "name": "May Konopelski" }, { "name": "Nicholas O'Conner" }, { "name": "Domenica Rowe" }, { "name": "Loy Wilkinson" }, { "name": "Crystal Kulas" }, { "name": "Gordon Bartell" }, { "name": "Salma Bayer" }, { "name": "Myrna Purdy" }, { "name": "Waldo Dickinson" }, { "name": "Randal Lockman" }, { "name": "Buford Terry" }, { "name": "Bud Erdman" }, { "name": "Madisen Brakus" }, { "name": "Chaim Beer" }, { "name": "Jamal Kirlin" }, { "name": "Danika Brekke" }, { "name": "Lisa Beatty" }, { "name": "Hudson Dietrich" }, { "name": "Aisha Blick" }, { "name": "Lupe Smitham" }, { "name": "Mazie Rippin" }, { "name": "Tracey Frami" }, { "name": "Nakia Kuphal" }, { "name": "Micah Zboncak" }, { "name": "Freddie Mante" }, { "name": "Maria Runolfsson" }, { "name": "Donna Kreiger" }, { "name": "Elissa Bechtelar" }, { "name": "Hertha Pfeffer" }, { "name": "Katelynn Heathcote" }, { "name": "Eldora Mills" }, { "name": "Carley Johnson" }, { "name": "Juanita Emard" }, { "name": "Ova Luettgen" }, { "name": "Jeffery Littel" }, { "name": "Harrison Leannon" }, { "name": "Luciano Johnson" }, { "name": "Jaden Roob" }, { "name": "Johnathan Thiel" }, { "name": "Lulu Botsford" }, { "name": "Abraham Weber" }, { "name": "Newell Rodriguez" }, { "name": "Oceane Klein" }, { "name": "Rhett Roob" }, { "name": "Joannie Simonis" }, { "name": "Greta Zboncak" }, { "name": "Hobart McGlynn" }, { "name": "Emmanuel Kihn" }, { "name": "Kaden McCullough" }, { "name": "Elinore Lowe" }, { "name": "Pascale O'Kon" }, { "name": "Gabriella Batz" }, { "name": "Katelyn Cartwright" }, { "name": "Turner Hilll" }, { "name": "Catharine Jakubowski" }, { "name": "Jed Johnson" }, { "name": "Audra Jenkins" }, { "name": "Willy Raynor" }, { "name": "Shakira Jacobs" }, { "name": "Dean Hodkiewicz" }, { "name": "Erin Effertz" }, { "name": "Octavia Medhurst" }, { "name": "Joelle Monahan" }, { "name": "Wilbert Roob" }, { "name": "Kayleigh Reichert" }, { "name": "Mohammad Schuster" }, { "name": "Erling Haag" }, { "name": "Sonny McLaughlin" }, { "name": "Taya Tillman" }, { "name": "Ewell Medhurst" }, { "name": "Lila Casper" }, { "name": "Alejandra Ledner" }, { "name": "Alysson Schiller" }, { "name": "Leif Bartoletti" }, { "name": "Orland Mitchell" }, { "name": "Isai Stark" }, { "name": "Austen Okuneva" }, { "name": "Zena Dickens" }, { "name": "Electa Green" }, { "name": "Eulah Sipes" }, { "name": "Rahul Homenick" }, { "name": "Ralph McGlynn" }, { "name": "Anahi Jacobson" }, { "name": "Alan Buckridge" }, { "name": "Gracie Mayert" }, { "name": "Alford Ernser" }, { "name": "Dina DuBuque" }, { "name": "Mason Bogan" }, { "name": "Jarret Mante" }, { "name": "Kendall Hahn" }, { "name": "Kacey Brakus" }, { "name": "Margaret Turcotte" }, { "name": "Danial Lemke" }, { "name": "Clark Marvin" }, { "name": "Jessyca Maggio" }, { "name": "Raphael Kemmer" }, { "name": "Leanna Boyer" }, { "name": "Raquel Haag" }, { "name": "Titus Tromp" }, { "name": "Favian Green" }, { "name": "Alphonso Bernhard" }, { "name": "Rico Kihn" }, { "name": "Nicholas Tremblay" }, { "name": "Merlin Heathcote" }, { "name": "Hoyt Parker" }, { "name": "Ethelyn Beatty" }, { "name": "Kathryn Orn" }, { "name": "Harmon Von" }, { "name": "Kaylah McGlynn" }, { "name": "Don Abbott" }, { "name": "Bette Dietrich" }, { "name": "Amaya Abshire" }, { "name": "Johann Cremin" }, { "name": "Rickie Glover" }, { "name": "Alfonzo Leuschke" }, { "name": "Barrett Moore" }, { "name": "Osbaldo Eichmann" }, { "name": "Mercedes Barrows" }, { "name": "Rocio Goodwin" }, { "name": "Betty Breitenberg" }, { "name": "Fae Wisoky" }, { "name": "Gerard Wintheiser" }, { "name": "Simeon Gislason" }, { "name": "Bill Will" }, { "name": "Coty Reynolds" }, { "name": "Amelia Mohr" }, { "name": "Earline Denesik" }, { "name": "Antone Mayert" }, { "name": "Alison Streich" }, { "name": "Elva Gorczany" }, { "name": "Schuyler Lubowitz" }, { "name": "Luella Sawayn" }, { "name": "Kacey Reichel" }, { "name": "Schuyler Jenkins" }, { "name": "Princess Koch" }, { "name": "Clotilde Cronin" }, { "name": "Madge Jacobs" }, { "name": "Domenick Zieme" }, { "name": "Elena Kuhlman" }, { "name": "Tierra Goldner" }, { "name": "Rashawn Breitenberg" }, { "name": "Nickolas Crona" }, { "name": "Katheryn Corkery" }, { "name": "Tito Windler" }, { "name": "Nadia Spinka" }, { "name": "Abe Balistreri" }, { "name": "Eliseo Olson" }, { "name": "Frances Sporer" }, { "name": "Jazlyn Ferry" }, { "name": "Rita Stokes" }, { "name": "Geovanni Lubowitz" }, { "name": "Constantin Flatley" }, { "name": "Randal Harvey" }, { "name": "Jaren Koepp" }, { "name": "Madaline Crona" }, { "name": "Lysanne Herman" }, { "name": "Ashley Zieme" }, { "name": "Chaim Labadie" }, { "name": "Kyleigh Corkery" }, { "name": "Carole Weber" }, { "name": "Noah Schmeler" }, { "name": "Johnathon Romaguera" }, { "name": "Seamus Powlowski" }, { "name": "Taya Krajcik" }, { "name": "Maude Botsford" }, { "name": "Rubie Bosco" }, { "name": "Makayla Eichmann" }, { "name": "Gregory Windler" }, { "name": "German Waters" }, { "name": "Caesar Hand" }, { "name": "Davion Bayer" }, { "name": "Rachael Reynolds" }, { "name": "Ada Deckow" }, { "name": "Rowena Swaniawski" }, { "name": "Lucius Kulas" }, { "name": "Ludie Aufderhar" }, { "name": "Brandon Jacobi" }, { "name": "Buddy Kuvalis" }, { "name": "Magdalen Douglas" }, { "name": "Lindsay Funk" }, { "name": "Hipolito Hahn" }, { "name": "Wava Pouros" }, { "name": "Jordy Connelly" }, { "name": "Moriah Adams" }, { "name": "Laurine Wiza" }, { "name": "Alexys Erdman" }, { "name": "Tyrese Walsh" }, { "name": "Gerry Lehner" }, { "name": "Esmeralda Kuhlman" }, { "name": "Neoma Frami" }, { "name": "Joseph Stamm" }, { "name": "Matilda Wiza" }, { "name": "Abdullah Terry" }, { "name": "Kaylie McLaughlin" }, { "name": "Makenzie Roob" }, { "name": "Florian Dach" }, { "name": "Zoe Hansen" }, { "name": "Jazmyne Cummings" }, { "name": "Mary Fahey" }, { "name": "Kaden Leffler" }, { "name": "Nikko Reynolds" }, { "name": "Charlotte Runolfsdottir" }, { "name": "Cathy Murray" }, { "name": "Charlie Torphy" }, { "name": "Fausto Ledner" }, { "name": "Jack Stanton" }, { "name": "Kayden Hermann" }, { "name": "Karianne Schmidt" }, { "name": "Jude Harvey" }, { "name": "Heber Zboncak" }, { "name": "Alverta Raynor" }, { "name": "Mozell Legros" }, { "name": "Jewel Turner" }, { "name": "Brooks Fisher" }];
+
+exports.default = users;
+
+/***/ })
+/******/ ]);

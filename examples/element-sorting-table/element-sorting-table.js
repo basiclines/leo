@@ -1,4 +1,4 @@
-import LEOElement from 'src/element'
+import {LEOElement} from 'leo'
 import users from './users'
 
 class elementSortingTable extends LEOElement {

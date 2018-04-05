@@ -1,4 +1,4 @@
-import LEOElement from 'src/element'
+import {LEOElement} from 'leo'
 import './child-element'
 
 class elementRendersElement extends LEOElement {
