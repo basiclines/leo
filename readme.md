@@ -24,17 +24,55 @@ LEO doesn't provides any architecture or specific design decisions for you and i
 npm install --save @basiclines/leo
 ```
 
+### Create an alias on Webpack (recommended)
+
+```js
+resolve: {
+    alias: {
+        leo: path.resolve(__dirname, 'node_modules/@basiclines/leo/dist/leo')
+    }
+}
+```
+
 ## Object usage
 
 ```js
-import LEOObject from LEO
-class Person extends LEOObject {}
+import LEOObject from 'leo'
+class Star extends LEOObject {}
 
-let stella = new Person()
-stella.on('change', (value) => { console.log(value) })
-stella.name = 'stella'
-stella.surname = 'smith'
+let bowie = new Star({ name: 'David' })
+bowie.on('change:name', (name) => { console.log(name) })
+
+bowie.name = 'Ziggy'
 ```
+
+## Element usage
+
+```js
+import LEOElement from 'leo'
+
+class StarElement extends LEOElement {
+  render() {
+    this.innerHTML = this.attrs.title
+  }
+}
+
+customElements.define('star-element', StarElement)
+```
+
+```html
+
+<star-element title="David Bowie"></star-element>
+
+```
+
+
+## Examples
+
+Inside `examples` there are some common use cases for `LEOElement` class.
+
+
+
 ## Disclaimer
 LEOJS project is still under development and it's not recommended for production use.
 
