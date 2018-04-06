@@ -1,3 +1,5 @@
+[![npm (scoped)](https://img.shields.io/npm/v/@basiclines/leo.svg?style=flat-square)](https://www.npmjs.com/package/@basiclines/leo)
+
 # LEO
 
 > LEO is a lightweight JS library that helps you build modern front-end applications.
