@@ -31,7 +31,7 @@
   ],
   "author": "basiclines",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "@webcomponents/custom-elements": "^1.0.8",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -40,9 +40,7 @@
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
     "mocha": "^4.0.1",
-    "webpack": "^3.8.1"
-  },
-  "dependencies": {
+    "webpack": "^3.8.1",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-uglify-es": "^1.0.1",
