@@ -5,10 +5,9 @@
   "main": "dist/leo.js",
   "scripts": {
     "test": "mocha --require babel-core/register tests/unit",
-
     "build": "webpack",
     "develop": "webpack --watch",
-
+    "dist": "npm run build ; gulp minify-js",
     "build_examples": "webpack --config webpack.config.examples.js",
     "develop_examples": "webpack --watch --config webpack.config.examples.js"
   },
@@ -43,6 +42,9 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify-es": "^1.0.1",
     "npm": "^5.8.0"
   }
 }
