@@ -664,6 +664,11 @@ var LEOElement = function (_CustomElement2) {
 		key: 'dismount',
 		value: function dismount() {}
 	}, {
+		key: 'shouldRender',
+		value: function shouldRender() {
+			return true;
+		}
+	}, {
 		key: 'render',
 		value: function render() {}
 	}, {
@@ -677,12 +682,14 @@ var LEOElement = function (_CustomElement2) {
 			var _this2 = this;
 
 			this.attrs.on('change', function (value, property) {
-				value === null ? _this2.removeAttribute(property) : _this2.setAttribute(property, value);
-				_this2.render();
+				if (_this2.shouldRender(property, value)) {
+					value === null ? _this2.removeAttribute(property) : _this2.setAttribute(property, value);
+					_this2.render();
+				}
 			});
 
 			this.data.on('change', function (value, property) {
-				_this2.render();
+				if (_this2.shouldRender(property, value)) _this2.render();
 			});
 		}
 	}, {
@@ -710,7 +717,7 @@ var LEOElement = function (_CustomElement2) {
 
 
 		/*
-  * Workaroun until constructor() declaration is avaliable in major browsers
+  * Workaround until constructor() declaration is avaliable in major browsers
   * https://github.com/whatwg/html/pull/1404
   * */
 		get: function get() {

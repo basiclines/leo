@@ -7,10 +7,10 @@
   "scripts": {
     "test": "mocha --require babel-core/register tests/unit",
     "build": "webpack",
-    "develop": "webpack --watch",
+    "watch": "webpack --watch",
     "dist": "npm run build ; gulp minify-js",
     "build_examples": "webpack --config webpack.config.examples.js",
-    "develop_examples": "webpack --watch --config webpack.config.examples.js"
+    "watch_examples": "webpack --watch --config webpack.config.examples.js"
   },
   "keywords": [
     "model",
