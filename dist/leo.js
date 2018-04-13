@@ -75,6 +75,112 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _getter = __webpack_require__(7);
+
+var _getter2 = _interopRequireDefault(_getter);
+
+var _setter = __webpack_require__(8);
+
+var _setter2 = _interopRequireDefault(_setter);
+
+var _events = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var LEOObject = function () {
+	_createClass(LEOObject, [{
+		key: 'on',
+		value: function on(event, handler) {
+			(0, _events.Subscribe)(this, event, handler);
+		}
+	}, {
+		key: 'off',
+		value: function off(event, handler) {
+			(0, _events.Unsubscribe)(this, event, handler);
+		}
+	}, {
+		key: 'trigger',
+		value: function trigger(event, value) {
+			(0, _events.Trigger)(this, event, value);
+		}
+	}, {
+		key: 'listenTo',
+		value: function listenTo(entity, event, handler) {
+			(0, _events.BindObservable)(this, entity, event, handler);
+		}
+	}, {
+		key: 'stopListening',
+		value: function stopListening(entity, event, handler) {
+			(0, _events.UnbindObservable)(this, entity, event, handler);
+		}
+	}, {
+		key: 'clear',
+		value: function clear() {
+			var _this = this;
+
+			Object.keys(this.attributes).forEach(function (property) {
+				delete _this[property];
+				_this.trigger('change:' + property);
+			});
+			this.attributes = {};
+		}
+	}, {
+		key: 'clone',
+		value: function clone() {
+			var attributes = Object.assign({}, this.attributes);
+			return new LEOObject(attributes);
+		}
+	}, {
+		key: 'has',
+		value: function has(property) {
+			return !(typeof this[property] === 'undefined' || this[property] == null);
+		}
+	}, {
+		key: 'isEmpty',
+		get: function get() {
+			return Object.keys(this.attributes).length == 0;
+		}
+	}]);
+
+	function LEOObject(attributes) {
+		var _this2 = this;
+
+		_classCallCheck(this, LEOObject);
+
+		this.listeners = [];
+		this.listenToReferences = [];
+		this.attributes = attributes || {};
+
+		Object.keys(this.attributes).forEach(function (property) {
+			_this2[property] = _this2.attributes[property];
+		});
+
+		return new Proxy(this, {
+			get: _getter2.default,
+			set: _setter2.default
+		});
+	}
+
+	return LEOObject;
+}();
+
+exports.default = LEOObject;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
 /**
@@ -244,7 +350,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 (function(){
@@ -286,112 +392,6 @@ var Z=window.customElements;if(!Z||Z.forcePolyfill||"function"!=typeof Z.define|
 
 //# sourceMappingURL=custom-elements.min.js.map
 
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _getter = __webpack_require__(6);
-
-var _getter2 = _interopRequireDefault(_getter);
-
-var _setter = __webpack_require__(7);
-
-var _setter2 = _interopRequireDefault(_setter);
-
-var _events = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var LEOObject = function () {
-	_createClass(LEOObject, [{
-		key: 'on',
-		value: function on(event, handler) {
-			(0, _events.Subscribe)(this, event, handler);
-		}
-	}, {
-		key: 'off',
-		value: function off(event, handler) {
-			(0, _events.Unsubscribe)(this, event, handler);
-		}
-	}, {
-		key: 'trigger',
-		value: function trigger(event, value) {
-			(0, _events.Trigger)(this, event, value);
-		}
-	}, {
-		key: 'listenTo',
-		value: function listenTo(model, event, handler) {
-			(0, _events.BindObservable)(this, model, event, handler);
-		}
-	}, {
-		key: 'stopListening',
-		value: function stopListening(model, event, handler) {
-			(0, _events.UnbindObservable)(this, model, event, handler);
-		}
-	}, {
-		key: 'clear',
-		value: function clear() {
-			var _this = this;
-
-			Object.keys(this.attributes).forEach(function (property) {
-				delete _this[property];
-				_this.trigger('change:' + property);
-			});
-			this.attributes = {};
-		}
-	}, {
-		key: 'clone',
-		value: function clone() {
-			var attributes = Object.assign({}, this.attributes);
-			return new LEOObject(attributes);
-		}
-	}, {
-		key: 'has',
-		value: function has(property) {
-			return !(typeof this[property] === 'undefined' || this[property] == null);
-		}
-	}, {
-		key: 'isEmpty',
-		get: function get() {
-			return Object.keys(this.attributes).length == 0;
-		}
-	}]);
-
-	function LEOObject(attributes) {
-		var _this2 = this;
-
-		_classCallCheck(this, LEOObject);
-
-		this.listeners = [];
-		this.listenToReferences = [];
-		this.attributes = attributes || {};
-
-		Object.keys(this.attributes).forEach(function (property) {
-			_this2[property] = _this2.attributes[property];
-		});
-
-		return new Proxy(this, {
-			get: _getter2.default,
-			set: _setter2.default
-		});
-	}
-
-	return LEOObject;
-}();
-
-exports.default = LEOObject;
 
 /***/ }),
 /* 3 */
@@ -510,8 +510,8 @@ exports.UnbindObservable = UnbindObservable;
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(0);
 __webpack_require__(1);
+__webpack_require__(2);
 module.exports = __webpack_require__(5);
 
 
@@ -525,23 +525,163 @@ module.exports = __webpack_require__(5);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LEOElement = exports.LEOObject = undefined;
+exports.LEOObject = exports.LEOElement = exports.LEOList = undefined;
 
-var _object = __webpack_require__(2);
+var _list = __webpack_require__(6);
 
-var _object2 = _interopRequireDefault(_object);
+var _list2 = _interopRequireDefault(_list);
 
-var _element = __webpack_require__(8);
+var _element = __webpack_require__(9);
 
 var _element2 = _interopRequireDefault(_element);
 
+var _object = __webpack_require__(0);
+
+var _object2 = _interopRequireDefault(_object);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.LEOObject = _object2.default;
+exports.LEOList = _list2.default;
 exports.LEOElement = _element2.default;
+exports.LEOObject = _object2.default;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _object = __webpack_require__(0);
+
+var _object2 = _interopRequireDefault(_object);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function Track(target, model, toEnd) {
+	toEnd ? target.models.push(model) : target.models.unshift(model);
+	target.trigger('add', model);
+	target.listenTo(model, 'change', function (value) {
+		return target.trigger('change', model);
+	});
+}
+
+var LEOList = function (_LEOObject) {
+	_inherits(LEOList, _LEOObject);
+
+	_createClass(LEOList, [{
+		key: 'map',
+		value: function map(callback) {
+			this.models.map(callback);
+		}
+	}, {
+		key: 'forEach',
+		value: function forEach(callback) {
+			this.models.forEach(callback);
+		}
+	}, {
+		key: 'reduce',
+		value: function reduce(callback, initalValue) {
+			return this.models.reduce(callback, initalValue);
+		}
+	}, {
+		key: 'find',
+		value: function find(callback) {
+			return this.models.find(callback);
+		}
+	}, {
+		key: 'filter',
+		value: function filter(callback) {
+			return this.models.filter(callback);
+		}
+	}, {
+		key: 'every',
+		value: function every(callback) {
+			return this.models.every(callback);
+		}
+	}, {
+		key: 'pluck',
+		value: function pluck(attribute) {
+			return this.reduce(function (buffer, item) {
+				buffer.push(item[attribute]);
+				return buffer;
+			}, []);
+		}
+	}, {
+		key: 'toJSON',
+		value: function toJSON() {
+			return this.pluck('attributes');
+		}
+	}, {
+		key: 'unshift',
+		value: function unshift(models) {
+			this.add(models, false);
+		}
+	}, {
+		key: 'push',
+		value: function push(models) {
+			this.add(models);
+		}
+	}, {
+		key: 'add',
+		value: function add(models) {
+			var _this2 = this;
+
+			var toEnd = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+			if (models && Array.isArray(models)) {
+				models.forEach(function (model) {
+					var mod = new _this2.model(model);
+					Track(_this2, mod, toEnd);
+				});
+				this.trigger('update', models);
+			} else if (models) {
+				var mod = new this.model(models);
+				Track(this, mod, toEnd);
+			}
+		}
+	}, {
+		key: 'isEmpty',
+		get: function get() {
+			return this.models.length == 0;
+		}
+	}, {
+		key: 'length',
+		get: function get() {
+			return this.models.length;
+		}
+	}]);
+
+	function LEOList(models) {
+		_classCallCheck(this, LEOList);
+
+		var _this = _possibleConstructorReturn(this, (LEOList.__proto__ || Object.getPrototypeOf(LEOList)).call(this));
+
+		_this.models = [];
+		_this.model = _object2.default;
+		if (models) _this.add(models);
+		return _this;
+	}
+
+	return LEOList;
+}(_object2.default);
+
+exports.default = LEOList;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -557,7 +697,7 @@ function Getter(target, property) {
 exports.default = Getter;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -569,18 +709,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _events = __webpack_require__(3);
 
-var RESERVED_PROPERTIES = {
-	'attributes': true,
-	'listeners': true,
-	'listenToReferences': true,
-	'defaults': true
-};
+var RESERVED_PROPERTIES = new Set(['model', 'models', 'attributes', 'listeners', 'listenToReferences', 'defaults']);
 
 function Setter(target, property, value) {
 	target[property] = value;
 
-	var isProperty = !(property in RESERVED_PROPERTIES);
-	if (isProperty) {
+	if (!RESERVED_PROPERTIES.has(property)) {
 		target.attributes[property] = value;
 		var event = 'change:' + property;
 		(0, _events.Trigger)(target, 'change', value, property);
@@ -593,7 +727,7 @@ function Setter(target, property, value) {
 exports.default = Setter;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -605,11 +739,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(0);
-
 __webpack_require__(1);
 
-var _object = __webpack_require__(2);
+__webpack_require__(2);
+
+var _object = __webpack_require__(0);
 
 var _object2 = _interopRequireDefault(_object);
 

@@ -16,12 +16,12 @@ class LEOObject {
 		Trigger(this, event, value)
 	}
 
-	listenTo(model, event, handler) {
-		BindObservable(this, model, event, handler)
+	listenTo(entity, event, handler) {
+		BindObservable(this, entity, event, handler)
 	}
 
-	stopListening(model, event, handler) {
-		UnbindObservable(this, model, event, handler)
+	stopListening(entity, event, handler) {
+		UnbindObservable(this, entity, event, handler)
 	}
 
 	get isEmpty() {

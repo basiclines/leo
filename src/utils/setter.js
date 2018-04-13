@@ -1,17 +1,18 @@
 import { Trigger } from 'src/utils/events'
 
-const RESERVED_PROPERTIES = {
-	'attributes': true,
-	'listeners': true,
-	'listenToReferences': true,
-	'defaults': true
-}
+const RESERVED_PROPERTIES = new Set([
+	'model',
+	'models',
+	'attributes',
+	'listeners',
+	'listenToReferences',
+	'defaults'
+])
 
 function Setter(target, property, value) {
 	target[property] = value
 
-	var isProperty = !(property in RESERVED_PROPERTIES)
-	if (isProperty) {
+	if (!RESERVED_PROPERTIES.has(property)) {
 		target.attributes[property] = value
 		let event = `change:${property}`
 		Trigger(target, 'change', value, property)
