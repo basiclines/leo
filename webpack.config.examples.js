@@ -8,7 +8,8 @@ module.exports = {
 		'element-handling-click': './examples/element-handling-click/element-handling-click.js',
 		'element-renders-element': './examples/element-renders-element/element-renders-element.js',
 		'element-sorting-table': './examples/element-sorting-table/element-sorting-table.js',
-		'element-searchable-table': './examples/element-searchable-table/element-searchable-table.js'
+		'element-searchable-table': './examples/element-searchable-table/element-searchable-table.js',
+		'list-create': './examples/list-create/list-create.js'
 	},
 
 	output: {

@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1363,7 +1364,8 @@ function _inherits2(subClass, superClass) { if (typeof superClass !== "function"
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -1391,93 +1393,32 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
+
+/***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _leo = __webpack_require__(0);
 
-var _users = __webpack_require__(8);
+var Constellation = new _leo.LEOList([{ name: 'Polaris', declination: 'N 89°' }, { name: 'Kochab', declination: 'N 74°' }]);
 
-var _users2 = _interopRequireDefault(_users);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var elementSortingTable = function (_LEOElement) {
-	_inherits(elementSortingTable, _LEOElement);
-
-	function elementSortingTable() {
-		_classCallCheck(this, elementSortingTable);
-
-		return _possibleConstructorReturn(this, (elementSortingTable.__proto__ || Object.getPrototypeOf(elementSortingTable)).apply(this, arguments));
-	}
-
-	_createClass(elementSortingTable, [{
-		key: 'sortUsers',
-		value: function sortUsers() {
-			this.data.users = this.data.users.sort(function (prev, next) {
-				return prev.name > next.name;
-			});
-		}
-	}, {
-		key: 'onClick',
-		value: function onClick(e) {
-			if (e.target.hasAttribute('data-trigger')) this.sortUsers();
-		}
-	}, {
-		key: 'mount',
-		value: function mount() {
-			this.data.users = _users2.default;
-		}
-	}, {
-		key: 'generateChilds',
-		value: function generateChilds() {
-			return this.data.users.reduce(function (buffer, item) {
-				return buffer += '\n\t\t\t\t<tr>\n\t\t\t\t\t<td>' + item.name + '</td>\n\t\t\t\t</tr>\n\t\t\t';
-			}, '');
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			if (!this.data.isEmpty) {
-				this.innerHTML = '\n\t\t\t\t<table>\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\tUsernames (' + this.data.users.length + ')\n\t\t\t\t\t\t\t<button data-trigger>Sort by name</button>\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t' + this.generateChilds() + '\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t';
-			}
-		}
-	}]);
-
-	return elementSortingTable;
-}(_leo.LEOElement);
-
-customElements.define('element-sorting-table', elementSortingTable);
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Constellation.on('add', function (obj) {
+	console.log('Added obj', obj);
 });
-var users = [{ "name": "Erica Romaguera" }, { "name": "Caleigh Jerde" }, { "name": "Lucas Schultz" }, { "name": "Carole Marvin" }, { "name": "Dorian Feeney" }, { "name": "Nia Gutkowski" }, { "name": "Woodrow Nikolaus" }, { "name": "Jaquan Rolfson" }, { "name": "Dimitri Abernathy" }, { "name": "Alexanne Stanton" }, { "name": "Cooper Moore" }, { "name": "Gianni Block" }, { "name": "Jade Mohr" }, { "name": "Chet Weimann" }, { "name": "Kole Bednar" }, { "name": "Althea Harber" }, { "name": "Ara Dare" }, { "name": "Betsy Feeney" }, { "name": "Vicenta Maggio" }, { "name": "Candelario Hegmann" }, { "name": "Yoshiko Mraz" }, { "name": "Camila Hintz" }, { "name": "Rosamond Mueller" }, { "name": "Destinee Erdman" }, { "name": "Salvatore Roberts" }, { "name": "Alva Dickinson" }, { "name": "Jailyn Pagac" }, { "name": "Giovani Romaguera" }, { "name": "Josh Ryan" }, { "name": "Meda Hyatt" }, { "name": "Jeffry Christiansen" }, { "name": "Alexane Collins" }, { "name": "Shemar Sanford" }, { "name": "Zackary Bauch" }, { "name": "Oren Padberg" }, { "name": "Anna Yost" }, { "name": "Sigmund Legros" }, { "name": "Jazmyne Shields" }, { "name": "Ivory Kutch" }, { "name": "Aditya Shanahan" }, { "name": "Georgianna Baumbach" }, { "name": "Ken Wehner" }, { "name": "Bruce Bernier" }, { "name": "Phyllis Corwin" }, { "name": "Caesar Mann" }, { "name": "Clemmie Feest" }, { "name": "Joseph Heaney" }, { "name": "Lacey Morissette" }, { "name": "Reuben Crooks" }, { "name": "Kurtis Berge" }, { "name": "Luis Breitenberg" }, { "name": "Joy Swift" }, { "name": "Myrtle Stiedemann" }, { "name": "Joyce Quitzon" }, { "name": "Justyn Keeling" }, { "name": "Jerrold Lesch" }, { "name": "Preston Goodwin" }, { "name": "Monserrat Walsh" }, { "name": "Christ Berge" }, { "name": "Laron Buckridge" }, { "name": "Marianna Rempel" }, { "name": "Ines Daniel" }, { "name": "Orland Hane" }, { "name": "Pink Gerlach" }, { "name": "Nella Gerhold" }, { "name": "Kane Carroll" }, { "name": "Katrine Lehner" }, { "name": "Myrtis Cormier" }, { "name": "Hilton Runte" }, { "name": "Estella Greenfelder" }, { "name": "Triston Bednar" }, { "name": "Tyreek Kertzmann" }, { "name": "Laurie Wilderman" }, { "name": "Aniyah Murray" }, { "name": "Otha Kemmer" }, { "name": "Milan Collier" }, { "name": "Adrianna Roberts" }, { "name": "Brandi Crooks" }, { "name": "Dallin Cruickshank" }, { "name": "Laisha Williamson" }, { "name": "Ethel Block" }, { "name": "Viviane Powlowski" }, { "name": "Ella Emmerich" }, { "name": "Tina Gulgowski" }, { "name": "Chesley Ortiz" }, { "name": "Tabitha Krajcik" }, { "name": "Vergie Langosh" }, { "name": "Jane Feeney" }, { "name": "Okey Anderson" }, { "name": "Cierra Harris" }, { "name": "Celia Haley" }, { "name": "Meaghan Becker" }, { "name": "Melyna Fadel" }, { "name": "Jamir Rutherford" }, { "name": "Camden Yost" }, { "name": "Elmo Langosh" }, { "name": "Darrel Shields" }, { "name": "Mariam Boyle" }, { "name": "Rodger McDermott" }, { "name": "Vivienne Osinski" }, { "name": "Dante Collins" }, { "name": "Quincy Tremblay" }, { "name": "Dewitt Crist" }, { "name": "Fabiola Hamill" }, { "name": "Dan Boyle" }, { "name": "Fae Hoppe" }, { "name": "Samantha Gutkowski" }, { "name": "Enrique Borer" }, { "name": "Arnaldo Kozey" }, { "name": "Randall Veum" }, { "name": "Ashley Pacocha" }, { "name": "Bryce Howell" }, { "name": "Charity Mayer" }, { "name": "Georgiana Watsica" }, { "name": "Ethel Haley" }, { "name": "Bernadette Schuster" }, { "name": "Keenan Oberbrunner" }, { "name": "Danny Russel" }, { "name": "Rodrick Heller" }, { "name": "Zack Goyette" }, { "name": "Tevin Abernathy" }, { "name": "Chaim Schulist" }, { "name": "Katrine Ullrich" }, { "name": "Eriberto Zulauf" }, { "name": "Blanche Raynor" }, { "name": "Dock Cummings" }, { "name": "Vilma O'Connell" }, { "name": "Wade Strosin" }, { "name": "Willis Osinski" }, { "name": "Werner Braun" }, { "name": "Jarrell Wintheiser" }, { "name": "Mervin Walter" }, { "name": "Sven Kunde" }, { "name": "Stuart Maggio" }, { "name": "Dejah Howell" }, { "name": "Cade Leannon" }, { "name": "Arturo Fahey" }, { "name": "Marcelo Reichel" }, { "name": "Haley Champlin" }, { "name": "Colton Prosacco" }, { "name": "Marcus Koepp" }, { "name": "Demetrius Lockman" }, { "name": "Tad Emard" }, { "name": "Keeley Thiel" }, { "name": "Dan Borer" }, { "name": "Misty Harris" }, { "name": "German Hodkiewicz" }, { "name": "Elliott Bednar" }, { "name": "Stuart Heller" }, { "name": "Garret Heidenreich" }, { "name": "Catharine Schinner" }, { "name": "Easter Roob" }, { "name": "Jaydon Abshire" }, { "name": "Aaliyah Jast" }, { "name": "Freddy Wilderman" }, { "name": "Aubree Wilderman" }, { "name": "Aubree Romaguera" }, { "name": "Jessyca Mayert" }, { "name": "Lexus Kihn" }, { "name": "Norene Grant" }, { "name": "Amelie Labadie" }, { "name": "Coy Hickle" }, { "name": "Bret Funk" }, { "name": "Jaqueline Stehr" }, { "name": "Christian Herzog" }, { "name": "Ford Bashirian" }, { "name": "Elisha Nikolaus" }, { "name": "Jaydon Dietrich" }, { "name": "Adrien Berge" }, { "name": "Gay Upton" }, { "name": "Savanah Wiegand" }, { "name": "Kristofer Kemmer" }, { "name": "Elvera Cormier" }, { "name": "Shane Hammes" }, { "name": "Adolphus Raynor" }, { "name": "Edd Okuneva" }, { "name": "Efrain Macejkovic" }, { "name": "Minerva Leffler" }, { "name": "Jody Raynor" }, { "name": "Elaina Nitzsche" }, { "name": "Alvera Schinner" }, { "name": "Peggie Goodwin" }, { "name": "Marcus Roberts" }, { "name": "Mittie Fay" }, { "name": "Birdie Grant" }, { "name": "Jackie Brekke" }, { "name": "Candelario Raynor" }, { "name": "Loyal Mueller" }, { "name": "Catharine Rolfson" }, { "name": "Melody Krajcik" }, { "name": "Aliya Ledner" }, { "name": "Joan Harvey" }, { "name": "Micheal Cormier" }, { "name": "Aleen Schowalter" }, { "name": "Alphonso Jenkins" }, { "name": "Elisa Schroeder" }, { "name": "Ryder Stamm" }, { "name": "Myra Harber" }, { "name": "Amanda Fritsch" }, { "name": "Hector McLaughlin" }, { "name": "Leland Konopelski" }, { "name": "Maida Miller" }, { "name": "Lilla Paucek" }, { "name": "Arvid Heller" }, { "name": "Jessica Walsh" }, { "name": "Tom Will" }, { "name": "Riley Bashirian" }, { "name": "Alf Keebler" }, { "name": "Icie Fritsch" }, { "name": "Jaleel Bartell" }, { "name": "Jana Fay" }, { "name": "Adaline Huels" }, { "name": "Lavina Morissette" }, { "name": "Taryn Strosin" }, { "name": "Elenora Hansen" }, { "name": "Erich Haley" }, { "name": "Josie Kunde" }, { "name": "Marguerite Paucek" }, { "name": "Pink Kuvalis" }, { "name": "Dena Hagenes" }, { "name": "Blaze Olson" }, { "name": "Giovanna Wiegand" }, { "name": "Emelia Denesik" }, { "name": "Sadye Leannon" }, { "name": "Meredith O'Reilly" }, { "name": "Hope Metz" }, { "name": "Dayna Marquardt" }, { "name": "Pearl Terry" }, { "name": "Daija Waelchi" }, { "name": "Catharine Jacobs" }, { "name": "Jorge Tillman" }, { "name": "Deonte Corwin" }, { "name": "Janice Kozey" }, { "name": "Brendon Kuhn" }, { "name": "Lavina Walter" }, { "name": "Nina Monahan" }, { "name": "Eula Medhurst" }, { "name": "Urban Hane" }, { "name": "Vanessa Feil" }, { "name": "Suzanne Wiegand" }, { "name": "Santiago Farrell" }, { "name": "Misty Wyman" }, { "name": "Vita Volkman" }, { "name": "Constance Daniel" }, { "name": "Seth Lind" }, { "name": "Kyler Russel" }, { "name": "Wade Terry" }, { "name": "Esmeralda Zieme" }, { "name": "Marcelino Zboncak" }, { "name": "Emma Baumbach" }, { "name": "Doris Schowalter" }, { "name": "Evie Rosenbaum" }, { "name": "Alta Koch" }, { "name": "Aryanna Ryan" }, { "name": "Raul Kling" }, { "name": "Kitty Prosacco" }, { "name": "Ubaldo Nolan" }, { "name": "Sigmund Kunze" }, { "name": "Jacynthe Koss" }, { "name": "Elda Rutherford" }, { "name": "Amanda Harvey" }, { "name": "Breana Bosco" }, { "name": "Sadie Kuhlman" }, { "name": "Gaetano Gaylord" }, { "name": "Jamel White" }, { "name": "Eliseo Crist" }, { "name": "Grover Klocko" }, { "name": "Melisa Daugherty" }, { "name": "Emma Hoppe" }, { "name": "Raymond Kiehn" }, { "name": "Alia Farrell" }, { "name": "Dusty Bruen" }, { "name": "Ruthe Satterfield" }, { "name": "Yoshiko Altenwerth" }, { "name": "Cristina Murphy" }, { "name": "Citlalli Kulas" }, { "name": "Annamarie Schroeder" }, { "name": "Lou Hettinger" }, { "name": "Jaunita Schumm" }, { "name": "Khalid Padberg" }, { "name": "Irwin Fisher" }, { "name": "Adaline Flatley" }, { "name": "Naomi Mante" }, { "name": "Doris Roberts" }, { "name": "Alana Kilback" }, { "name": "Geo Quigley" }, { "name": "May Konopelski" }, { "name": "Nicholas O'Conner" }, { "name": "Domenica Rowe" }, { "name": "Loy Wilkinson" }, { "name": "Crystal Kulas" }, { "name": "Gordon Bartell" }, { "name": "Salma Bayer" }, { "name": "Myrna Purdy" }, { "name": "Waldo Dickinson" }, { "name": "Randal Lockman" }, { "name": "Buford Terry" }, { "name": "Bud Erdman" }, { "name": "Madisen Brakus" }, { "name": "Chaim Beer" }, { "name": "Jamal Kirlin" }, { "name": "Danika Brekke" }, { "name": "Lisa Beatty" }, { "name": "Hudson Dietrich" }, { "name": "Aisha Blick" }, { "name": "Lupe Smitham" }, { "name": "Mazie Rippin" }, { "name": "Tracey Frami" }, { "name": "Nakia Kuphal" }, { "name": "Micah Zboncak" }, { "name": "Freddie Mante" }, { "name": "Maria Runolfsson" }, { "name": "Donna Kreiger" }, { "name": "Elissa Bechtelar" }, { "name": "Hertha Pfeffer" }, { "name": "Katelynn Heathcote" }, { "name": "Eldora Mills" }, { "name": "Carley Johnson" }, { "name": "Juanita Emard" }, { "name": "Ova Luettgen" }, { "name": "Jeffery Littel" }, { "name": "Harrison Leannon" }, { "name": "Luciano Johnson" }, { "name": "Jaden Roob" }, { "name": "Johnathan Thiel" }, { "name": "Lulu Botsford" }, { "name": "Abraham Weber" }, { "name": "Newell Rodriguez" }, { "name": "Oceane Klein" }, { "name": "Rhett Roob" }, { "name": "Joannie Simonis" }, { "name": "Greta Zboncak" }, { "name": "Hobart McGlynn" }, { "name": "Emmanuel Kihn" }, { "name": "Kaden McCullough" }, { "name": "Elinore Lowe" }, { "name": "Pascale O'Kon" }, { "name": "Gabriella Batz" }, { "name": "Katelyn Cartwright" }, { "name": "Turner Hilll" }, { "name": "Catharine Jakubowski" }, { "name": "Jed Johnson" }, { "name": "Audra Jenkins" }, { "name": "Willy Raynor" }, { "name": "Shakira Jacobs" }, { "name": "Dean Hodkiewicz" }, { "name": "Erin Effertz" }, { "name": "Octavia Medhurst" }, { "name": "Joelle Monahan" }, { "name": "Wilbert Roob" }, { "name": "Kayleigh Reichert" }, { "name": "Mohammad Schuster" }, { "name": "Erling Haag" }, { "name": "Sonny McLaughlin" }, { "name": "Taya Tillman" }, { "name": "Ewell Medhurst" }, { "name": "Lila Casper" }, { "name": "Alejandra Ledner" }, { "name": "Alysson Schiller" }, { "name": "Leif Bartoletti" }, { "name": "Orland Mitchell" }, { "name": "Isai Stark" }, { "name": "Austen Okuneva" }, { "name": "Zena Dickens" }, { "name": "Electa Green" }, { "name": "Eulah Sipes" }, { "name": "Rahul Homenick" }, { "name": "Ralph McGlynn" }, { "name": "Anahi Jacobson" }, { "name": "Alan Buckridge" }, { "name": "Gracie Mayert" }, { "name": "Alford Ernser" }, { "name": "Dina DuBuque" }, { "name": "Mason Bogan" }, { "name": "Jarret Mante" }, { "name": "Kendall Hahn" }, { "name": "Kacey Brakus" }, { "name": "Margaret Turcotte" }, { "name": "Danial Lemke" }, { "name": "Clark Marvin" }, { "name": "Jessyca Maggio" }, { "name": "Raphael Kemmer" }, { "name": "Leanna Boyer" }, { "name": "Raquel Haag" }, { "name": "Titus Tromp" }, { "name": "Favian Green" }, { "name": "Alphonso Bernhard" }, { "name": "Rico Kihn" }, { "name": "Nicholas Tremblay" }, { "name": "Merlin Heathcote" }, { "name": "Hoyt Parker" }, { "name": "Ethelyn Beatty" }, { "name": "Kathryn Orn" }, { "name": "Harmon Von" }, { "name": "Kaylah McGlynn" }, { "name": "Don Abbott" }, { "name": "Bette Dietrich" }, { "name": "Amaya Abshire" }, { "name": "Johann Cremin" }, { "name": "Rickie Glover" }, { "name": "Alfonzo Leuschke" }, { "name": "Barrett Moore" }, { "name": "Osbaldo Eichmann" }, { "name": "Mercedes Barrows" }, { "name": "Rocio Goodwin" }, { "name": "Betty Breitenberg" }, { "name": "Fae Wisoky" }, { "name": "Gerard Wintheiser" }, { "name": "Simeon Gislason" }, { "name": "Bill Will" }, { "name": "Coty Reynolds" }, { "name": "Amelia Mohr" }, { "name": "Earline Denesik" }, { "name": "Antone Mayert" }, { "name": "Alison Streich" }, { "name": "Elva Gorczany" }, { "name": "Schuyler Lubowitz" }, { "name": "Luella Sawayn" }, { "name": "Kacey Reichel" }, { "name": "Schuyler Jenkins" }, { "name": "Princess Koch" }, { "name": "Clotilde Cronin" }, { "name": "Madge Jacobs" }, { "name": "Domenick Zieme" }, { "name": "Elena Kuhlman" }, { "name": "Tierra Goldner" }, { "name": "Rashawn Breitenberg" }, { "name": "Nickolas Crona" }, { "name": "Katheryn Corkery" }, { "name": "Tito Windler" }, { "name": "Nadia Spinka" }, { "name": "Abe Balistreri" }, { "name": "Eliseo Olson" }, { "name": "Frances Sporer" }, { "name": "Jazlyn Ferry" }, { "name": "Rita Stokes" }, { "name": "Geovanni Lubowitz" }, { "name": "Constantin Flatley" }, { "name": "Randal Harvey" }, { "name": "Jaren Koepp" }, { "name": "Madaline Crona" }, { "name": "Lysanne Herman" }, { "name": "Ashley Zieme" }, { "name": "Chaim Labadie" }, { "name": "Kyleigh Corkery" }, { "name": "Carole Weber" }, { "name": "Noah Schmeler" }, { "name": "Johnathon Romaguera" }, { "name": "Seamus Powlowski" }, { "name": "Taya Krajcik" }, { "name": "Maude Botsford" }, { "name": "Rubie Bosco" }, { "name": "Makayla Eichmann" }, { "name": "Gregory Windler" }, { "name": "German Waters" }, { "name": "Caesar Hand" }, { "name": "Davion Bayer" }, { "name": "Rachael Reynolds" }, { "name": "Ada Deckow" }, { "name": "Rowena Swaniawski" }, { "name": "Lucius Kulas" }, { "name": "Ludie Aufderhar" }, { "name": "Brandon Jacobi" }, { "name": "Buddy Kuvalis" }, { "name": "Magdalen Douglas" }, { "name": "Lindsay Funk" }, { "name": "Hipolito Hahn" }, { "name": "Wava Pouros" }, { "name": "Jordy Connelly" }, { "name": "Moriah Adams" }, { "name": "Laurine Wiza" }, { "name": "Alexys Erdman" }, { "name": "Tyrese Walsh" }, { "name": "Gerry Lehner" }, { "name": "Esmeralda Kuhlman" }, { "name": "Neoma Frami" }, { "name": "Joseph Stamm" }, { "name": "Matilda Wiza" }, { "name": "Abdullah Terry" }, { "name": "Kaylie McLaughlin" }, { "name": "Makenzie Roob" }, { "name": "Florian Dach" }, { "name": "Zoe Hansen" }, { "name": "Jazmyne Cummings" }, { "name": "Mary Fahey" }, { "name": "Kaden Leffler" }, { "name": "Nikko Reynolds" }, { "name": "Charlotte Runolfsdottir" }, { "name": "Cathy Murray" }, { "name": "Charlie Torphy" }, { "name": "Fausto Ledner" }, { "name": "Jack Stanton" }, { "name": "Kayden Hermann" }, { "name": "Karianne Schmidt" }, { "name": "Jude Harvey" }, { "name": "Heber Zboncak" }, { "name": "Alverta Raynor" }, { "name": "Mozell Legros" }, { "name": "Jewel Turner" }, { "name": "Brooks Fisher" }];
 
-exports.default = users;
+Constellation.on('change', function (obj) {
+	console.log('changed obj', obj);
+});
+
+Constellation.push({ name: 'Schedar', declination: 'N 56°' });
+Constellation.push({ name: 'Alkaid', declination: 'N 49°' });
+
+Constellation.map(function (item) {
+	item.name = 'foo';
+});
 
 /***/ })
-/******/ ]);
+
+/******/ });
