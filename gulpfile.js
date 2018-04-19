@@ -57,6 +57,6 @@ gulp.task('docs', function() {
 	.pipe(replace('{{ list_table }}', listTable))
 	.pipe(replace('{{ element_table }}', elementTable))
 	.pipe(replace('{{ object_table }}', objectTable))
-	.pipe(rename('README'))
+	.pipe(rename('README.md'))
 	.pipe(gulp.dest('./'));
 });
