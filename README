@@ -129,7 +129,7 @@ A web-components based solution with reactive bindings.
 
 | Method/Property | Params  | Description  |
 | :----------- | :----------- | :------------ |
-| **.attrs** |  | Map of live attirbutes of the element |
+| **.attrs** |  | Map of live attributes of the element |
 | **.data** |  | A handy place to put any data structure needed for rendering |
 | **.mount()** |  | Fired when the element is added in to the DOM |
 | **.dismount()** |  | Fired when the element is removed from the DOM |

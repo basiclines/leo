@@ -103,29 +103,70 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var LEOObject = function () {
 	_createClass(LEOObject, [{
 		key: 'on',
+
+		/**
+   * Binds a handler function to the Object for an specific event.
+   * @param {string} event
+   * @param {function} handler
+   */
 		value: function on(event, handler) {
 			(0, _events.Subscribe)(this, event, handler);
 		}
+
+		/**
+   * Unbinds the handler function from the Object for an specific event.
+   * @param {string} event
+   * @param {function} handler
+   */
+
 	}, {
 		key: 'off',
 		value: function off(event, handler) {
 			(0, _events.Unsubscribe)(this, event, handler);
 		}
+
+		/**
+   * Triggers an event with a custom value.
+   * @param {string} event
+   * @param {any} value
+   */
+
 	}, {
 		key: 'trigger',
 		value: function trigger(event, value) {
 			(0, _events.Trigger)(this, event, value);
 		}
+
+		/**
+   * Binds an Object to listen for events from another Object.
+   * @param {object} entity
+   * @param {string} event
+   * @param {function} handler
+   */
+
 	}, {
 		key: 'listenTo',
 		value: function listenTo(entity, event, handler) {
 			(0, _events.BindObservable)(this, entity, event, handler);
 		}
+
+		/**
+   * Unbinds an Object from listening to events from another Object.
+   * @param {object} entity
+   * @param {string} event
+   * @param {function} handler
+   */
+
 	}, {
 		key: 'stopListening',
 		value: function stopListening(entity, event, handler) {
 			(0, _events.UnbindObservable)(this, entity, event, handler);
 		}
+
+		/**
+   * Removes all enumerable properties from the Object and it's references from .attributes
+   */
+
 	}, {
 		key: 'clear',
 		value: function clear() {
@@ -137,17 +178,36 @@ var LEOObject = function () {
 			});
 			this.attributes = {};
 		}
+
+		/**
+   * Returns a copy of the Object with all their properties. Listeners are not copied.
+   * @return {object}
+   */
+
 	}, {
 		key: 'clone',
 		value: function clone() {
 			var attributes = Object.assign({}, this.attributes);
 			return new LEOObject(attributes);
 		}
+
+		/**
+   * Checks whenever an Object has an specific property
+   * @param {string} property
+   * @return {bool}
+   */
+
 	}, {
 		key: 'has',
 		value: function has(property) {
 			return !(typeof this[property] === 'undefined' || this[property] == null);
 		}
+
+		/**
+   * Checks whenever an Object has enumberable properties
+   * @return {bool}
+   */
+
 	}, {
 		key: 'isEmpty',
 		get: function get() {
@@ -583,34 +643,77 @@ var LEOList = function (_LEOObject) {
 
 	_createClass(LEOList, [{
 		key: 'map',
+
+
+		/**
+   * Shortcut for Array.map
+   * @param {function} callback
+   */
 		value: function map(callback) {
 			this.models.map(callback);
 		}
+
+		/**
+   * Shortcut for Array.forEach
+   * @param {function} callback
+   */
+
 	}, {
 		key: 'forEach',
 		value: function forEach(callback) {
 			this.models.forEach(callback);
 		}
+
+		/**
+   * Shortcut for Array.reduce
+   * @param {function} callback
+   * @param {any} initalValue
+   */
+
 	}, {
 		key: 'reduce',
 		value: function reduce(callback, initalValue) {
 			return this.models.reduce(callback, initalValue);
 		}
+
+		/**
+   * Shortcut for Array.find
+   * @param {function} callback
+   */
+
 	}, {
 		key: 'find',
 		value: function find(callback) {
 			return this.models.find(callback);
 		}
+
+		/**
+   * Shortcut for Array.filter
+   * @param {function} callback
+   */
+
 	}, {
 		key: 'filter',
 		value: function filter(callback) {
 			return this.models.filter(callback);
 		}
+
+		/**
+   * Shortcut for Array.every
+   * @param {function} callback
+   */
+
 	}, {
 		key: 'every',
 		value: function every(callback) {
 			return this.models.every(callback);
 		}
+
+		/**
+   * Plucks an attribute from each object in the list
+   * @param {string} attribute
+   */
+
 	}, {
 		key: 'pluck',
 		value: function pluck(attribute) {
@@ -619,20 +722,38 @@ var LEOList = function (_LEOObject) {
 				return buffer;
 			}, []);
 		}
+
+		/**
+   * Returns an array containing the enumerable properties of each object
+   * @return {object}
+   */
+
 	}, {
 		key: 'toJSON',
 		value: function toJSON() {
 			return this.pluck('attributes');
 		}
+
+		/**
+   * Shortcut for Array.unshift
+   * @param {array} objects
+   */
+
 	}, {
 		key: 'unshift',
-		value: function unshift(models) {
-			this.add(models, false);
+		value: function unshift(objects) {
+			this.add(objects, false);
 		}
+
+		/**
+   * Shortcut for Array.push
+   * @param {array} objects
+   */
+
 	}, {
 		key: 'push',
-		value: function push(models) {
-			this.add(models);
+		value: function push(objects) {
+			this.add(objects);
 		}
 	}, {
 		key: 'add',
@@ -652,11 +773,23 @@ var LEOList = function (_LEOObject) {
 				Track(this, mod, toEnd);
 			}
 		}
+
+		/**
+   * Checks the collection lenght to know if it's empty
+   * @return {bool}
+   */
+
 	}, {
 		key: 'isEmpty',
 		get: function get() {
 			return this.models.length == 0;
 		}
+
+		/**
+   * Shorcut for Array.length
+   * @return {int}
+   */
+
 	}, {
 		key: 'length',
 		get: function get() {
@@ -775,8 +908,16 @@ var LEOElement = function (_CustomElement2) {
 	_createClass(LEOElement, [{
 		key: 'connectedCallback',
 		value: function connectedCallback() {
+			/**
+    * Map of live attributes of the element
+    */
 			this.attrs = new _object2.default(this.explodeAttributes());
+
+			/**
+    * A handy place to put any data structure needed for rendering
+    */
 			this.data = new _object2.default({});
+
 			this.render();
 			this.observeAttrsAndData();
 			this.bind();
@@ -791,20 +932,48 @@ var LEOElement = function (_CustomElement2) {
 			this.dismount();
 			this.isMounted = false;
 		}
+
+		/**
+   * Fired when the element is added in to the DOM
+   */
+
 	}, {
 		key: 'mount',
 		value: function mount() {}
+
+		/**
+   * Fired when the element is removed from the DOM
+   */
+
 	}, {
 		key: 'dismount',
 		value: function dismount() {}
+
+		/**
+   * Override this method to prevent unwanted renders
+   * @param {string} property
+   * @param {any} value
+   * @return {bool}
+   */
+
 	}, {
 		key: 'shouldRender',
-		value: function shouldRender() {
+		value: function shouldRender(property, value) {
 			return true;
 		}
+
+		/**
+   * Fired when any of .data or .attrs properties are modified.
+   */
+
 	}, {
 		key: 'render',
 		value: function render() {}
+
+		/**
+   * Shorcut for querySelector
+   */
+
 	}, {
 		key: 'find',
 		value: function find(selector) {
@@ -835,6 +1004,11 @@ var LEOElement = function (_CustomElement2) {
 			}
 			return explodedAttributes;
 		}
+
+		/**
+   * Fired before mount() to allow proper event binding
+   */
+
 	}, {
 		key: 'bind',
 		value: function bind() {
