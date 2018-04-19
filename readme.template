@@ -1,14 +1,16 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@basiclines/leo.svg?style=flat-square)](https://www.npmjs.com/package/@basiclines/leo)
 
+
 # LEO
 
 > LEO is a lightweight JS library that helps you build modern front-end applications.
 
 LEO Provides 3 simple tools (List, Element, Object) to help you build and grow you JS application without defining any specific architecture for you.
 
-* **List**: A collection of Objects
+* **List**: A list (Array) of Objects
 * **Element**: A web-components based solution with reactive bindings.
-* **Object**: A model with key-value bindings and customs events.
+* **Object**: A object with key-value bindings and customs events.
+
 
 ## About
 
@@ -19,6 +21,7 @@ As an intent of reunite the best in class JS paradigms that are spread over the 
 * **From Web-Components**: Style and behaviour encapsulation. Any LEO Element can be registered as a web-component with it's custom tag name.
 
 LEO doesn't provides any architecture or specific design decisions for you and it's built entirely with the new ES6 features
+
 
 ## Install
 
@@ -36,10 +39,11 @@ resolve: {
 }
 ```
 
+
 ## Object usage
 
 ```js
-import LEOObject from 'leo'
+import {LEOObject} from 'leo'
 class Star extends LEOObject {}
 
 let bowie = new Star({ name: 'David' })
@@ -48,10 +52,11 @@ bowie.on('change:name', (name) => { console.log(name) })
 bowie.name = 'Ziggy'
 ```
 
+
 ## Element usage
 
 ```js
-import LEOElement from 'leo'
+import {LEOElement} from 'leo'
 
 class StarElement extends LEOElement {
   render() {
@@ -69,14 +74,60 @@ customElements.define('star-element', StarElement)
 ```
 
 
+## List usage
+
+```js
+import {LEOList} from 'leo'
+
+let Constellation = new LEOList([
+    { name: 'Polaris', declination: 'N 89°' },
+    { name: 'Kochab', declination: 'N 74°' }
+])
+
+Constellation.on('add', (obj) => {
+    console.log('Added obj', obj)
+})
+
+Constellation.on('change', (obj) => {
+    console.log('changed obj', obj)
+})
+
+Constellation.push({ name: 'Schedar', declination: 'N 56°' })
+Constellation.push({ name: 'Alkaid', declination: 'N 49°' })
+
+Constellation.map(item => { item.name = `Star ${item.name}` })
+```
+
+
 ## Examples
 
-Inside `examples` there are some common use cases for `LEOElement` class.
+Inside `/examples` you can find common code examples.
 
+
+## API
+
+### LEOObject
+
+A object with key-value bindings and customs events.
+
+{{ object_table }}
+
+### LEOElement
+
+A web-components based solution with reactive bindings.
+
+{{ element_table }}
+
+### LEOList (extends LEOObject)
+
+A list (Array) of objects that inherits all event based behaviour from LEOObject.
+
+{{ list_table }}
 
 
 ## Disclaimer
 LEOJS project is still under development and it's not recommended for production use.
+
 
 ## License
 

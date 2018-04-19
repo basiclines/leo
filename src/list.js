@@ -8,38 +8,59 @@ function Track(target, model, toEnd) {
 
 class LEOList extends LEOObject {
 
-	get isEmpty() {
-		return (this.models.length == 0)
-	}
-
-	get length() {
-		return this.models.length
-	}
-
+	/**
+	 * Shortcut for Array.map
+	 * @param {function} callback
+	 */
 	map(callback) {
 		this.models.map(callback)
 	}
 
+	/**
+	 * Shortcut for Array.forEach
+	 * @param {function} callback
+	 */
 	forEach(callback) {
 		this.models.forEach(callback)
 	}
 
+	/**
+	 * Shortcut for Array.reduce
+	 * @param {function} callback
+	 * @param {any} initalValue
+	 */
 	reduce(callback, initalValue) {
 		return this.models.reduce(callback, initalValue)
 	}
 
+	/**
+	 * Shortcut for Array.find
+	 * @param {function} callback
+	 */
 	find(callback) {
 		return this.models.find(callback)
 	}
 
+	/**
+	 * Shortcut for Array.filter
+	 * @param {function} callback
+	 */
 	filter(callback) {
 		return this.models.filter(callback)
 	}
 
+	/**
+	 * Shortcut for Array.every
+	 * @param {function} callback
+	 */
 	every(callback) {
 		return this.models.every(callback)
 	}
 
+	/**
+	 * Plucks an attribute from each object in the list
+	 * @param {string} attribute
+	 */
 	pluck(attribute) {
 		return this.reduce((buffer, item) => {
 			buffer.push(item[attribute])
@@ -47,16 +68,28 @@ class LEOList extends LEOObject {
 		}, [])
 	}
 
+	/**
+	 * Returns an array containing the enumerable properties of each object
+	 * @return {object}
+	 */
 	toJSON() {
 		return this.pluck('attributes')
 	}
 
-	unshift(models) {
-		this.add(models, false)
+	/**
+	 * Shortcut for Array.unshift
+	 * @param {array} objects
+	 */
+	unshift(objects) {
+		this.add(objects, false)
 	}
 
-	push(models) {
-		this.add(models)
+	/**
+	 * Shortcut for Array.push
+	 * @param {array} objects
+	 */
+	push(objects) {
+		this.add(objects)
 	}
 
 	add(models, toEnd = true) {
@@ -71,6 +104,22 @@ class LEOList extends LEOObject {
 			let mod = new this.model(models)
 			Track(this, mod, toEnd)
 		}
+	}
+
+	/**
+	 * Checks the collection lenght to know if it's empty
+	 * @return {bool}
+	 */
+	get isEmpty() {
+		return (this.models.length == 0)
+	}
+
+	/**
+	 * Shorcut for Array.length
+	 * @return {int}
+	 */
+	get length() {
+		return this.models.length
 	}
 
 	constructor(models) {

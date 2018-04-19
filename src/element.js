@@ -12,8 +12,16 @@ class LEOElement extends HTMLElement {
 	set isMounted(value) { this._isMounted = value }
 
 	connectedCallback() {
+		/**
+		 * Map of live attributes of the element
+		 */
 		this.attrs = new LEOObject(this.explodeAttributes())
+
+		/**
+		 * A handy place to put any data structure needed for rendering
+		 */
 		this.data = new LEOObject({})
+
 		this.render()
 		this.observeAttrsAndData()
 		this.bind()
@@ -28,17 +36,35 @@ class LEOElement extends HTMLElement {
 		this.isMounted = false
 	}
 
+	/**
+	 * Fired when the element is added in to the DOM
+	 */
 	mount() {
 	}
 
+	/**
+	 * Fired when the element is removed from the DOM
+	 */
 	dismount() {
 	}
 
-	shouldRender() { return true }
+	/**
+	 * Override this method to prevent unwanted renders
+	 * @param {string} property
+	 * @param {any} value
+	 * @return {bool}
+	 */
+	shouldRender(property, value) { return true }
 
+	/**
+	 * Fired when any of .data or .attrs properties are modified.
+	 */
 	render() {
 	}
 
+	/**
+	 * Shorcut for querySelector
+	 */
 	find(selector) {
 		return this.querySelector(selector)
 	}
@@ -64,6 +90,9 @@ class LEOElement extends HTMLElement {
 		return explodedAttributes
 	}
 
+	/**
+	 * Fired before mount() to allow proper event binding
+	 */
 	bind() {
 		if (this.onScroll) this.addEventListener('scroll', this.onScroll)
 		if (this.onClick) this.addEventListener('click', this.onClick)

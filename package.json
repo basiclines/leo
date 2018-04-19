@@ -8,7 +8,7 @@
     "test": "mocha --require babel-core/register tests/unit",
     "build": "webpack",
     "watch": "webpack --watch",
-    "dist": "npm run build ; gulp minify-js",
+    "dist": "npm run build ; gulp minify-js ; gulp docs",
     "build_examples": "webpack --config webpack.config.examples.js",
     "watch_examples": "webpack --watch --config webpack.config.examples.js"
   },
@@ -39,10 +39,12 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
-    "mocha": "^4.0.1",
-    "webpack": "^3.8.1",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify-es": "^1.0.1"
+    "gulp-replace": "^0.6.1",
+    "gulp-uglify-es": "^1.0.1",
+    "jsdoc-api": "^4.0.3",
+    "mocha": "^4.0.1",
+    "webpack": "^3.8.1"
   }
 }
