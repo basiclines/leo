@@ -39,12 +39,15 @@
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
     "gulp-uglify-es": "^1.0.1",
-    "jsdoc-api": "^4.0.3",
+    "jsdoc-api": "^5.0.4",
     "mocha": "^4.0.1",
-    "webpack": "^3.8.1"
+    "webpack": "^4.42.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.11"
   }
 }

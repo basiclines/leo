@@ -2,15 +2,34 @@ const path = require('path');
 
 module.exports = {
 
-	entry: [
-		'@webcomponents/custom-elements/src/native-shim',
-		'@webcomponents/custom-elements',
-		'./src/leo.js'
-	],
+	entry: {
+		leo: [
+			'@webcomponents/custom-elements/src/native-shim',
+			'@webcomponents/custom-elements',
+			'./src/leo.js'
+		],
+		list: [
+			'./src/list.js'
+		],
+		element: [
+			'@webcomponents/custom-elements/src/native-shim',
+			'@webcomponents/custom-elements',
+			'./src/element.js'
+		],
+		object: [
+			'./src/object.js'
+		],
+	},
+
+	output: {
+		path: path.resolve(__dirname, './examples/dist'),
+		filename: '[name].js'
+	},
+
 
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'leo.js',
+		filename: '[name].js',
 		library: 'LEO',
 		libraryTarget: 'umd'
 	},
