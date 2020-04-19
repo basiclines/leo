@@ -1,6 +1,6 @@
 {
   "name": "@basiclines/leo",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "LEO is a lightweight JS library that helps you build modern front-end applications.",
   "repository": "github:basiclines/leo",
   "main": "dist/leo.js",
