@@ -133,9 +133,11 @@ A web-components based solution with reactive bindings.
 | :----------- | :----------- | :------------ |
 | **.attrs** |  | Map of live attributes of the element |
 | **.data** |  | A handy place to put any data structure needed for rendering |
+| **.beforeMount()** |  | Fired when the element is about to be added in to the DOM. Triggered before the 1st render. |
 | **.mount()** |  | Fired when the element is added in to the DOM |
 | **.dismount()** |  | Fired when the element is removed from the DOM |
 | **.shouldRender()** | property *&lt;string&gt;*, value *&lt;any&gt;* | Override this method to prevent unwanted renders |
+| **.renderStrategy()** | content *&lt;string&gt;* | The render strategy, you can override it with yout own function. |
 | **.render()** |  | Fired when any of .data or .attrs properties are modified. |
 | **.find()** |  | Shorcut for querySelector |
 | **.bind()** |  | Fired before mount() to allow proper event binding |

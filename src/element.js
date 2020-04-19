@@ -22,7 +22,8 @@ class LEOElement extends HTMLElement {
 		 */
 		this.data = new LEOObject({})
 
-		this.render()
+		this.beforeMount()
+		this.renderStrategy(this.render())
 		this.observeAttrsAndData()
 		this.bind()
 		this.mount()
@@ -34,6 +35,12 @@ class LEOElement extends HTMLElement {
 		this.data.off()
 		this.dismount()
 		this.isMounted = false
+	}
+
+	/**
+	 * Fired when the element is about to be added in to the DOM. Triggered before the 1st render.
+	 */
+	beforeMount() {
 	}
 
 	/**
@@ -57,7 +64,22 @@ class LEOElement extends HTMLElement {
 	shouldRender(property, value) { return true }
 
 	/**
+	 * The render strategy, you can override it with yout own function.
+	 * @param {string} content
+	 */
+	renderStrategy(content) {
+		if (typeof content != 'undefined') {
+			let range = document.createRange()
+			range.selectNode(this)
+			let documentFragment = range.createContextualFragment(content)
+			while (this.firstChild) { this.removeChild(this.firstChild) }
+			this.appendChild(documentFragment)
+		}
+	}
+
+	/**
 	 * Fired when any of .data or .attrs properties are modified.
+	 * @return {string}
 	 */
 	render() {
 	}
@@ -73,12 +95,12 @@ class LEOElement extends HTMLElement {
 		this.attrs.on('change', (value, property) => {
 			if (this.shouldRender(property, value)) {
 				(value === null) ? this.removeAttribute(property) : this.setAttribute(property, value);
-				this.render()
+				this.renderStrategy(this.render())
 			}
 		})
 
 		this.data.on('change', (value, property) => {
-			if (this.shouldRender(property, value)) this.render()
+			if (this.shouldRender(property, value)) this.renderStrategy(this.render())
 		})
 	}
 
