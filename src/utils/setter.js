@@ -13,10 +13,12 @@ function Setter(target, property, value) {
 	target[property] = value
 
 	if (!RESERVED_PROPERTIES.has(property)) {
-		target.attributes[property] = value
-		let event = `change:${property}`
-		Trigger(target, 'change', value, property)
-		Trigger(target, event, value, property)
+		if (target.attributes[property] != value) {
+			target.attributes[property] = value
+			let event = `change:${property}`
+			Trigger(target, 'change', value, property)
+			Trigger(target, event, value, property)
+		}
 	}
 
 	return true

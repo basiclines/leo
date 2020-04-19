@@ -58,6 +58,15 @@ describe('LEOObject', function() {
 			})
 			TestModel.value = STRING_VALUE
 		})
+
+		it('callback should not be fired when a property is set with the same value', function(done) {
+			let TestModel = new LEOObject({ value: STRING_VALUE })
+			TestModel.on('change:value', function() {
+				assert.fail('callback is fired for value')
+			})
+			TestModel.value = STRING_VALUE
+			done()
+		})
 	})
 
 	describe('.off()', function() {
