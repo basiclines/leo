@@ -120,6 +120,8 @@ class LEOElement extends HTMLElement {
 		if (this.onClick) this.addEventListener('click', this.onClick)
 		if (this.onMouseOver) this.addEventListener('mouseover', this.onMouseOver)
 		if (this.onMouseOut) this.addEventListener('mouseout', this.onMouseOut)
+		if (this.onMouseEnter) this.addEventListener('mouseenter', this.onMouseEnter)
+		if (this.onMouseLeave) this.addEventListener('mouseleave', this.onMouseLeave)
 		if (this.onKeyup) this.addEventListener('keyup', this.onKeyup)
 		if (this.onKeydown) this.addEventListener('keydown', this.onKeydown)
 		if (this.onChange) this.addEventListener('change', this.onChange)
