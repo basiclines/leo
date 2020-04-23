@@ -8,9 +8,7 @@
     "test": "mocha --require babel-core/register tests/unit",
     "build": "webpack",
     "watch": "webpack --watch",
-    "dist": "npm run build ; gulp docs",
-    "build_examples": "webpack --config webpack.config.examples.js",
-    "watch_examples": "webpack --watch --config webpack.config.examples.js"
+    "dist": "npm run build ; gulp docs"
   },
   "keywords": [
     "model",
