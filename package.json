@@ -45,7 +45,10 @@
     "gulp-uglify-es": "^1.0.1",
     "jsdoc-api": "^5.0.4",
     "mocha": "^4.0.1",
-    "webpack": "^4.42.1"
+    "webpack": "^4.42.1",
+    "lodash.template": ">=4.5.0",
+    "diff": ">=3.5.0",
+    "minimist": ">=1.2.3"
   },
   "devDependencies": {
     "webpack-cli": "^3.3.11"
