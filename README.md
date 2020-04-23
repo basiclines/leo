@@ -31,15 +31,12 @@ LEO doesn't provides any architecture or specific design decisions for you and i
 npm install --save @basiclines/leo
 ```
 
-### Create an alias on Webpack (recommended)
+### Webpack and Babel configuration
+Use the sample configuration from `/examples`, you will find:
 
-```js
-resolve: {
-    alias: {
-        leo: path.resolve(__dirname, 'node_modules/@basiclines/leo/dist/leo')
-    }
-}
-```
+* `package.json`
+* `.babelrc`
+* `webpack.config.js`
 
 
 ## Object usage
