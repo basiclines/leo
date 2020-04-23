@@ -91,6 +91,13 @@ class LEOElement extends HTMLElement {
 		return this.querySelector(selector)
 	}
 
+	/**
+	 * Shorcut for querySelectorAll
+	 */
+	findAll(selector) {
+		return this.querySelectorAll(selector)
+	}
+
 	observeAttrsAndData() {
 		this.attrs.on('change', (value, property) => {
 			if (this.shouldRender(property, value)) {
@@ -122,7 +129,7 @@ class LEOElement extends HTMLElement {
 		if (this.onMouseOut) this.addEventListener('mouseout', this.onMouseOut)
 		if (this.onMouseEnter) this.addEventListener('mouseenter', this.onMouseEnter)
 		if (this.onMouseLeave) this.addEventListener('mouseleave', this.onMouseLeave)
-		if (this.onKeyup) this.addEventListener('keyup', this.onKeyup)
+		if (this.onKeyUp) this.addEventListener('keyup', this.onKeyUp)
 		if (this.onKeydown) this.addEventListener('keydown', this.onKeydown)
 		if (this.onChange) this.addEventListener('change', this.onChange)
 		if (this.onFocus) this.addEventListener('focus', this.onFocus)
