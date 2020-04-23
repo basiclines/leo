@@ -41,22 +41,15 @@ function createTable(source) {
 	return table
 }
 
-gulp.task('minify-js', function() {
-	return gulp.src('dist/leo.js')
-		.pipe(uglify())
-		.pipe(rename('leo.min.js'))
-		.pipe(gulp.dest('dist'));
-});
-
 gulp.task('docs', function() {
 	let listTable = createTable('src/list.js', )
 	let elementTable = createTable('src/element.js', )
 	let objectTable = createTable('src/object.js', '')
 
-	gulp.src(['readme.template'])
-	.pipe(replace('{{ list_table }}', listTable))
-	.pipe(replace('{{ element_table }}', elementTable))
-	.pipe(replace('{{ object_table }}', objectTable))
-	.pipe(rename('README.md'))
-	.pipe(gulp.dest('./'));
+	return gulp.src(['readme.template'])
+		.pipe(replace('{{ list_table }}', listTable))
+		.pipe(replace('{{ element_table }}', elementTable))
+		.pipe(replace('{{ object_table }}', objectTable))
+		.pipe(rename('README.md'))
+		.pipe(gulp.dest('./'));
 });

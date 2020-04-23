@@ -140,6 +140,7 @@ A web-components based solution with reactive bindings.
 | **.renderStrategy()** | content *&lt;string&gt;* | The render strategy, you can override it with yout own function. |
 | **.render()** |  | Fired when any of .data or .attrs properties are modified. |
 | **.find()** |  | Shorcut for querySelector |
+| **.findAll()** |  | Shorcut for querySelectorAll |
 | **.bind()** |  | Fired before mount() to allow proper event binding |
 
 
