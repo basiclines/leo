@@ -3,3 +3,4 @@ import LEOElement from 'src/element'
 import LEOObject from 'src/object'
 
 export { LEOList, LEOElement, LEOObject }
+export { createElement, Fragment } from 'src/render'
