@@ -21,7 +21,7 @@ function createTable(source) {
 
 	let explodeParams = function(params) {
 		return params.reduce(function(buffer, item, idx) {
-			return buffer += `${item.name} *&lt;${item.type.names[0]}&gt;*${(idx < params.length - 1) ? ', ' : ''}`
+			return buffer += `${item.name} *&lt;${item.type.names.join(' or ')}&gt;*${(idx < params.length - 1) ? ', ' : ''}`
 		}, '')
 	}
 
@@ -32,7 +32,7 @@ function createTable(source) {
 			let info = {
 				name: `**.${block.name}${(block.kind == 'function') ? '()' : ''}**`,
 				params: (block.params) ? explodeParams(block.params) : '',
-				description: block.description
+				description: block.description.replace(/\s*\n\s*/g, ' ')
 			}
 			table += row(info)
 		}

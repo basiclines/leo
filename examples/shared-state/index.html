@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>LEO: shared state, separate components</title>
+</head>
+<body>
+	<h1>Two components, one counter</h1>
+	<p>Either component updates the shared model. Removing a component does not destroy its data.</p>
+	<shared-counter></shared-counter>
+	<hr>
+	<shared-counter></shared-counter>
+	<script src="../dist/shared-state.js"></script>
+</body>
+</html>

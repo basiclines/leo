@@ -13,7 +13,7 @@
 	* @optional value <Any>
 */
 function Trigger(target, event, value, property) {
-	target.listeners.forEach(listener => {
+	target.listeners.slice().forEach(listener => {
 		if (listener.event === event) listener.handler(value, property)
 	})
 }
@@ -40,10 +40,8 @@ function Subscribe(target, event, handler) {
 */
 function Unsubscribe(target, event, handler) {
 	if (event) {
-		target.listeners.forEach((listener, idx) => {
-			if (listener.event === event && handler && listener.handler == handler
-				|| !handler && listener.event == event) target.listeners.splice(idx, 1)
-		})
+		target.listeners = target.listeners.filter(listener =>
+			listener.event !== event || (handler && listener.handler !== handler))
 	} else {
 		target.listeners = []
 	}
