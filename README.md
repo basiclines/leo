@@ -9,9 +9,12 @@
 
 LEO is an experimental JavaScript UI library built around three existing primitives:
 
-* **LEOObject** owns observable state and application actions.
-* **LEOList** holds observable objects.
-* **LEOElement** connects those models to a custom element and renders its view.
+* **Model** owns observable state and application actions.
+* **List** holds observable models.
+* **Component** connects those models to a custom element and renders its view.
+
+`LEOObject`, `LEOList` and `LEOElement` remain as deprecated aliases of `Model`,
+`List` and `Component` until 1.0. They are the same classes, so existing code keeps working.
 
 Components describe the screen. Models own state, derived values and business logic.
 Models work without a DOM and can be shared by multiple components. No hooks,
@@ -65,9 +68,9 @@ python3 -m http.server 8000
 ## Object usage
 
 ```js
-import { LEOObject } from '@basiclines/leo'
+import { Model } from '@basiclines/leo'
 
-class Counter extends LEOObject {
+class Counter extends Model {
   constructor() {
     super({ count: 0 })
   }
@@ -95,7 +98,7 @@ For a multi-field patch, it receives `(stateSnapshot, undefined)`. `clear()` rem
 all fields before emitting property notifications and one general `change`.
 
 The initial attributes object is shallow-copied. Nested plain objects and arrays
-are not deeply observed: replace them through `setState`, or use LEOObject/LEOList
+are not deeply observed: replace them through `setState`, or use Model/List
 references. Do not mutate `.attributes` or a list's `.models` directly; those
 internal collections bypass notifications. State fields must not shadow LEO's
 methods or bookkeeping properties.
@@ -103,9 +106,9 @@ methods or bookkeeping properties.
 ## Element usage
 
 ```js
-import { LEOElement, createElement } from '@basiclines/leo'
+import { Component, createElement } from '@basiclines/leo'
 
-class CounterElement extends LEOElement {
+class CounterElement extends Component {
   beforeMount() {
     this.data = counter // The model above owns state and increment().
   }
@@ -130,8 +133,8 @@ subscriptions, not the model or other observers. Reconnecting preserves data.
 `beforeMount`, `mount` and `dismount` run per connection; initialize shared models
 outside those callbacks, and pair external resource setup with cleanup.
 
-The default `this.data` remains a LEOObject. You can also put model references in
-it (`this.data.counter = counter`); changes in referenced LEOObjects and LEOLists
+The default `this.data` remains a Model. You can also put model references in
+it (`this.data.counter = counter`); changes in referenced Models and Lists
 refresh the view. Replacing a reference releases the old subscription. Replacing
 `this.data` after mounting also reconnects subscriptions. Lists forward changes
 from their immediate models; nested plain values are not automatically observed.
@@ -146,7 +149,7 @@ controls view updates, not attribute synchronization.
 The classic JSX transform uses `createElement`; React is not a dependency:
 
 ```jsx
-import { LEOElement, createElement, Fragment } from '@basiclines/leo'
+import { Component, createElement, Fragment } from '@basiclines/leo'
 
 function CounterView({ count, onIncrement, children }) {
   return (
@@ -157,7 +160,7 @@ function CounterView({ count, onIncrement, children }) {
   )
 }
 
-class CounterElement extends LEOElement {
+class CounterElement extends Component {
   beforeMount() { this.data = counter }
 
   render() {
@@ -176,7 +179,7 @@ configuration supports classic JSX with explicit `<Fragment>`.
 
 Function components are ordinary functions of props, including `children`.
 They do not receive hidden state or a lifecycle. Subscribe by attaching a model
-to a LEOElement; changing a model used only by an unattached function does not
+to a Component; changing a model used only by an unattached function does not
 schedule a render.
 
 Supported DOM props include `className`, `htmlFor`, callback `ref`, `style`
@@ -215,9 +218,9 @@ DOM reuse is verified, but a speed advantage over React has not been established
 ## List usage
 
 ```js
-import {LEOList} from '@basiclines/leo'
+import { List } from '@basiclines/leo'
 
-let Constellation = new LEOList([
+let Constellation = new List([
     { name: 'Polaris', declination: 'N 89°' },
     { name: 'Kochab', declination: 'N 74°' }
 ])
@@ -249,7 +252,7 @@ They are not examples of the new diff-based rendering path.
 
 ## API
 
-### LEOObject
+### Model (LEOObject)
 
 A object with key-value bindings and customs events.
 
@@ -267,7 +270,7 @@ A object with key-value bindings and customs events.
 | **.isEmpty** |  | Checks whenever an Object has enumberable properties |
 
 
-### LEOElement
+### Component (LEOElement)
 
 A web-components based solution with reactive bindings.
 
@@ -286,9 +289,9 @@ A web-components based solution with reactive bindings.
 | **.bind()** |  | Fired before mount() to allow proper event binding |
 
 
-### LEOList (extends LEOObject)
+### List (LEOList, extends Model)
 
-A list (Array) of objects that inherits all event based behaviour from LEOObject.
+A list (Array) of objects that inherits all event based behaviour from Model.
 
 | Method/Property | Params  | Description  |
 | :----------- | :----------- | :------------ |
