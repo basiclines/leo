@@ -14,6 +14,12 @@ function mount(definition) {
 	return element
 }
 
+describe('native custom elements', function() {
+	it('keeps classes native so no custom elements polyfill is needed', function() {
+		assert(/^class\b/.test(Function.prototype.toString.call(LEOElement)))
+	})
+})
+
 describe('incremental elements', function() {
 	afterEach(function() {
 		document.body.innerHTML = ''

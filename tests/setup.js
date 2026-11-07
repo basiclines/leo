@@ -6,7 +6,6 @@ const dom = new JSDOM('<!doctype html><html><body></body></html>', {
 
 global.self = dom.window
 global.window = dom.window
-require('@webcomponents/custom-elements/src/native-shim')
 for (const name of ['window', 'document', 'HTMLElement', 'customElements', 'Node', 'MutationObserver']) {
 	global[name] = dom.window[name]
 }

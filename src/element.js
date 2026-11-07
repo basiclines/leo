@@ -1,5 +1,3 @@
-import 'native_shim'
-import 'custom_elements'
 import LEOObject from 'src/object'
 import { render } from 'src/render'
 

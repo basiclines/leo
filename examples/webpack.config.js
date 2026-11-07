@@ -22,9 +22,7 @@ module.exports = {
 	resolve: {
 		alias: {
 			leo: path.resolve(__dirname, '../src/leo.js'),
-			src: path.resolve(__dirname, '../src'),
-			native_shim: path.resolve(__dirname, '../node_modules/@webcomponents/custom-elements/src/native-shim'),
-			custom_elements: path.resolve(__dirname, '../node_modules/@webcomponents/custom-elements')
+			src: path.resolve(__dirname, '../src')
 		}
 	},
 

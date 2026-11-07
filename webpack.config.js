@@ -5,16 +5,12 @@ module.exports = {
 
 	entry: {
 		leo: [
-			'@webcomponents/custom-elements/src/native-shim',
-			'@webcomponents/custom-elements',
 			'./src/leo.js'
 		],
 		list: [
 			'./src/list.js'
 		],
 		element: [
-			'@webcomponents/custom-elements/src/native-shim',
-			'@webcomponents/custom-elements',
 			'./src/element.js'
 		],
 		object: [
@@ -36,9 +32,7 @@ module.exports = {
 
 	resolve: {
 		alias: {
-			src: path.resolve(__dirname, 'src/'),
-			native_shim: path.resolve(__dirname, 'node_modules/@webcomponents/custom-elements/src/native-shim'),
-			custom_elements: path.resolve(__dirname, 'node_modules/@webcomponents/custom-elements')
+			src: path.resolve(__dirname, 'src/')
 		}
 	},
 
