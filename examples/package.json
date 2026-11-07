@@ -9,7 +9,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
-    "webpack-cli": "^3.3.11",
+    "webpack-cli": "^3.3.12",
     "diff": ">=3.5.0"
   },
   "dependencies": {
