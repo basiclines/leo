@@ -1,7 +1,6 @@
 {
-  "presets": ["env"],
+  "presets": [["env", { "targets": { "chrome": 80, "firefox": 80, "safari": 14 } }]],
   "plugins": [
-    "transform-custom-element-classes",
     "webpack-alias"
   ]
 }

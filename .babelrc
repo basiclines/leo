@@ -1,9 +1,7 @@
 {
-  "presets": ["env"],
+  "presets": [["env", { "targets": { "chrome": 80, "firefox": 80, "safari": 14 } }]],
   "plugins": [
     ["transform-react-jsx", { "pragma": "createElement" }],
-    "transform-custom-element-classes",
-    "transform-es2015-classes",
     "webpack-alias"
   ]
 }
