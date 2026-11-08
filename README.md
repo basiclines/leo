@@ -61,7 +61,7 @@ Serve the repository over HTTP, then open
 python3 -m http.server 8000
 ```
 
-`npm run dist` builds the UMD bundles in `dist/` and generates this README from
+`npm run dist` builds the UMD bundles in `dist/` (git-ignored, built in CI) and generates this README from
 `readme.template`. Edit the template, not the generated README.
 
 
