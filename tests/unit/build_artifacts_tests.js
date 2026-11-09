@@ -15,4 +15,10 @@ describe('Build artifacts', function() {
 		const ignored = fs.readFileSync(path.join(root, '.gitignore'), 'utf8').split('\n')
 		assert(ignored.includes('dist'))
 	})
+
+	it('runs unit tests with Vitest', function() {
+		const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
+		assert(/^vitest\b/.test(pkg.scripts.test))
+		assert(!pkg.scripts.test.includes('mocha'))
+	})
 })
