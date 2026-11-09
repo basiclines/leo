@@ -5,7 +5,7 @@
   "repository": "github:basiclines/leo",
   "main": "dist/leo.js",
   "scripts": {
-    "test": "mocha --require ./tests/setup --require babel-core/register tests/unit",
+    "test": "vitest run",
     "test:examples": "node tests/integration/examples.js",
     "build": "webpack --mode production",
     "build:examples": "webpack --config examples/webpack.config.js --context examples --mode production",
@@ -36,21 +36,21 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-webpack-alias": "^2.1.2",
     "babel-preset-env": "^1.6.1",
+    "diff": ">=3.5.0",
     "gulp": "^4.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.6.1",
     "gulp-uglify-es": "^1.0.1",
     "jsdoc-api": "^8.0.0",
-    "mocha": "^4.0.1",
-    "webpack": "^4.47.0",
     "lodash.template": ">=4.5.0",
-    "diff": ">=3.5.0",
-    "minimist": ">=1.2.3"
+    "minimist": ">=1.2.3",
+    "webpack": "^4.47.0"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "jsdom": "^26.1.0",
     "terser-webpack-plugin": "^4.2.3",
+    "vitest": "^5.1.0",
     "webpack-cli": "^3.3.11"
   }
 }
