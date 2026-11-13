@@ -73,15 +73,26 @@ that implementation.
 
 ## Plain React + Zustand control
 
-- Packages (exact pins to be committed in the fixture's `package.json`; latest
-  registry versions observed 2026-11-12): `react` 19.3.1, `react-dom` 19.3.1,
-  `zustand` 5.1.0.
-- Location (planned): `examples/react-zustand-control/`, one file per fixture,
-  using `create`/`createStore` and `useStore` directly, no LEO code.
-- Reviewed in its own PR; sibling approach files are not edited live. Fixture
-  specs above are the shared contract.
+One shared control, not a second one. The control and acceptance suite are those
+of the sibling Component PR #37 (head `9ace920f7e3d26bdc80fc53da55d23c338472df3`):
+`experiments/react-zustand/control/index.jsx` and `tests/fixtures/acceptance.jsx`.
+This approach runs that suite unchanged against its own implementation once the
+file is available on this branch (copied from a reviewed state, not edited live
+in the sibling branch). No `examples/react-zustand-control/` is planned here.
+
+- Shared pins (devDependencies only): `react@19.2.0`, `react-dom@19.2.0`,
+  `zustand@5.0.8`, matching #37. The earlier 19.3.1 / 5.1.0 pins are dropped so
+  render and bundle deltas stay attributable to the approach, not the versions.
+- Fixture criteria not yet asserted by the shared suite: fixture 1 "unrelated
+  changes do not re-render a `count`-only view" and fixture 2 "focus preserved
+  across reorder". Until a reviewed assertion exists they are *pending*, and a
+  fixture is not counted as verified.
 
 ## Counting method (to be applied identically)
+
+Proposed for both approaches and the control. #37 currently reports physical
+lines including blanks and comments; its control must be recounted with the
+method below before any numbers are compared.
 
 - Consumer lines: non-blank, non-comment lines in files a consumer writes
   (model + component + wiring), excluding imports and test code.
@@ -103,4 +114,4 @@ that implementation.
 | E4 | Opt-in persistence (storage adapter, versioned, errors explicit) | pending |
 | E5 | Source-linked comparison with losses | pending |
 
-Fixtures assessed: 0 / 4. Control implemented: no. Measurements: none.
+Fixtures assessed: 0 / 4. Control: shared with #37 (not on this branch). Measurements: none.
