@@ -100,6 +100,18 @@ export function runFixtureSuite(name, impl) {
 			view.unmount()
 		})
 
+		it('keeps focus and caret on the edited input across reorder', () => {
+			const { Root } = impl.list.create(items())
+			const view = mount(<Root />)
+			const input = view.$('input-a')
+			input.focus()
+			input.setSelectionRange(2, 2)
+			view.click('reverse')
+			expect(document.activeElement).toBe(view.$('input-a'))
+			expect(view.$('input-a').selectionStart).toBe(2)
+			view.unmount()
+		})
+
 		it('removes by identity, not position', () => {
 			const { Root } = impl.list.create(items())
 			const view = mount(<Root />)
@@ -148,6 +160,20 @@ export function runFixtureSuite(name, impl) {
 			view.unmount()
 		})
 
+		it('replays the request under Strict Mode: first aborted, last one wins', async () => {
+			const requests = []
+			const load = vi.fn((id, signal) => { const d = deferred(); requests.push({ signal, d }); return d.promise })
+			const view = mount(<impl.async.Root id="1" load={load} />, { strict: true })
+			expect(requests.length).toBe(2)
+			expect(requests[0].signal.aborted).toBe(true)
+			expect(requests[1].signal.aborted).toBe(false)
+			requests[1].d.resolve('live'); await settle()
+			requests[0].d.resolve('replayed'); await settle()
+			expect(status(view)).toBe('ready:live')
+			view.unmount()
+			expect(requests[1].signal.aborted).toBe(true)
+		})
+
 		it('aborts in-flight work on unmount', async () => {
 			let captured
 			const load = (id, signal) => { captured = signal; return new Promise(() => {}) }
@@ -173,6 +199,18 @@ export function runFixtureSuite(name, impl) {
 			const view = mount(<impl.lifecycle.Root source={source} />, { strict: true })
 			expect(source.size).toBe(1)
 			view.unmount()
+			expect(source.size).toBe(0)
+		})
+
+		it('creates a fresh subscription on remount', () => {
+			const source = createSource()
+			const first = mount(<impl.lifecycle.Root source={source} />)
+			first.unmount()
+			const second = mount(<impl.lifecycle.Root source={source} />)
+			expect(source.size).toBe(1)
+			act(() => source.emit('again'))
+			expect(second.$('last').textContent).toBe('again')
+			second.unmount()
 			expect(source.size).toBe(0)
 		})
 

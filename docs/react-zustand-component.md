@@ -46,25 +46,27 @@ Four fixtures share one observable DOM contract in
 [`tests/fixtures/acceptance.jsx`](../tests/fixtures/acceptance.jsx):
 
 1. counter / shared state (two views, isolated instances, Strict Mode)
-2. keyed editable list (edit, reorder keeps DOM node and edits, remove by id)
-3. async loading / error / retry / cancellation (stale result ignored, abort on id change and unmount)
-4. mount / cleanup (subscribe, Strict Mode replay leaves one subscription, source replacement)
+2. keyed editable list (edit, reorder keeps DOM node, edits and focus/caret, remove by id)
+3. async loading / error / retry / cancellation (stale result ignored, abort on id change and unmount, Strict Mode replay)
+4. mount / cleanup (subscribe, Strict Mode replay leaves one subscription, fresh subscription on remount, source replacement)
 
 An approach exports `{ counter: { create() -> { Root } }, list: { create(items) -> { Root } }, async: { Root }, lifecycle: { Root } }`
 and calls `runFixtureSuite(name, impl)`. The suite only sees `data-testid`, text and input values, so thin and
 component approaches can run the same file unchanged.
 
 Control: [`experiments/react-zustand/control/index.jsx`](../experiments/react-zustand/control/index.jsx),
-tested by `tests/unit/react_control_tests.jsx` (13 tests).
+tested by `tests/unit/react_control_tests.jsx` (16 tests).
 
-Control size, measured as physical lines including blanks and comments:
-counter 15, list 31, async 24, lifecycle 9 (90 file total including imports).
+Control size, measured with the sibling thin doc's method (non-blank, non-comment, non-import/export lines per fixture):
+counter 14, list 29, async 22, lifecycle 7.
 Concepts counted: vanilla store, selector hook, `useShallow`, effect, cleanup, `AbortController`, dependency array.
+Pins (shared with the thin approach, `package.json`): `react` / `react-dom` 19.3.1, `zustand` 5.1.0.
 LEO/thin/component counts: pending, not yet implemented.
 
 ## Limits
 
 - The repo's Vitest JSX transform is classic (`createElement`), so React fixture files import `createElement` explicitly.
+- Render counts are not asserted: the DOM-only contract has no render hook, so this stays unmeasured until the suite defines one.
 - jsdom only; no browser, SSR or concurrent-rendering evidence yet (E3).
 - Bundle and dependency cost not yet measured (E5).
 - Not drop-in compatible with React class components: `Component` here is a sketch with different semantics.
