@@ -5,8 +5,22 @@ Nothing here is implemented for LEO yet; no reconciler is planned. React renders
 Zustand holds state, LEO supplies model/list vocabulary and (this approach) a
 `Component` facade.
 
-Pinned for this slice: `react@19.2.0`, `react-dom@19.2.0`, `zustand@5.0.8`
+Pinned for this slice: `react@19.3.1`, `react-dom@19.3.1`, `zustand@5.1.0`
 (devDependencies only), baseline `18c81c44917cbc9acd15336b6d4ad6f86480d8c3`.
+
+## E1: Model/List foundation
+
+`experiments/react-zustand/component/` now contains an isolated prototype.
+`Model` keeps business data in a Zustand vanilla store, exposes property access
+and shallow `setState` patches, and publishes frozen top-level snapshots. It
+retains the familiar `on`/`off`, `trigger`, `listenTo` and `stopListening`
+event methods; `LEOObject` and `LEOList` are aliases in the experiment entry.
+Nested values must be treated as immutable and replaced through `setState`.
+`List` stores stable `Model` instances, changes membership with immutable arrays,
+and removes or reorders items without replacing surviving models. `useModel` and
+`useList` bind selectors to React through Zustand's external-store integration.
+These modules are experimental; the package's public exports and legacy engine
+are unchanged. Component behavior and all four acceptance fixtures remain E2.
 
 ## Ownership rules
 
@@ -17,10 +31,14 @@ Pinned for this slice: `react@19.2.0`, `react-dom@19.2.0`, `zustand@5.0.8`
 ## Sketch: Component facade (not implemented)
 
 ```jsx
+class CounterModel extends Model {
+  constructor() { super({ count: 0 }) }
+  increment() { this.setState(s => ({ count: s.count + 1 })) }
+}
 class Counter extends Component {
-  model = Model({ count: 0, increment() { this.setState(s => ({ count: s.count + 1 })) } })
+  model = new CounterModel()
   state = { hovered: false }                // presentation only
-  render() { return <button onClick={this.model.increment}>{this.model.count}</button> }
+  render() { return <button onClick={() => this.model.increment()}>{this.model.count}</button> }
 }
 ```
 
