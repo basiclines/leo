@@ -9,7 +9,7 @@ export default class List {
 		if (!Array.isArray(items)) {
 			throw new TypeError('List items must be an array')
 		}
-		this.model = Model
+		this.model = new.target.model || Model
 		this.listeners = []
 		this.listenToReferences = []
 		this.modelSubscriptions = new Map()
@@ -22,6 +22,7 @@ export default class List {
 	}
 
 	listenToModel(item) {
+		if (this.modelSubscriptions.has(item)) return
 		const handler = () => Trigger(this, 'change', item)
 		item.on('change', handler)
 		this.modelSubscriptions.set(item, handler)
@@ -160,6 +161,7 @@ export default class List {
 		const [item] = next.splice(from, 1)
 		next.splice(to, 0, item)
 		this.store.setState(snapshot(next), true)
+		Trigger(this, 'update', next)
 		return this
 	}
 

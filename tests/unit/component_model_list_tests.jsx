@@ -129,6 +129,41 @@ describe('Component experiment Model/List foundation', () => {
 		expect(changes).toEqual([item])
 	})
 
+	it('detaches a model added twice when it is removed', () => {
+		const list = new List()
+		const item = new Model({ id: 'a' })
+		const changes = []
+		list.on('change', model => changes.push(model))
+
+		list.add(item).add(item).remove(item)
+		item.setState({ title: 'Detached' })
+
+		expect(changes).toEqual([])
+	})
+
+	it('builds initial items with a static model class declared on a subclass', () => {
+		class Todo extends Model {
+			shout() { return this.title.toUpperCase() }
+		}
+		class Todos extends List {
+			static model = Todo
+		}
+		const todos = new Todos([{ id: 'a', title: 'x' }])
+
+		expect(todos.getState()[0]).toBeInstanceOf(Todo)
+		expect(todos.getState()[0].shout()).toBe('X')
+	})
+
+	it('emits update when items are reordered', () => {
+		const list = new List([{ id: 'a' }, { id: 'b' }])
+		const updates = []
+		list.on('update', items => updates.push(items.map(item => item.id)))
+
+		list.move(0, 1)
+
+		expect(updates).toEqual([['b', 'a']])
+	})
+
 	it('binds a list selector and cleans up its React subscription on unmount', () => {
 		const list = new List([{ id: 'a' }])
 		const unsubscribe = vi.fn()

@@ -17,7 +17,11 @@ retains the familiar `on`/`off`, `trigger`, `listenTo` and `stopListening`
 event methods; `LEOObject` and `LEOList` are aliases in the experiment entry.
 Nested values must be treated as immutable and replaced through `setState`.
 `List` stores stable `Model` instances, changes membership with immutable arrays,
-and removes or reorders items without replacing surviving models. `useModel` and
+and removes or reorders items without replacing surviving models. A `List`
+subclass declares its item class with `static model = Todo` so initial items are
+built as that class; assigning `this.model` after `super()` only affects later
+additions. Adding the same model twice keeps one change forwarder, and `move`
+emits `update` like `add`, `remove` and `clear`. `useModel` and
 `useList` bind selectors to React through Zustand's external-store integration.
 These modules are experimental; the package's public exports and legacy engine
 are unchanged. Component behavior and all four acceptance fixtures remain E2.
