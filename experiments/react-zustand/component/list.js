@@ -165,6 +165,16 @@ export default class List {
 		return this
 	}
 
+	reverse() {
+		const current = this.getState()
+		if (current.length > 1) {
+			const next = current.slice().reverse()
+			this.store.setState(snapshot(next), true)
+			Trigger(this, 'update', next)
+		}
+		return this
+	}
+
 	clear() {
 		if (this.length) {
 			this.getState().forEach(item => this.stopListeningToModel(item))
