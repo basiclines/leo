@@ -1,6 +1,7 @@
 import Getter from 'src/utils/getter'
 import Setter from 'src/utils/setter'
 import { Trigger, Subscribe, Unsubscribe, BindObservable, UnbindObservable } from 'src/utils/events'
+import { createModelStore, modelStore, updateModelStore } from 'src/utils/model-store'
 
 const targets = new WeakMap()
 
@@ -21,7 +22,9 @@ class LEOObject {
 		}
 		const properties = Object.keys(patch)
 		properties.forEach(property => {
-			if (property in target && !Object.prototype.hasOwnProperty.call(target.attributes, property)) {
+			const addedMethod = (property === 'getSnapshot' || property === 'subscribe') &&
+				target[property] === LEOObject.prototype[property]
+			if (property in target && !addedMethod && !Object.prototype.hasOwnProperty.call(target.attributes, property)) {
 				throw new TypeError(`Cannot update reserved property "${property}"`)
 			}
 		})
@@ -30,12 +33,21 @@ class LEOObject {
 			target[property] = patch[property]
 			target.attributes[property] = patch[property]
 		})
+		if (changed.length) updateModelStore(target)
 		changed.forEach(property => Trigger(target, `change:${property}`, target[property], property))
 		if (changed.length) {
 			const property = changed.length === 1 ? changed[0] : undefined
 			Trigger(target, 'change', property === undefined ? Object.assign({}, target.attributes) : target[property], property)
 		}
 		return this
+	}
+
+	getSnapshot() {
+		return modelStore(targets.get(this)).getState()
+	}
+
+	subscribe(listener) {
+		return modelStore(targets.get(this)).subscribe(listener)
 	}
 
 	/**
@@ -94,6 +106,7 @@ class LEOObject {
 		const properties = Object.keys(target.attributes)
 		properties.forEach(property => { delete target[property] })
 		target.attributes = {}
+		if (properties.length) updateModelStore(target)
 		properties.forEach(property => Trigger(target, `change:${property}`, undefined, property))
 		if (properties.length) Trigger(target, 'change')
 	}
@@ -131,6 +144,7 @@ class LEOObject {
 
 		Object.keys(this.attributes).forEach(property => { this[property] = this.attributes[property] })
 
+		createModelStore(this)
 		const proxy = new Proxy(this, {
 			get: Getter,
 			set: Setter

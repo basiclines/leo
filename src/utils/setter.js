@@ -1,4 +1,5 @@
 import { Trigger } from 'src/utils/events'
+import { updateModelStore } from 'src/utils/model-store'
 
 const RESERVED_PROPERTIES = new Set([
 	'model',
@@ -15,6 +16,7 @@ function Setter(target, property, value) {
 	if (!RESERVED_PROPERTIES.has(property)) {
 		if (!Object.is(target.attributes[property], value)) {
 			target.attributes[property] = value
+			updateModelStore(target)
 			let event = `change:${property}`
 			Trigger(target, 'change', value, property)
 			Trigger(target, event, value, property)

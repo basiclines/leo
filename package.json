@@ -44,7 +44,8 @@
     "jsdoc-api": "^8.0.0",
     "lodash.template": ">=4.5.0",
     "minimist": ">=1.2.3",
-    "webpack": "^4.47.0"
+    "webpack": "^4.47.0",
+    "zustand": "5.1.0"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
