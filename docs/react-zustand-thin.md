@@ -3,8 +3,8 @@
 Experiment roadmap: #35 (independent of engine roadmap #30). Branch:
 `experiment/react-zustand-thin`, baseline `18c81c44917cbc9acd15336b6d4ad6f86480d8c3`.
 
-Status: design sketch only. No code, bundle or measurement exists yet. Anything
-marked *pending* is unmeasured.
+Status: E1 model snapshot foundation in progress. Anything marked *pending* is
+unmeasured.
 
 ## Responsibilities
 
@@ -51,6 +51,23 @@ Binding semantics to prove in E1 (tests first):
 
 Compatibility gaps to document as implemented: LEO `on`/`off`/`listenTo` events
 remain; `LEOElement` rendering is not part of this approach.
+
+### E1 model snapshot foundation
+
+Each `LEOObject` has a Zustand vanilla store. `getSnapshot()` returns its
+current shallow state snapshot, and `subscribe(listener)` returns an unsubscribe
+function. `setState`, direct property assignment and `clear()` publish a new
+snapshot after the state changes; unchanged updates do not publish. Existing
+model events remain available. Treat snapshots and nested values as immutable:
+mutating `attributes` or a nested value directly bypasses notifications.
+The new method names `getSnapshot` and `subscribe` can collide with legacy
+attributes of those names. Zustand is now included in the existing model bundles;
+its bundle cost relative to the baseline has not been measured.
+
+This is not yet a React binding or the full E1 API. List membership and item
+changes are not represented in the inherited model snapshot. Selector equality,
+SSR/hydration, `initial()` and React subscription cleanup remain pending; do not
+use this snapshot API as a finished React adapter.
 
 ## Fixtures (identical across approaches and control)
 
@@ -108,8 +125,8 @@ evaluator, not by this PR.
 
 | Step | Content | State |
 | --- | --- | --- |
-| E0 | This sketch, fixtures, control definition | this PR |
-| E1 | Models/List + binding with tests | pending |
+| E0 | This sketch, fixtures, control definition | merged (#36) |
+| E1 | Models/List + binding with tests | model snapshots in progress; list and binding pending |
 | E2 | All four fixtures on the thin approach | pending |
 | E3 | Strict Mode, replacement, races, SSR/hydration | pending |
 | E4 | Opt-in persistence (storage adapter, versioned, errors explicit) | pending |
