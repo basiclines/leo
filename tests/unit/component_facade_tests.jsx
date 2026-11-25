@@ -1,4 +1,4 @@
-import { StrictMode, act, createElement } from 'react'
+import { StrictMode, Suspense, act, createElement, startTransition } from 'react'
 import { createRoot } from 'react-dom/client'
 import Component from '../../experiments/react-zustand/component/component.jsx'
 import { LEOElement } from '../../experiments/react-zustand/component/index.js'
@@ -15,6 +15,9 @@ function mount(element, { strict = false } = {}) {
 		container,
 		rerender(next) {
 			act(() => root.render(strict ? createElement(StrictMode, null, next) : next))
+		},
+		transition(next) {
+			act(() => startTransition(() => root.render(strict ? createElement(StrictMode, null, next) : next)))
 		},
 		unmount() {
 			act(() => root.unmount())
@@ -90,6 +93,40 @@ describe('Component experiment facade', () => {
 		expect(view.container.textContent).toBe('10')
 		act(() => second.setState({ count: 11 }))
 		expect(view.container.textContent).toBe('11')
+		view.unmount()
+	})
+
+	it('keeps committed handlers bound to their model when a transition suspends', () => {
+		const pending = new Promise(() => {})
+		function Suspend() {
+			throw pending
+		}
+		class Counter extends Component {
+			constructor(props) {
+				super(props)
+				this.model = props.model
+			}
+			render() {
+				return createElement('div', null,
+					createElement('button', {
+						onClick: () => this.model.setState(state => ({ count: state.count + 1 }))
+					}, this.model.count),
+					this.props.suspend ? createElement(Suspend) : null)
+			}
+		}
+		const CounterView = Component.create(Counter)
+		const first = new Model({ count: 0 })
+		const second = new Model({ count: 10 })
+		const initial = createElement(Suspense, { fallback: 'pending' },
+			createElement(CounterView, { model: first }))
+		const view = mount(initial)
+
+		view.transition(createElement(Suspense, { fallback: 'pending' },
+			createElement(CounterView, { model: second, suspend: true })))
+		expect(view.container.textContent).toBe('0')
+		act(() => view.container.querySelector('button').click())
+		expect(first.count).toBe(1)
+		expect(second.count).toBe(10)
 		view.unmount()
 	})
 

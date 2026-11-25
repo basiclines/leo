@@ -73,8 +73,14 @@ export default class Component {
 				if (typeof instanceRef.current.init === 'function') instanceRef.current.init()
 			}
 			const instance = instanceRef.current
-			instance.props = props
-			if (Object.prototype.hasOwnProperty.call(props, 'model')) instance.model = props.model
+			const hasModelProp = Object.prototype.hasOwnProperty.call(props, 'model')
+			const model = hasModelProp ? props.model : instance.model
+			const view = Object.create(instance)
+			Object.defineProperties(view, {
+				props: { value: props },
+				setState: { value: instance.setState.bind(instance) }
+			})
+			if (hasModelProp) Object.defineProperty(view, 'model', { value: model })
 
 			let localStore = runtimes.get(instance)
 			if (!localStore) {
@@ -86,13 +92,12 @@ export default class Component {
 			}
 			useSyncExternalStore(localStore.subscribe, localStore.getState, localStore.getInitialState)
 
-			const model = instance.model
 			const subscribe = useCallback(listener => model ? model.subscribe(listener) : noop, [model])
 			const getSnapshot = useCallback(() => model ? model.getState() : null, [model])
 			useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
 
-			const layoutDependencies = instance.layoutDependencies()
-			const setupDependencies = instance.setupDependencies()
+			const layoutDependencies = view.layoutDependencies()
+			const setupDependencies = view.setupDependencies()
 			if (!Array.isArray(layoutDependencies) || !Array.isArray(setupDependencies)) {
 				throw new TypeError('Component effect dependencies must be arrays')
 			}
@@ -104,18 +109,23 @@ export default class Component {
 			}
 
 			useLayoutEffect(() => {
-				if (typeof instance.layout !== 'function') return
-				const cleanup = instance.layout()
+				instance.props = props
+				if (hasModelProp) instance.model = model
+			}, [instance, props, hasModelProp, model])
+
+			useLayoutEffect(() => {
+				if (typeof view.layout !== 'function') return
+				const cleanup = view.layout()
 				return typeof cleanup === 'function' ? cleanup : undefined
 			}, [instance, ...layoutDependencies])
 
 			useEffect(() => {
-				if (typeof instance.setup !== 'function') return
-				const cleanup = instance.setup()
+				if (typeof view.setup !== 'function') return
+				const cleanup = view.setup()
 				return typeof cleanup === 'function' ? cleanup : undefined
 			}, [instance, ...setupDependencies])
 
-			return instance.render()
+			return view.render()
 		}
 
 		ComponentView.displayName = Definition.displayName || Definition.name || 'LEOComponent'

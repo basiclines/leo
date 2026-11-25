@@ -53,11 +53,14 @@ const CounterView = Component.create(Counter)
 
 Render `CounterView`, not the controller class. The wrapper subscribes to the
 current model through `useSyncExternalStore`; replacing the `model` prop switches
-subscriptions. `setState` shallow-merges presentation-only state in a per-instance
-Zustand store. `init` and the dependency methods must be pure because React may
-render more than once. `setupDependencies()` and `layoutDependencies()` return
-fixed-length arrays, like React effect dependencies; a changed dependency cleans
-up and re-runs its effect.
+subscriptions. Each render reads candidate props and model through an isolated
+view context; the persistent controller's props and model are updated only
+after commit, so a suspended render cannot redirect handlers from the previously
+committed UI to an uncommitted model. `setState` shallow-merges presentation-only
+state in a per-instance Zustand store. `init` and the dependency methods must be
+pure because React may render more than once. `setupDependencies()` and
+`layoutDependencies()` return fixed-length arrays, like React effect
+dependencies; a changed dependency cleans up and re-runs its effect.
 
 Lifecycle vocabulary, each mapped to what React really guarantees:
 
@@ -111,6 +114,8 @@ LEO/thin/component counts: pending, not yet implemented.
 
 - The repo's Vitest JSX transform is classic (`createElement`), so React fixture files import `createElement` explicitly.
 - Render counts are not asserted: the DOM-only contract has no render hook, so this stays unmeasured until the suite defines one.
-- jsdom only; no browser, SSR or concurrent-rendering evidence yet (E3).
+- jsdom only; the focused suspended-transition regression does not establish
+  general concurrent-rendering safety. Browser, SSR and hydration checks remain
+  pending (E3).
 - Bundle and dependency cost not yet measured (E5).
 - Not drop-in compatible with React class components: `Component` here is a sketch with different semantics.
