@@ -1,7 +1,7 @@
 # Thin adapter: React + Zustand (E0 design)
 
 Experiment roadmap: #35 (independent of engine roadmap #30). Branch:
-`experiment/react-zustand-thin`, baseline `18c81c44917cbc9acd15336b6d4ad6f86480d8c3`.
+`development/path-2`, baseline `18c81c44917cbc9acd15336b6d4ad6f86480d8c3`.
 
 Status: design sketch only. No code, bundle or measurement exists yet. Anything
 marked *pending* is unmeasured.
