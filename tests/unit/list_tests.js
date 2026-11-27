@@ -62,4 +62,21 @@ describe('LEOList', function() {
 		})
 	})
 
+	describe('.reduce()', function() {
+		it('accumulates list models and returns the result', function() {
+			let list = new LEOList()
+			list.push([{ value: 2 }, { value: 3 }])
+
+			let result = list.reduce((total, model) => total + model.value, 1)
+
+			assert.equal(result, 6)
+		})
+
+		it('returns the initial value for an empty list', function() {
+			let list = new LEOList()
+
+			assert.equal(list.reduce((total, model) => total + model.value, 7), 7)
+		})
+	})
+
 })

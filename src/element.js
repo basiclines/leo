@@ -133,7 +133,7 @@ class LEOElement extends HTMLElement {
 		if (this.onKeydown) this.addEventListener('keydown', this.onKeydown)
 		if (this.onChange) this.addEventListener('change', this.onChange)
 		if (this.onFocus) this.addEventListener('focus', this.onFocus)
-		if (this.onBlur) this.addEventListener('change', this.onBlur)
+		if (this.onBlur) this.addEventListener('blur', this.onBlur)
 	}
 
 }
