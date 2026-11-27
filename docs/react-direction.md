@@ -5,6 +5,44 @@ Lists own data and actions; Elements connect models to views. Keeping these
 primitives and their existing methods is a constraint, not a reason to reproduce
 all of React's internals or vocabulary.
 
+## Independent implementation paths
+
+The renderer and React/Zustand explorations are independent directions, not a
+stack of changes that should converge by default:
+
+| Branch | Direction |
+| --- | --- |
+| `development/path-1` | Custom renderer (formerly `development`) |
+| `development/path-2` | Thin React + Zustand binding (formerly `experiment/react-zustand-thin`) |
+| `development/path-3` | React `Component` facade (formerly `experiment/react-zustand-component`) |
+
+`experiment/react-zustand` remains the shared experiment baseline and control,
+not a fourth direction. Each direction's pull requests target its own numbered
+branch. Share review findings, fixture results and measurements across paths so
+each approach can learn from the others, but do not merge paths automatically.
+Adopting work across paths requires an explicit, reviewed decision. `master`
+remains the default/release branch; routine issue work continues to branch from
+`master` (for example, `factory/issue-<number>`).
+
+### Shared decision discipline
+
+For substantive architecture, API or developer-experience decisions, check the
+latest branch-neutral GitHub issue titled `LEO weekly framework evidence —
+YYYY-Www (YYYY-MM-DD)` and its `<!-- leo-weekly-evidence:YYYY-Www -->` marker.
+When available, consult the archived report under the `leo-weekly-evidence`
+tag (`basiclines/leo/reports/YYYY-Www.md`) and its pointer
+(`basiclines/leo/latest.json`). The first report is pending: missing evidence
+is unknown, not a reason to block ordinary work or invent findings.
+
+Record in the relevant path's roadmap or pull request the dated framework prior
+art and direct user feedback that apply, the hypothesis, tradeoffs,
+counterevidence and validation. If evidence is unavailable or not relevant, say
+so explicitly; evidence informs decisions but does not dictate agreement with
+trends or another path's architecture. When using another path's learning,
+link the source and state what was learned. Run the applicable shared fixtures
+or control on each path and report gaps as pending; compare outcomes without
+requiring the implementations or APIs to converge.
+
 ## What developers report
 
 Sources checked November 5, 2026:
