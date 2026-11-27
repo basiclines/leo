@@ -57,4 +57,34 @@ describe('LEOList', function() {
 		})
 	})
 
+	describe('.pluck()', function() {
+		it('returns attribute values in list order', function() {
+			let list = new LEOList()
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+
+			assert.deepEqual(list.pluck('name'), ['Sirius', 'Vega'])
+		})
+
+		it('returns an empty array for an empty list', function() {
+			let list = new LEOList()
+
+			assert.deepEqual(list.pluck('name'), [])
+		})
+	})
+
+	describe('.toJSON()', function() {
+		it('returns the attributes of each model', function() {
+			let list = new LEOList()
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+
+			assert.deepEqual(list.toJSON(), [{ name: 'Sirius' }, { name: 'Vega' }])
+		})
+
+		it('returns an empty array for an empty list', function() {
+			let list = new LEOList()
+
+			assert.deepEqual(list.toJSON(), [])
+		})
+	})
+
 })
