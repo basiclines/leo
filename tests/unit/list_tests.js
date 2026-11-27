@@ -57,4 +57,37 @@ describe('LEOList', function() {
 		})
 	})
 
+	describe('.find()', function() {
+		it('returns the matching model or undefined when no model matches', function() {
+			let list = new LEOList()
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+
+			assert.strictEqual(list.find(model => model.name === 'Vega'), list.models[1])
+			assert.strictEqual(list.find(model => model.name === 'Rigel'), undefined)
+		})
+	})
+
+	describe('.filter()', function() {
+		it('returns the matching models', function() {
+			let list = new LEOList()
+			list.push([{ type: 'star' }, { type: 'planet' }, { type: 'star' }])
+
+			assert.deepStrictEqual(
+				list.filter(model => model.type === 'star'),
+				[list.models[0], list.models[2]]
+			)
+		})
+	})
+
+	describe('.every()', function() {
+		it('returns true when all models match and false when one does not', function() {
+			let list = new LEOList()
+			list.push([{ active: true }, { active: true }])
+
+			assert.strictEqual(list.every(model => model.active), true)
+			list.models[1].active = false
+			assert.strictEqual(list.every(model => model.active), false)
+		})
+	})
+
 })
