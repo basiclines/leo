@@ -13,7 +13,7 @@ class LEOList extends LEOObject {
 	 * @param {function} callback
 	 */
 	map(callback) {
-		this.models.map(callback)
+		return this.models.map(callback)
 	}
 
 	/**
