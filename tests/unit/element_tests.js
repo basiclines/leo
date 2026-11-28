@@ -38,4 +38,30 @@ describe('LEOElement', function() {
 		})
 	})
 
+	describe('.find()', function() {
+		it('returns the matching descendant element', function() {
+			let matchingDescendant = {}
+			let element = Object.create(LEOElement.prototype)
+			element.querySelector = function(selector) {
+				assert.equal(selector, '.target')
+				return matchingDescendant
+			}
+
+			assert.equal(element.find('.target'), matchingDescendant)
+		})
+	})
+
+	describe('.findAll()', function() {
+		it('returns all matching descendant elements', function() {
+			let matchingDescendants = [{}, {}]
+			let element = Object.create(LEOElement.prototype)
+			element.querySelectorAll = function(selector) {
+				assert.equal(selector, '.target')
+				return matchingDescendants
+			}
+
+			assert.equal(element.findAll('.target'), matchingDescendants)
+		})
+	})
+
 })
