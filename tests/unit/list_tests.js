@@ -52,6 +52,38 @@ describe('LEOList', function() {
 			assert.deepEqual(list.pluck('name'), ['Sirius', 'Vega'])
 		})
 
+		it('emits add with each model when adding an array', function() {
+			let list = new LEOList()
+			let addedModels = []
+
+			list.on('add', function(model) {
+				addedModels.push(model)
+			})
+
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+
+			assert.equal(addedModels.length, 2)
+			assert.strictEqual(addedModels[0], list.models[0])
+			assert.strictEqual(addedModels[1], list.models[1])
+		})
+
+		it('emits one update with the input models when adding an array', function() {
+			let list = new LEOList()
+			let models = [{ name: 'Sirius' }, { name: 'Vega' }]
+			let updateEvents = 0
+			let updatedModels
+
+			list.on('update', function(addedModels) {
+				updateEvents++
+				updatedModels = addedModels
+			})
+
+			list.push(models)
+
+			assert.equal(updateEvents, 1)
+			assert.strictEqual(updatedModels, models)
+		})
+
 		it('emits a list-level change when an added model changes', function() {
 			let list = new LEOList()
 			list.push({ name: 'Sirius' })
