@@ -50,6 +50,28 @@ describe('LEOObject', function() {
 		})
 	})
 
+	describe('.has()', function() {
+		it('should return false for a missing property', function() {
+			let TestModel = new LEOObject()
+			assert.equal(TestModel.has('missing'), false)
+		})
+
+		it('should return false for a null property', function() {
+			let TestModel = new LEOObject({ value: null })
+			assert.equal(TestModel.has('value'), false)
+		})
+
+		it('should return false for an undefined property', function() {
+			let TestModel = new LEOObject({ value: undefined })
+			assert.equal(TestModel.has('value'), false)
+		})
+
+		it('should return true for a property with a non-null value', function() {
+			let TestModel = new LEOObject({ value: STRING_VALUE })
+			assert.equal(TestModel.has('value'), true)
+		})
+	})
+
 	describe('.on()', function() {
 		it('callback should be fired', function(done) {
 			let TestModel = new LEOObject()
