@@ -80,6 +80,20 @@ describe('LEOObject', function() {
 			done()
 		})
 
+		it('all callbacks for a specific event should be removed without affecting other events', function() {
+			let TestModel = new LEOObject()
+			let otherEventCalled = false
+			TestModel.on('change:value', () => { assert.fail('callback is fired for value') })
+			TestModel.on('change:value', () => { assert.fail('callback is fired for value') })
+			TestModel.on('change:other', () => { otherEventCalled = true })
+
+			TestModel.off('change:value')
+			TestModel.value = STRING_VALUE
+			TestModel.other = STRING_VALUE
+
+			assert.equal(otherEventCalled, true)
+		})
+
 		it('callback should be removed for specific event and handler', function(done) {
 			let TestModel = new LEOObject()
 			let handler = () => { assert.fail('callback is fired for value') }
