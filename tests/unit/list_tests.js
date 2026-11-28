@@ -68,6 +68,28 @@ describe('LEOList', function() {
 		})
 	})
 
+	describe('.map()', function() {
+		it('returns the mapped array without changing the source collection', function() {
+			let list = new LEOList([{ value: 1 }, { value: 2 }])
+			let sourceModels = list.models.slice()
+
+			let result = list.map(model => model.value * 2)
+
+			assert.deepEqual(result, [2, 4])
+			assert.strictEqual(list.length, 2)
+			assert.strictEqual(list.models[0], sourceModels[0])
+			assert.strictEqual(list.models[1], sourceModels[1])
+			assert.strictEqual(list.models[0].value, 1)
+			assert.strictEqual(list.models[1].value, 2)
+		})
+
+		it('returns an empty array for an empty list', function() {
+			let list = new LEOList()
+
+			assert.deepEqual(list.map(model => model), [])
+		})
+	})
+
 	describe('.unshift()', function() {
 		it('returns the updated length and prepends a single model', function() {
 			let list = new LEOList([{ name: 'Vega' }])
