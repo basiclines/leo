@@ -3,6 +3,30 @@ import LEOList from 'src/list'
 
 describe('LEOList', function() {
 
+	describe('.length', function() {
+		it('reflects the number of models in the list', function() {
+			let list = new LEOList()
+
+			assert.strictEqual(list.length, 0)
+
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+
+			assert.strictEqual(list.length, 2)
+		})
+	})
+
+	describe('.isEmpty', function() {
+		it('is true for an empty list and false after adding a model', function() {
+			let list = new LEOList()
+
+			assert.strictEqual(list.isEmpty, true)
+
+			list.push({ name: 'Sirius' })
+
+			assert.strictEqual(list.isEmpty, false)
+		})
+	})
+
 	describe('.push()', function() {
 		it('emits add with the added model', function() {
 			let list = new LEOList()
