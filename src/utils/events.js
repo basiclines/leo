@@ -40,10 +40,11 @@ function Subscribe(target, event, handler) {
 */
 function Unsubscribe(target, event, handler) {
 	if (event) {
-		target.listeners.forEach((listener, idx) => {
+		for (let idx = target.listeners.length - 1; idx >= 0; idx--) {
+			const listener = target.listeners[idx]
 			if (listener.event === event && handler && listener.handler == handler
 				|| !handler && listener.event == event) target.listeners.splice(idx, 1)
-		})
+		}
 	} else {
 		target.listeners = []
 	}
