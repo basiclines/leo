@@ -14,11 +14,18 @@ describe('LEOList', function() {
 				addEvents++
 			})
 
-			list.push({ name: 'Sirius' })
+			assert.equal(list.push({ name: 'Sirius' }), 1)
 
 			assert.equal(addEvents, 1)
 			assert.strictEqual(addedModel, list.models[0])
 			assert.equal(addedModel.name, 'Sirius')
+		})
+
+		it('returns the updated length when adding an array of models', function() {
+			let list = new LEOList()
+
+			assert.equal(list.push([{ name: 'Sirius' }, { name: 'Vega' }]), 2)
+			assert.deepEqual(list.pluck('name'), ['Sirius', 'Vega'])
 		})
 
 		it('emits a list-level change when an added model changes', function() {
@@ -58,6 +65,22 @@ describe('LEOList', function() {
 			list.forEach(() => callbackCalls++)
 
 			assert.equal(callbackCalls, 0)
+		})
+	})
+
+	describe('.unshift()', function() {
+		it('returns the updated length and prepends a single model', function() {
+			let list = new LEOList([{ name: 'Vega' }])
+
+			assert.equal(list.unshift({ name: 'Sirius' }), 2)
+			assert.deepEqual(list.pluck('name'), ['Sirius', 'Vega'])
+		})
+
+		it('returns the updated length and preserves array insertion behavior', function() {
+			let list = new LEOList([{ name: 'Rigel' }])
+
+			assert.equal(list.unshift([{ name: 'Sirius' }, { name: 'Vega' }]), 3)
+			assert.deepEqual(list.pluck('name'), ['Vega', 'Sirius', 'Rigel'])
 		})
 	})
 

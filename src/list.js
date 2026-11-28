@@ -79,17 +79,21 @@ class LEOList extends LEOObject {
 	/**
 	 * Shortcut for Array.unshift
 	 * @param {array} objects
+	 * @return {number} The resulting list length
 	 */
 	unshift(objects) {
 		this.add(objects, false)
+		return this.length
 	}
 
 	/**
 	 * Shortcut for Array.push
 	 * @param {array} objects
+	 * @return {number} The resulting list length
 	 */
 	push(objects) {
 		this.add(objects)
+		return this.length
 	}
 
 	add(models, toEnd = true) {
