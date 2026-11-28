@@ -47,6 +47,27 @@ describe('LEOList', function() {
 		})
 	})
 
+	describe('.forEach()', function() {
+		it('calls the callback with each model in list order', function() {
+			let list = new LEOList()
+			list.push([{ name: 'Sirius' }, { name: 'Vega' }])
+			let visitedModels = []
+
+			list.forEach(model => visitedModels.push(model))
+
+			assert.deepStrictEqual(visitedModels, list.models)
+		})
+
+		it('does not call the callback for an empty list', function() {
+			let list = new LEOList()
+			let callbackCalls = 0
+
+			list.forEach(() => callbackCalls++)
+
+			assert.equal(callbackCalls, 0)
+		})
+	})
+
 	describe('.map()', function() {
 		it('returns the mapped array without changing the source collection', function() {
 			let list = new LEOList([{ value: 1 }, { value: 2 }])
